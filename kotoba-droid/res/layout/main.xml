@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/linearLayout1" android:orientation="vertical" android:layout_weight="0.31">
+    	<TextView android:id="@+id/valueLabel" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/linearLayout2" android:layout_weight="0.31" android:orientation="vertical">
+    	<TextView android:id="@+id/translationLabel" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout3" android:layout_height="wrap_content">
+        <Button android:id="@+id/nextWordButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/next_word" />
+        <Button android:id="@+id/showTranslationButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/show_translation" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

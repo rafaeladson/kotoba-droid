@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, WordGameActivity!</string>
+    <string name="app_name">Kotoba</string>
+    <string name="next_word">Next Word</string>
+    <string name="show_translation">Show Translation</string>
+</resources>
