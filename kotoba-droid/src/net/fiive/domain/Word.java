@@ -1,6 +1,10 @@
 package net.fiive.domain;
 
-public class Word {
+import java.io.Serializable;
+
+public class Word implements Serializable {
+	
+	private static final long serialVersionUID = -7612746857877036642L;
 	
 	private String value;
 	private String translation;

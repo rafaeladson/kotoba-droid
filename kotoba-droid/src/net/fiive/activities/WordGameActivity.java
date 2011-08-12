@@ -11,9 +11,14 @@ import android.widget.TextView;
 
 public class WordGameActivity extends Activity {
 	
+	private static final String TRANSLATION_IS_SHOWN_KEY = "translationIsShown";
+	private static final String CURRENT_WORD_KEY = "currentWord";
 	private TextView originalView;
 	private TextView translationView;
 	private WordRepository wordRepository = new WordRepository();
+	private Word currentWord;
+	private boolean translationIsShown = false;
+	
 	
     /** Called when the activity is first created. */
     @Override
@@ -35,18 +40,64 @@ public class WordGameActivity extends Activity {
 			}
         	
         });
-        showNextWord();
+        
+        if ( savedInstanceState != null) {
+        	currentWord = (Word) savedInstanceState.getSerializable(CURRENT_WORD_KEY);
+        	originalView.setText(currentWord.getValue() );
+        	if ( savedInstanceState.getBoolean(TRANSLATION_IS_SHOWN_KEY)) {
+        		this.showTranslation();
+        	}
+        	else {
+        		emptyTranslation();
+        	}
+        } else {
+        	showNextWord();        	
+        }
+        
+        
     }
+
+	private void emptyTranslation() {
+		translationView.setText("");
+		translationIsShown = false;
+	}
     
-    public void showNextWord() {
-    	Word currentWord = wordRepository.getRandomWord();
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+    	super.onSaveInstanceState(outState);
+    	
+    	outState.putSerializable(CURRENT_WORD_KEY, currentWord);
+    	outState.putBoolean(TRANSLATION_IS_SHOWN_KEY, translationIsShown);
+    }
+
+
+
+	public void showNextWord() {
+    	currentWord = wordRepository.getRandomWord();
     	originalView.setText(currentWord.getValue());
-    	translationView.setText("");
+    	emptyTranslation();
     }
     
     public void showTranslation() {
-    	Word currentWord = wordRepository.getCurrentWord();
     	assert( currentWord != null );
     	translationView.setText(currentWord.getTranslation());
+    	translationIsShown = true;
+    	
     }
+
+	public void setWordRepository(WordRepository wordRepository) {
+		this.wordRepository = wordRepository;
+	}
+
+	public Word getCurrentWord() {
+		return currentWord;
+	}
+
+	public void setCurrentWord(Word currentWord) {
+		this.currentWord = currentWord;
+	}
+	
+	
+    
+    
 }

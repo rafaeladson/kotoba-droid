@@ -1,7 +1,10 @@
-package net.fiive.test;
+package net.fiive.test.activities;
 
 import net.fiive.R;
 import net.fiive.activities.WordGameActivity;
+import net.fiive.domain.Word;
+import android.app.Instrumentation;
+import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
 import android.widget.Button;
@@ -17,7 +20,7 @@ public class WordGameActivityTest extends
 	private Button showTranslationButton;
 
 	public WordGameActivityTest() {
-		super("net.fiive.activities", WordGameActivity.class);
+		super(WordGameActivity.class);
 	}
 
 	@Override
@@ -30,20 +33,47 @@ public class WordGameActivityTest extends
 		nextWordButton = (Button) activity.findViewById(R.id.nextWordButton);
 		showTranslationButton = (Button) activity
 				.findViewById(R.id.showTranslationButton);
+		
+		activity.setWordRepository(new WordRepositoryStub());
 	}
 
 	@UiThreadTest
 	public void testNormalInteration() throws Exception {
 		final CharSequence firstWord = valueLabel.getText();
-		assertNotNull(valueLabel.getText());
+		assertNotNull(firstWord);
+		
+		nextWordButton.performClick();
+		
+		assertEquals("Word", valueLabel.getText());
 		assertEquals("", translationLabel.getText());
 
 		showTranslationButton.performClick();
-		assertFalse("".equals(translationLabel.getText()));
+		assertEquals("Wort", translationLabel.getText());
 		nextWordButton.performClick();
 		assertEquals("", translationLabel.getText());
-		assertFalse(firstWord.equals(valueLabel.getText()));
+		assertEquals( "Work", valueLabel.getText() );
+		
 
+	}
+	
+	
+	@UiThreadTest
+	public void testRestoreFromBundle() throws Exception {
+		
+		Bundle newActivityBundle = new Bundle();
+		newActivityBundle.putSerializable("currentWord", new Word("das Auto", "car"));
+		newActivityBundle.putBoolean("translationIsShown", true);
+		
+		activity.finish();
+		Instrumentation instrumentation = this.getInstrumentation();
+		instrumentation.callActivityOnDestroy(activity);
+		instrumentation.callActivityOnCreate(activity, newActivityBundle);
+		
+		TextView newTranslationLabel = (TextView) activity.findViewById(R.id.translationLabel);
+		assertEquals( "car", newTranslationLabel.getText());
+		
+		
+		
 	}
 
 }

@@ -2,7 +2,7 @@ package net.fiive.domain;
 
 public class WordRepository {
 	
-	private Word currentWord = null;
+	private Word previousSelectedWord = null;
 	
 	
 	public Word getRandomWord() {
@@ -11,15 +11,10 @@ public class WordRepository {
 		do {
 			int selectedWordIndex = (int)(Math.random() * allWords.length);
 			selectedWord = allWords[selectedWordIndex];
-		} while ( selectedWord.equals( currentWord ));
-		currentWord = selectedWord;
+		} while ( selectedWord.equals( previousSelectedWord ));
+		previousSelectedWord = selectedWord;
 		
-		return currentWord;
-	}
-
-
-	public Word getCurrentWord() {
-		return currentWord;
+		return selectedWord;
 	}
 	
 	private Word[] getWordsFromDb() {
