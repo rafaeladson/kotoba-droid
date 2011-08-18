@@ -4,14 +4,16 @@ import net.fiive.R;
 import net.fiive.activities.WordGameActivity;
 import net.fiive.domain.Word;
 import android.app.Instrumentation;
+import android.content.Intent;
 import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.ActivityUnitTestCase;
 import android.test.UiThreadTest;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class WordGameActivityTest extends
-		ActivityInstrumentationTestCase2<WordGameActivity> {
+		ActivityUnitTestCase<WordGameActivity> {
 
 	private WordGameActivity activity;
 	private TextView valueLabel;
@@ -26,6 +28,7 @@ public class WordGameActivityTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		startActivity(new Intent(getInstrumentation().getTargetContext(), WordGameActivity.class), null, null );
 		activity = this.getActivity();
 		valueLabel = (TextView) activity.findViewById(R.id.valueLabel);
 		translationLabel = (TextView) activity

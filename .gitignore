@@ -7,3 +7,4 @@ classes.dex
 *~
 /#.gitignore#
 bin/
+testng/test-output
