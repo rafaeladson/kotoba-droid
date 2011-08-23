@@ -1,27 +1,58 @@
 package net.fiive.domain;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 public class WordRepository {
 	
-	private Word previousSelectedWord = null;
+	private Word[] words;
+	private PriorityQueue<Word> randomizedWordQueue;
+	private Comparator<Word> wordQueueComparator = new WordRandomComparator();
 	
 	
-	public Word getRandomWord() {
-		Word[] allWords = getWordsFromDb();
-		Word selectedWord;
-		do {
-			int selectedWordIndex = (int)(Math.random() * allWords.length);
-			selectedWord = allWords[selectedWordIndex];
-		} while ( selectedWord.equals( previousSelectedWord ));
-		previousSelectedWord = selectedWord;
-		
-		return selectedWord;
-	}
 	
-	private Word[] getWordsFromDb() {
-		Word[] words = new Word[2];
-		words[0] = new Word( "ことば", "word");
-		words[1] = new Word( "お母さん", "(sua) mãe");
-		return words;
+	public WordRepository() {
+		this( new Word[] { new Word( "ことば", "word"), new Word( "お母さん", "(sua) mãe")});
 	}
 
+	public WordRepository(Word[] words) {
+		this.words = words;
+	}
+
+	public Word getRandomWord() {
+		
+		if ( words.length < 1 ) {
+			return null;
+		}
+		if ( randomizedWordQueue == null || randomizedWordQueue.isEmpty()) {
+			rebuildWordQueue();
+		}
+		
+		return randomizedWordQueue.remove();
+	}
+	
+	void setWordQueueComparator(Comparator<Word> wordQueueComparator) {
+		this.wordQueueComparator = wordQueueComparator;
+	}
+
+	private void rebuildWordQueue() {
+		randomizedWordQueue = new PriorityQueue<Word>(words.length, wordQueueComparator);
+		for ( Word word : words ) {
+			randomizedWordQueue.add(word);
+		}
+	}
+
+
+	private class WordRandomComparator implements Comparator<Word> {
+
+		public int compare(Word word1, Word word2) {
+			int isGreaterSelector = ((int)(Math.random() * 2)) % 2;
+			return (isGreaterSelector == 0 ) ? -1 : 1;
+		}
+		
+	}
+	
+	
+	
+	
 }

@@ -6,7 +6,6 @@ import net.fiive.domain.Word;
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.os.Bundle;
-import android.test.ActivityInstrumentationTestCase2;
 import android.test.ActivityUnitTestCase;
 import android.test.UiThreadTest;
 import android.widget.Button;
@@ -40,7 +39,7 @@ public class WordGameActivityTest extends
 		activity.setWordRepository(new WordRepositoryStub());
 	}
 
-	@UiThreadTest
+
 	public void testNormalInteration() throws Exception {
 		final CharSequence firstWord = valueLabel.getText();
 		assertNotNull(firstWord);
