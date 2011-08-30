@@ -9,3 +9,5 @@ classes.dex
 bin/
 testng/test-output
 target/
+*.iml
+/.idea/

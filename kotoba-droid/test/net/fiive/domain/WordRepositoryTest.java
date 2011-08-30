@@ -2,8 +2,7 @@ package net.fiive.domain;
 
 import java.util.Comparator;
 
-import junit.framework.Assert;
-
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class WordRepositoryTest {
