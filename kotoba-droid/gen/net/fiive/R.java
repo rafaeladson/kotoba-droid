@@ -29,7 +29,7 @@ public final class R {
         public static final int app_name=0x7f040001;
         public static final int hello=0x7f040000;
         public static final int next_word=0x7f040002;
-        public static final int show_translation=0x7f040003;
+        public static final int show_answer=0x7f040003;
         public static final int translation_asterisks=0x7f040005;
         public static final int waiting_for_word=0x7f040004;
     }

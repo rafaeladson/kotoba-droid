@@ -11,3 +11,4 @@ testng/test-output
 target/
 *.iml
 /.idea/
+/kotoba-droid/test-output/
