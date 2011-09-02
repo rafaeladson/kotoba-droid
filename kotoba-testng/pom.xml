@@ -16,7 +16,7 @@
     </dependency>
     <dependency>
       <groupId>net.fiive.kotoba</groupId>
-      <artifactId>kotoba-droid</artifactId>
+      <artifactId>kotoba</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
