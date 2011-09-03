@@ -15,15 +15,17 @@ public final class R {
         public static final int icon=0x7f020001;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f060000;
-        public static final int linearLayout3=0x7f060003;
-        public static final int nextWordButton=0x7f060004;
-        public static final int showTranslationButton=0x7f060005;
-        public static final int translationLabel=0x7f060002;
-        public static final int valueLabel=0x7f060001;
+        public static final int RelativeLayout1=0x7f060001;
+        public static final int linearLayout3=0x7f060004;
+        public static final int nextWordButton=0x7f060005;
+        public static final int showTranslationButton=0x7f060006;
+        public static final int translationLabel=0x7f060003;
+        public static final int valueLabel=0x7f060002;
+        public static final int wordGameFragment=0x7f060000;
     }
     public static final class layout {
         public static final int main=0x7f030000;
+        public static final int word_game=0x7f030001;
     }
     public static final class string {
         public static final int app_name=0x7f040001;

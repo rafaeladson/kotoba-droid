@@ -1,13 +1,14 @@
 package net.fiive.test.activities;
 
+import junit.framework.Assert;
 import net.fiive.R;
 import net.fiive.activities.WordGameActivity;
+import net.fiive.activities.WordGameFragment;
 import net.fiive.domain.Word;
-import android.app.Instrumentation;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.test.ActivityUnitTestCase;
-import android.test.UiThreadTest;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -35,8 +36,17 @@ public class WordGameActivityTest extends
 		nextWordButton = (Button) activity.findViewById(R.id.nextWordButton);
 		showTranslationButton = (Button) activity
 				.findViewById(R.id.showTranslationButton);
+	
+		WordGameFragment wordGameFragment = getFragment();
 		
-		activity.setWordRepository(new WordRepositoryStub());
+		
+		wordGameFragment.setWordRepository(new WordRepositoryStub());
+	}
+
+	private WordGameFragment getFragment() {
+		FragmentManager fragmentManager = activity.getSupportFragmentManager();
+		WordGameFragment wordGameFragment = (WordGameFragment)fragmentManager.findFragmentById(R.id.wordGameFragment);
+		return wordGameFragment;
 	}
 
 
@@ -54,26 +64,35 @@ public class WordGameActivityTest extends
 		nextWordButton.performClick();
 		assertEquals("", translationLabel.getText());
 		assertEquals( "Work", valueLabel.getText() );
-		
-
 	}
 	
 	
-	@UiThreadTest
 	public void testRestoreFromBundle() throws Exception {
 		
 		Bundle newActivityBundle = new Bundle();
 		newActivityBundle.putSerializable("currentWord", new Word("das Auto", "car"));
 		newActivityBundle.putBoolean("translationIsShown", true);
 		
-		activity.finish();
-		Instrumentation instrumentation = this.getInstrumentation();
-		instrumentation.callActivityOnDestroy(activity);
-		instrumentation.callActivityOnCreate(activity, newActivityBundle);
+		WordGameFragment fragment = getFragment();
+		fragment.onActivityCreated(newActivityBundle);
 		
 		TextView newTranslationLabel = (TextView) activity.findViewById(R.id.translationLabel);
 		assertEquals( "car", newTranslationLabel.getText());
 		
+	}
+	
+	public void testShouldSaveBundle() throws Exception {
+		nextWordButton.performClick();
+		showTranslationButton.performClick();
+		
+		Bundle fragmentBundle = new Bundle();
+		WordGameFragment fragment = getFragment();
+		fragment.onSaveInstanceState(fragmentBundle);
+		
+		Word word = (Word) fragmentBundle.get("currentWord");
+		assertEquals( word.getValue(), "Word");
+		
+		Assert.assertTrue(fragmentBundle.getBoolean("translationIsShown"));
 		
 		
 	}

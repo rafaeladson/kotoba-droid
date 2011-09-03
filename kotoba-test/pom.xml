@@ -1,61 +1,71 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.fiive.kotoba</groupId>
-    <artifactId>kotoba-test</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>apk</packaging>
+	<groupId>net.fiive.kotoba</groupId>
+	<artifactId>kotoba-test</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>apk</packaging>
 
-    <name>Kotoba Instrumentation Tests</name>
+	<name>Kotoba Instrumentation Tests</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.google.android</groupId>
-            <artifactId>android</artifactId>
-            <version>13</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>net.fiive.kotoba</groupId>
-            <artifactId>kotoba</artifactId>
-            <version>${project.version}</version>
-            <type>apk</type>
-        </dependency>
-        <dependency>
-            <groupId>net.fiive.kotoba</groupId>
-            <artifactId>kotoba</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>13</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>net.fiive.kotoba</groupId>
+			<artifactId>kotoba</artifactId>
+			<version>${project.version}</version>
+			<type>apk</type>
+		</dependency>
+		<dependency>
+			<groupId>net.fiive.kotoba</groupId>
+			<artifactId>kotoba</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+	</dependencies>
 
-    <build>
-        <sourceDirectory>src/</sourceDirectory>
-        <plugins>
-            <plugin>
-                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-                <artifactId>maven-android-plugin</artifactId>
-                <version>2.8.4</version>
-                <configuration>
-                    <sdk>
-                        <platform>13</platform>
-                        <path>${user.home}/dev/fiive/android-sdk</path>
-                    </sdk>
-                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
-                    <enableIntegrationTest>true</enableIntegrationTest>
-                </configuration>
-                <extensions>true</extensions>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<sourceDirectory>src/</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>maven-android-plugin</artifactId>
+				<version>2.8.4</version>
+				<configuration>
+					<sdk>
+						<platform>13</platform>
+						<path>${user.home}/dev/fiive/android-sdk</path>
+					</sdk>
+					<undeployBeforeDeploy>true</undeployBeforeDeploy>
+					<enableIntegrationTest>true</enableIntegrationTest>
+				</configuration>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
 </project>

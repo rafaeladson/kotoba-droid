@@ -4,17 +4,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:weightSum="1">
-    <RelativeLayout android:layout_width="match_parent" android:id="@+id/RelativeLayout1" android:orientation="vertical" android:layout_gravity="center_vertical" android:layout_height="wrap_content" android:layout_weight="0.49" android:gravity="center">
-    	<TextView android:id="@+id/valueLabel" android:textSize="24dp" android:textStyle="bold" android:text="@string/waiting_for_word" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_centerHorizontal="true"></TextView>
-    </RelativeLayout>
-    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/RelativeLayout1" android:orientation="vertical" android:layout_weight="0.48" android:gravity="center">
-    	<TextView android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:id="@+id/translationLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/translation_asterisks" android:textSize="24dp"/>
-    </RelativeLayout>
-    <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout3" android:layout_height="wrap_content" android:baselineAligned="false" android:orientation="horizontal" android:layout_gravity="center_horizontal">
-        <Button android:id="@+id/nextWordButton" android:layout_height="wrap_content" android:layout_width="0dp" android:text="@string/next_word" android:layout_weight="1"/>
-        <Button android:layout_gravity="center" android:id="@+id/showTranslationButton" android:text="@string/show_answer" android:layout_height="wrap_content" android:layout_width="0dp" android:layout_weight="1"></Button>
-    </LinearLayout>
-
-
-
+    
+    <fragment class="net.fiive.activities.WordGameFragment"
+            android:id="@+id/wordGameFragment" 
+            android:layout_width="match_parent" android:layout_height="match_parent" />
+    
 </LinearLayout>

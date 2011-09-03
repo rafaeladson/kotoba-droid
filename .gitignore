@@ -13,3 +13,4 @@ target/
 /.idea/
 /kotoba-droid/test-output/
 test-output/
+/kotoba/.externalToolBuilders/
