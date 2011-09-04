@@ -1,9 +1,9 @@
-package net.fiive.domain;
-
-import java.util.Comparator;
+package net.fiive.kotoba.domain;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.Comparator;
 
 public class WordRepositoryTest {
   

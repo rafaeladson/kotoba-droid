@@ -1,8 +1,8 @@
-package net.fiive.activities;
+package net.fiive.kotoba.activities;
 
-import net.fiive.R;
-import net.fiive.domain.Word;
-import net.fiive.domain.WordRepository;
+import net.fiive.kotoba.R;
+import net.fiive.kotoba.domain.Word;
+import net.fiive.kotoba.domain.WordRepository;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,9 +20,8 @@ public class WordGameFragment extends Fragment {
 	private WordRepository wordRepository = new WordRepository();
 	private Word currentWord;
 	private boolean translationIsShown = false;
-	private View wordGameView;
 
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -45,7 +44,7 @@ public class WordGameFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		wordGameView = inflater.inflate(R.layout.word_game, container);
+		View wordGameView = inflater.inflate(R.layout.word_game, container);
 		
 		originalView = (TextView) wordGameView.findViewById(R.id.valueLabel);
 		translationView = (TextView) wordGameView.findViewById(R.id.translationLabel);

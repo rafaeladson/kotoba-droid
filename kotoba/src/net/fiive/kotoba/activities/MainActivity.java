@@ -1,10 +1,10 @@
-package net.fiive.activities;
+package net.fiive.kotoba.activities;
 
-import net.fiive.R;
+import net.fiive.kotoba.R;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-public class WordGameActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity {
 
 
 	/**

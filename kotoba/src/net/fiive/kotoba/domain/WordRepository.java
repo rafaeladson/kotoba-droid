@@ -1,4 +1,4 @@
-package net.fiive.domain;
+package net.fiive.kotoba.domain;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

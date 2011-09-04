@@ -1,7 +1,7 @@
-package net.fiive.test.activities;
+package net.fiive.kotoba.test.activities;
 
-import net.fiive.domain.Word;
-import net.fiive.domain.WordRepository;
+import net.fiive.kotoba.domain.Word;
+import net.fiive.kotoba.domain.WordRepository;
 
 class WordRepositoryStub extends WordRepository {
 	

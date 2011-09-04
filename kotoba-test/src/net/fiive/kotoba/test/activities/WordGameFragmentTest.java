@@ -1,10 +1,10 @@
-package net.fiive.test.activities;
+package net.fiive.kotoba.test.activities;
 
 import junit.framework.Assert;
-import net.fiive.R;
-import net.fiive.activities.WordGameActivity;
-import net.fiive.activities.WordGameFragment;
-import net.fiive.domain.Word;
+import net.fiive.kotoba.R;
+import net.fiive.kotoba.activities.MainActivity;
+import net.fiive.kotoba.activities.WordGameFragment;
+import net.fiive.kotoba.domain.Word;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -12,23 +12,23 @@ import android.test.ActivityUnitTestCase;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class WordGameActivityTest extends
-		ActivityUnitTestCase<WordGameActivity> {
+public class WordGameFragmentTest extends
+		ActivityUnitTestCase<MainActivity> {
 
-	private WordGameActivity activity;
+	private MainActivity activity;
 	private TextView valueLabel;
 	private TextView translationLabel;
 	private Button nextWordButton;
 	private Button showTranslationButton;
 
-	public WordGameActivityTest() {
-		super(WordGameActivity.class);
+	public WordGameFragmentTest() {
+		super(MainActivity.class);
 	}
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		startActivity(new Intent(getInstrumentation().getTargetContext(), WordGameActivity.class), null, null );
+		startActivity(new Intent(getInstrumentation().getTargetContext(), MainActivity.class), null, null );
 		activity = this.getActivity();
 		valueLabel = (TextView) activity.findViewById(R.id.valueLabel);
 		translationLabel = (TextView) activity

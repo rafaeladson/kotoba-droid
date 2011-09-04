@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:weightSum="1">
     
-    <fragment class="net.fiive.activities.WordGameFragment"
+    <fragment class="net.fiive.kotoba.activities.WordGameFragment"
             android:id="@+id/wordGameFragment" 
             android:layout_width="match_parent" android:layout_height="match_parent" />
     
