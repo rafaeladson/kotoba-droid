@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package net.fiive.test;
+package net.fiive.kotoba.test;
 
 public final class R {
     public static final class attr {

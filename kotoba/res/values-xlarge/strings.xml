@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="next_question">Next Question</string>
+    <string name="show_answer">Show Answer</string>
+</resources>

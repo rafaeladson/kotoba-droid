@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 public class WordGameFragment extends Fragment {
 	
-	private static final String TRANSLATION_IS_SHOWN_KEY = "translationIsShown";
-	private static final String CURRENT_WORD_KEY = "currentWord";
-	private TextView originalView;
-	private TextView translationView;
+	private static final String ANSWER_IS_SHOWN_KEY = "answerIsShown";
+	private static final String CURRENT_QUESTION_KEY = "currentWord";
+	private TextView questionLabel;
+	private TextView answerLabel;
 	private WordRepository wordRepository = new WordRepository();
 	private Word currentWord;
 	private boolean translationIsShown = false;
@@ -28,9 +28,9 @@ public class WordGameFragment extends Fragment {
 		
 
 		if (savedInstanceState != null) {
-			currentWord = (Word) savedInstanceState.getSerializable(CURRENT_WORD_KEY);
-			originalView.setText(currentWord.getValue());
-			if (savedInstanceState.getBoolean(TRANSLATION_IS_SHOWN_KEY)) {
+			currentWord = (Word) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
+			questionLabel.setText(currentWord.getValue());
+			if (savedInstanceState.getBoolean(ANSWER_IS_SHOWN_KEY)) {
 				this.showTranslation();
 			} else {
 				emptyTranslation();
@@ -46,15 +46,15 @@ public class WordGameFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View wordGameView = inflater.inflate(R.layout.word_game, container);
 		
-		originalView = (TextView) wordGameView.findViewById(R.id.valueLabel);
-		translationView = (TextView) wordGameView.findViewById(R.id.translationLabel);
-		Button nextWordButton = (Button) wordGameView.findViewById(R.id.nextWordButton);
+		questionLabel = (TextView) wordGameView.findViewById(R.id.questionLabel);
+		answerLabel = (TextView) wordGameView.findViewById(R.id.answerLabel);
+		Button nextWordButton = (Button) wordGameView.findViewById(R.id.nextQuestionButton);
 		nextWordButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				showNextWord();
 			}
 		});
-		Button showTranslationButton = (Button) wordGameView.findViewById(R.id.showTranslationButton);
+		Button showTranslationButton = (Button) wordGameView.findViewById(R.id.showAnswerButton);
 		showTranslationButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				showTranslation();
@@ -69,13 +69,13 @@ public class WordGameFragment extends Fragment {
 	
 	public void showNextWord() {
 		currentWord = wordRepository.getRandomWord();
-		originalView.setText(currentWord.getValue());
+		questionLabel.setText(currentWord.getValue());
 		emptyTranslation();
 	}
 
 	public void showTranslation() {
 		assert (currentWord != null);
-		translationView.setText(currentWord.getTranslation());
+		answerLabel.setText(currentWord.getTranslation());
 		translationIsShown = true;
 
 	}
@@ -93,7 +93,7 @@ public class WordGameFragment extends Fragment {
 	}
 	
 	private void emptyTranslation() {
-		translationView.setText("");
+		answerLabel.setText("");
 		translationIsShown = false;
 	}
 
@@ -101,8 +101,8 @@ public class WordGameFragment extends Fragment {
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 
-		outState.putSerializable(CURRENT_WORD_KEY, currentWord);
-		outState.putBoolean(TRANSLATION_IS_SHOWN_KEY, translationIsShown);
+		outState.putSerializable(CURRENT_QUESTION_KEY, currentWord);
+		outState.putBoolean(ANSWER_IS_SHOWN_KEY, translationIsShown);
 	}
 
 	

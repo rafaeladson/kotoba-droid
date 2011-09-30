@@ -30,12 +30,12 @@ public class WordGameFragmentTest extends
 		super.setUp();
 		startActivity(new Intent(getInstrumentation().getTargetContext(), MainActivity.class), null, null );
 		activity = this.getActivity();
-		valueLabel = (TextView) activity.findViewById(R.id.valueLabel);
+		valueLabel = (TextView) activity.findViewById(R.id.questionLabel);
 		translationLabel = (TextView) activity
-				.findViewById(R.id.translationLabel);
-		nextWordButton = (Button) activity.findViewById(R.id.nextWordButton);
+				.findViewById(R.id.answerLabel);
+		nextWordButton = (Button) activity.findViewById(R.id.nextQuestionButton);
 		showTranslationButton = (Button) activity
-				.findViewById(R.id.showTranslationButton);
+				.findViewById(R.id.showAnswerButton);
 	
 		WordGameFragment wordGameFragment = getFragment();
 		
@@ -76,7 +76,7 @@ public class WordGameFragmentTest extends
 		WordGameFragment fragment = getFragment();
 		fragment.onActivityCreated(newActivityBundle);
 		
-		TextView newTranslationLabel = (TextView) activity.findViewById(R.id.translationLabel);
+		TextView newTranslationLabel = (TextView) activity.findViewById(R.id.answerLabel);
 		assertEquals( "car", newTranslationLabel.getText());
 		
 	}
@@ -89,10 +89,10 @@ public class WordGameFragmentTest extends
 		WordGameFragment fragment = getFragment();
 		fragment.onSaveInstanceState(fragmentBundle);
 		
-		Word word = (Word) fragmentBundle.get("currentWord");
+		Word word = (Word) fragmentBundle.get("currentQuestion");
 		assertEquals( word.getValue(), "Word");
 		
-		Assert.assertTrue(fragmentBundle.getBoolean("translationIsShown"));
+		Assert.assertTrue(fragmentBundle.getBoolean("answerIsShown"));
 		
 		
 	}

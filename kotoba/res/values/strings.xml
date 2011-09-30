@@ -2,8 +2,10 @@
 <resources>
     <string name="hello">Hello World, WordGameActivity!</string>
     <string name="app_name">Kotoba</string>
-    <string name="next_word">Next</string>
+    <string name="next_question">Next</string>
     <string name="show_answer">Answer</string>
     <string name="waiting_for_word">Waiting for Word</string>
     <string name="translation_asterisks">*******</string>
+    <string name="how_do_i_use_kotoba_question">How do I use Kotoba?</string>
+    <string name="how_do_i_use_kotoba_answer">Click Answer to see the answer.\nClick next to see next question.\nClick edit to add and remove questions.</string>
 </resources>
