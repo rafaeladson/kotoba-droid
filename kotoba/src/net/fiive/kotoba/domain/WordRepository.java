@@ -12,7 +12,7 @@ public class WordRepository {
 	
 	
 	public WordRepository() {
-		this( new Word[] { new Word( "ことば", "word"), new Word( "お母さん", "(sua) mãe")});
+		this( new Word[] { new Word( "空はあおい", "O céu é azul"), new Word( "あの女の人はとても美しいですね。", "Aquela mulher é muito bonita"), new Word( "私はべんごしじゃないです。私はインギニアです。", "I'm not a lawyer. I'm an engineer" )});
 	}
 
 	public WordRepository(Word[] words) {

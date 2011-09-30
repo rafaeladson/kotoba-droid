@@ -5,4 +5,8 @@
 		<item name="android:textStyle">bold</item>
 		<item name="android:textSize">24sp</item>    
     </style>
+    <style name="answerText" parent="android:style/TextAppearance.Medium">
+        <item name="android:textSize">24sp</item>
+    </style>
+    
 </resources>
