@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="titleFont" parent="android:style/TextAppearance.Large">
-		<item name="android:textColor">#009900</item>
+		<item name="android:textColor">#004100</item>
 		<item name="android:textStyle">bold</item>
-		<item name="android:textSize">24sp</item>    
+		<item name="android:textSize">24dp</item>
+		<item name="android:padding">10dp</item>    
     </style>
     <style name="answerText" parent="android:style/TextAppearance.Medium">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:padding">10dp</item>
     </style>
     
 </resources>

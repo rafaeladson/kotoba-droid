@@ -20,6 +20,7 @@ public class WordGameFragmentTest extends
 	private TextView translationLabel;
 	private Button nextWordButton;
 	private Button showTranslationButton;
+	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see answer";
 
 	public WordGameFragmentTest() {
 		super(MainActivity.class);
@@ -57,12 +58,13 @@ public class WordGameFragmentTest extends
 		nextWordButton.performClick();
 		
 		assertEquals("Word", valueLabel.getText());
-		assertEquals("", translationLabel.getText());
+
+		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, translationLabel.getText());
 
 		showTranslationButton.performClick();
 		assertEquals("Wort", translationLabel.getText());
 		nextWordButton.performClick();
-		assertEquals("", translationLabel.getText());
+		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, translationLabel.getText());
 		assertEquals( "Work", valueLabel.getText() );
 	}
 	
@@ -70,8 +72,8 @@ public class WordGameFragmentTest extends
 	public void testRestoreFromBundle() throws Exception {
 		
 		Bundle newActivityBundle = new Bundle();
-		newActivityBundle.putSerializable("currentWord", new Word("das Auto", "car"));
-		newActivityBundle.putBoolean("translationIsShown", true);
+		newActivityBundle.putSerializable("currentQuestion", new Word("das Auto", "car"));
+		newActivityBundle.putBoolean("answerIsShown", true);
 		
 		WordGameFragment fragment = getFragment();
 		fragment.onActivityCreated(newActivityBundle);

@@ -14,12 +14,12 @@ import android.widget.TextView;
 public class WordGameFragment extends Fragment {
 	
 	private static final String ANSWER_IS_SHOWN_KEY = "answerIsShown";
-	private static final String CURRENT_QUESTION_KEY = "currentWord";
+	private static final String CURRENT_QUESTION_KEY = "currentQuestion";
 	private TextView questionLabel;
 	private TextView answerLabel;
 	private WordRepository wordRepository = new WordRepository();
-	private Word currentWord;
-	private boolean translationIsShown = false;
+	private Word currentQuestion;
+	private boolean answerIsShown = false;
 
 
 	@Override
@@ -28,10 +28,10 @@ public class WordGameFragment extends Fragment {
 		
 
 		if (savedInstanceState != null) {
-			currentWord = (Word) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
-			questionLabel.setText(currentWord.getValue());
+			currentQuestion = (Word) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
+			questionLabel.setText(currentQuestion.getValue());
 			if (savedInstanceState.getBoolean(ANSWER_IS_SHOWN_KEY)) {
-				this.showTranslation();
+				this.showAnswer();
 			} else {
 				emptyTranslation();
 			}
@@ -48,6 +48,13 @@ public class WordGameFragment extends Fragment {
 		
 		questionLabel = (TextView) wordGameView.findViewById(R.id.questionLabel);
 		answerLabel = (TextView) wordGameView.findViewById(R.id.answerLabel);
+		answerLabel.setOnClickListener(new Button.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				showAnswer();
+			}
+		});
+		
 		Button nextWordButton = (Button) wordGameView.findViewById(R.id.nextQuestionButton);
 		nextWordButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
@@ -57,7 +64,7 @@ public class WordGameFragment extends Fragment {
 		Button showTranslationButton = (Button) wordGameView.findViewById(R.id.showAnswerButton);
 		showTranslationButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-				showTranslation();
+				showAnswer();
 			}
 
 		});
@@ -68,15 +75,15 @@ public class WordGameFragment extends Fragment {
 	
 	
 	public void showNextWord() {
-		currentWord = wordRepository.getRandomWord();
-		questionLabel.setText(currentWord.getValue());
+		currentQuestion = wordRepository.getRandomWord();
+		questionLabel.setText(currentQuestion.getValue());
 		emptyTranslation();
 	}
 
-	public void showTranslation() {
-		assert (currentWord != null);
-		answerLabel.setText(currentWord.getTranslation());
-		translationIsShown = true;
+	public void showAnswer() {
+		assert (currentQuestion != null);
+		answerLabel.setText(currentQuestion.getTranslation());
+		answerIsShown = true;
 
 	}
 
@@ -84,25 +91,25 @@ public class WordGameFragment extends Fragment {
 		this.wordRepository = wordRepository;
 	}
 
-	public Word getCurrentWord() {
-		return currentWord;
+	public Word getCurrentQuestion() {
+		return currentQuestion;
 	}
 
-	public void setCurrentWord(Word currentWord) {
-		this.currentWord = currentWord;
+	public void setCurrentQuestion(Word currentQuestion) {
+		this.currentQuestion = currentQuestion;
 	}
 	
 	private void emptyTranslation() {
-		answerLabel.setText("");
-		translationIsShown = false;
+		answerLabel.setText(R.string.click_here_to_see_answer);
+		answerIsShown = false;
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 
-		outState.putSerializable(CURRENT_QUESTION_KEY, currentWord);
-		outState.putBoolean(ANSWER_IS_SHOWN_KEY, translationIsShown);
+		outState.putSerializable(CURRENT_QUESTION_KEY, currentQuestion);
+		outState.putBoolean(ANSWER_IS_SHOWN_KEY, answerIsShown);
 	}
 
 	
