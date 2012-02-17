@@ -3,8 +3,8 @@ package net.fiive.kotoba.test.activities;
 import junit.framework.Assert;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
-import net.fiive.kotoba.activities.WordGameFragment;
-import net.fiive.kotoba.domain.Word;
+import net.fiive.kotoba.activities.QuestionGameFragment;
+import net.fiive.kotoba.domain.Question;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +12,7 @@ import android.test.ActivityUnitTestCase;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class WordGameFragmentTest extends
+public class QuestionGameFragmentTest extends
 		ActivityUnitTestCase<MainActivity> {
 
 	private MainActivity activity;
@@ -22,7 +22,7 @@ public class WordGameFragmentTest extends
 	private Button showTranslationButton;
 	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see answer";
 
-	public WordGameFragmentTest() {
+	public QuestionGameFragmentTest() {
 		super(MainActivity.class);
 	}
 
@@ -38,16 +38,15 @@ public class WordGameFragmentTest extends
 		showTranslationButton = (Button) activity
 				.findViewById(R.id.showAnswerButton);
 	
-		WordGameFragment wordGameFragment = getFragment();
+		QuestionGameFragment questionGameFragment = getFragment();
 		
 		
-		wordGameFragment.setWordRepository(new WordRepositoryStub());
+		questionGameFragment.setQuestionRepository(new QuestionRepositoryStub());
 	}
 
-	private WordGameFragment getFragment() {
+	private QuestionGameFragment getFragment() {
 		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		WordGameFragment wordGameFragment = (WordGameFragment)fragmentManager.findFragmentById(R.id.wordGameFragment);
-		return wordGameFragment;
+		return (QuestionGameFragment)fragmentManager.findFragmentById(R.id.questionGameFragment);
 	}
 
 
@@ -57,7 +56,7 @@ public class WordGameFragmentTest extends
 		
 		nextWordButton.performClick();
 		
-		assertEquals("Word", valueLabel.getText());
+		assertEquals("Question", valueLabel.getText());
 
 		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, translationLabel.getText());
 
@@ -72,10 +71,10 @@ public class WordGameFragmentTest extends
 	public void testRestoreFromBundle() throws Exception {
 		
 		Bundle newActivityBundle = new Bundle();
-		newActivityBundle.putSerializable("currentQuestion", new Word("das Auto", "car"));
+		newActivityBundle.putSerializable("currentQuestion", new Question("das Auto", "car"));
 		newActivityBundle.putBoolean("answerIsShown", true);
 		
-		WordGameFragment fragment = getFragment();
+		QuestionGameFragment fragment = getFragment();
 		fragment.onActivityCreated(newActivityBundle);
 		
 		TextView newTranslationLabel = (TextView) activity.findViewById(R.id.answerLabel);
@@ -88,11 +87,11 @@ public class WordGameFragmentTest extends
 		showTranslationButton.performClick();
 		
 		Bundle fragmentBundle = new Bundle();
-		WordGameFragment fragment = getFragment();
+		QuestionGameFragment fragment = getFragment();
 		fragment.onSaveInstanceState(fragmentBundle);
 		
-		Word word = (Word) fragmentBundle.get("currentQuestion");
-		assertEquals( word.getValue(), "Word");
+		Question question = (Question) fragmentBundle.get("currentQuestion");
+		assertEquals( question.getValue(), "Question");
 		
 		Assert.assertTrue(fragmentBundle.getBoolean("answerIsShown"));
 		

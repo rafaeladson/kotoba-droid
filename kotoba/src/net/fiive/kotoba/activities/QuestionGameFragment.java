@@ -1,8 +1,8 @@
 package net.fiive.kotoba.activities;
 
 import net.fiive.kotoba.R;
-import net.fiive.kotoba.domain.Word;
-import net.fiive.kotoba.domain.WordRepository;
+import net.fiive.kotoba.domain.Question;
+import net.fiive.kotoba.domain.QuestionRepository;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class WordGameFragment extends Fragment {
+public class QuestionGameFragment extends Fragment {
 	
 	private static final String ANSWER_IS_SHOWN_KEY = "answerIsShown";
 	private static final String CURRENT_QUESTION_KEY = "currentQuestion";
 	private TextView questionLabel;
 	private TextView answerLabel;
-	private WordRepository wordRepository = new WordRepository();
-	private Word currentQuestion;
+	private QuestionRepository questionRepository = new QuestionRepository();
+	private Question currentQuestion;
 	private boolean answerIsShown = false;
 
 
@@ -28,12 +28,12 @@ public class WordGameFragment extends Fragment {
 		
 
 		if (savedInstanceState != null) {
-			currentQuestion = (Word) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
+			currentQuestion = (Question) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
 			questionLabel.setText(currentQuestion.getValue());
 			if (savedInstanceState.getBoolean(ANSWER_IS_SHOWN_KEY)) {
 				this.showAnswer();
 			} else {
-				emptyTranslation();
+				clearAnswer();
 			}
 		} else {
 			showNextWord();
@@ -44,7 +44,7 @@ public class WordGameFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View wordGameView = inflater.inflate(R.layout.word_game, container);
+		View wordGameView = inflater.inflate(R.layout.question_game, container);
 		
 		questionLabel = (TextView) wordGameView.findViewById(R.id.questionLabel);
 		answerLabel = (TextView) wordGameView.findViewById(R.id.answerLabel);
@@ -75,9 +75,9 @@ public class WordGameFragment extends Fragment {
 	
 	
 	public void showNextWord() {
-		currentQuestion = wordRepository.getRandomWord();
+		currentQuestion = questionRepository.getRandomWord();
 		questionLabel.setText(currentQuestion.getValue());
-		emptyTranslation();
+		clearAnswer();
 	}
 
 	public void showAnswer() {
@@ -87,19 +87,19 @@ public class WordGameFragment extends Fragment {
 
 	}
 
-	public void setWordRepository(WordRepository wordRepository) {
-		this.wordRepository = wordRepository;
+	public void setQuestionRepository(QuestionRepository questionRepository) {
+		this.questionRepository = questionRepository;
 	}
 
-	public Word getCurrentQuestion() {
+	public Question getCurrentQuestion() {
 		return currentQuestion;
 	}
 
-	public void setCurrentQuestion(Word currentQuestion) {
+	public void setCurrentQuestion(Question currentQuestion) {
 		this.currentQuestion = currentQuestion;
 	}
 	
-	private void emptyTranslation() {
+	private void clearAnswer() {
 		answerLabel.setText(R.string.click_here_to_see_answer);
 		answerIsShown = false;
 	}

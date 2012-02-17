@@ -2,18 +2,18 @@ package net.fiive.kotoba.domain;
 
 import java.io.Serializable;
 
-public class Word implements Serializable {
-	
+public class Question implements Serializable {
+
 	private static final long serialVersionUID = -7612746857877036642L;
 	
 	private String value;
 	private String translation;
 	
 	
-	public Word(String value, String translation) {
+	public Question(String value, String answer) {
 		super();
 		this.value = value;
-		this.translation = translation;
+		this.translation = answer;
 	}
 
 
@@ -56,7 +56,7 @@ public class Word implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Word other = (Word) obj;
+		Question other = (Question) obj;
 		if (translation == null) {
 			if (other.translation != null)
 				return false;
@@ -73,7 +73,7 @@ public class Word implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Word [value=" + value + ", translation=" + translation + "]";
+		return "Question [value=" + value + ", translation=" + translation + "]";
 	}
 	
 	
