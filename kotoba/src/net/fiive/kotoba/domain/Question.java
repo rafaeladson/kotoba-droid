@@ -7,13 +7,13 @@ public class Question implements Serializable {
 	private static final long serialVersionUID = -7612746857877036642L;
 	
 	private String value;
-	private String translation;
+	private String answer;
 	
 	
 	public Question(String value, String answer) {
 		super();
 		this.value = value;
-		this.translation = answer;
+		this.answer = answer;
 	}
 
 
@@ -27,13 +27,13 @@ public class Question implements Serializable {
 	}
 
 
-	public String getTranslation() {
-		return translation;
+	public String getAnswer() {
+		return answer;
 	}
 
 
-	public void setTranslation(String translation) {
-		this.translation = translation;
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 
@@ -42,7 +42,7 @@ public class Question implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((translation == null) ? 0 : translation.hashCode());
+				+ ((answer == null) ? 0 : answer.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
@@ -57,10 +57,10 @@ public class Question implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Question other = (Question) obj;
-		if (translation == null) {
-			if (other.translation != null)
+		if (answer == null) {
+			if (other.answer != null)
 				return false;
-		} else if (!translation.equals(other.translation))
+		} else if (!answer.equals(other.answer))
 			return false;
 		if (value == null) {
 			if (other.value != null)
@@ -73,7 +73,7 @@ public class Question implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Question [value=" + value + ", translation=" + translation + "]";
+		return "Question [value=" + value + ", answer=" + answer + "]";
 	}
 	
 	

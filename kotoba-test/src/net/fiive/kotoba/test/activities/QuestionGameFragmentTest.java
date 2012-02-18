@@ -3,7 +3,7 @@ package net.fiive.kotoba.test.activities;
 import junit.framework.Assert;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
-import net.fiive.kotoba.activities.QuestionGameFragment;
+import net.fiive.kotoba.activities.game.QuestionGameFragment;
 import net.fiive.kotoba.domain.Question;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,9 +17,9 @@ public class QuestionGameFragmentTest extends
 
 	private MainActivity activity;
 	private TextView valueLabel;
-	private TextView translationLabel;
-	private Button nextWordButton;
-	private Button showTranslationButton;
+	private TextView answerLabel;
+	private Button nextQuestionButton;
+	private Button showAnswerButton;
 	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see answer";
 
 	public QuestionGameFragmentTest() {
@@ -32,16 +32,13 @@ public class QuestionGameFragmentTest extends
 		startActivity(new Intent(getInstrumentation().getTargetContext(), MainActivity.class), null, null );
 		activity = this.getActivity();
 		valueLabel = (TextView) activity.findViewById(R.id.questionLabel);
-		translationLabel = (TextView) activity
+		answerLabel = (TextView) activity
 				.findViewById(R.id.answerLabel);
-		nextWordButton = (Button) activity.findViewById(R.id.nextQuestionButton);
-		showTranslationButton = (Button) activity
+		nextQuestionButton = (Button) activity.findViewById(R.id.nextQuestionButton);
+		showAnswerButton = (Button) activity
 				.findViewById(R.id.showAnswerButton);
 	
 		QuestionGameFragment questionGameFragment = getFragment();
-		
-		
-		questionGameFragment.setQuestionRepository(new QuestionRepositoryStub());
 	}
 
 	private QuestionGameFragment getFragment() {
@@ -54,17 +51,17 @@ public class QuestionGameFragmentTest extends
 		final CharSequence firstWord = valueLabel.getText();
 		assertNotNull(firstWord);
 		
-		nextWordButton.performClick();
-		
-		assertEquals("Question", valueLabel.getText());
+		nextQuestionButton.performClick();
+		CharSequence secondWord = valueLabel.getText();
+		assertNotNull(firstWord);
+		assertFalse(secondWord.equals(firstWord));
+		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText());
 
-		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, translationLabel.getText());
-
-		showTranslationButton.performClick();
-		assertEquals("Wort", translationLabel.getText());
-		nextWordButton.performClick();
-		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, translationLabel.getText());
-		assertEquals( "Work", valueLabel.getText() );
+		showAnswerButton.performClick();
+		assertFalse(CLICK_HERE_TO_SEE_ANSWER_TEXT.equals(answerLabel.getText()));
+		nextQuestionButton.performClick();
+		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText());
+		assertNotNull(valueLabel.getText());
 	}
 	
 	
@@ -83,15 +80,16 @@ public class QuestionGameFragmentTest extends
 	}
 	
 	public void testShouldSaveBundle() throws Exception {
-		nextWordButton.performClick();
-		showTranslationButton.performClick();
+		nextQuestionButton.performClick();
+		showAnswerButton.performClick();
 		
 		Bundle fragmentBundle = new Bundle();
 		QuestionGameFragment fragment = getFragment();
 		fragment.onSaveInstanceState(fragmentBundle);
 		
 		Question question = (Question) fragmentBundle.get("currentQuestion");
-		assertEquals( question.getValue(), "Question");
+		assertNotNull(question);
+		assertNotNull(question.getValue());
 		
 		Assert.assertTrue(fragmentBundle.getBoolean("answerIsShown"));
 		

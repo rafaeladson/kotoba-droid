@@ -1,8 +1,11 @@
-package net.fiive.kotoba.activities;
+package net.fiive.kotoba.activities.game;
 
+
+import net.fiive.intern.random.CircularItemCursor;
+import net.fiive.intern.random.RandomIterator;
 import net.fiive.kotoba.R;
+import net.fiive.kotoba.dao.QuestionDAO;
 import net.fiive.kotoba.domain.Question;
-import net.fiive.kotoba.domain.QuestionRepository;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,10 +20,16 @@ public class QuestionGameFragment extends Fragment {
 	private static final String CURRENT_QUESTION_KEY = "currentQuestion";
 	private TextView questionLabel;
 	private TextView answerLabel;
-	private QuestionRepository questionRepository = new QuestionRepository();
-	private Question currentQuestion;
+
 	private boolean answerIsShown = false;
 
+	private CircularItemCursor<Question> cursor;
+	private Question currentQuestion;
+
+	public QuestionGameFragment() {
+		super();
+		cursor = new CircularItemCursor<Question>(new RandomIterator.Builder<Question>(new QuestionDAO()));
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -36,7 +45,7 @@ public class QuestionGameFragment extends Fragment {
 				clearAnswer();
 			}
 		} else {
-			showNextWord();
+			showNextQuestion();
 		}
 
 	}
@@ -55,14 +64,14 @@ public class QuestionGameFragment extends Fragment {
 			}
 		});
 		
-		Button nextWordButton = (Button) wordGameView.findViewById(R.id.nextQuestionButton);
-		nextWordButton.setOnClickListener(new Button.OnClickListener() {
+		Button nextQuestionButton = (Button) wordGameView.findViewById(R.id.nextQuestionButton);
+		nextQuestionButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
-				showNextWord();
+				showNextQuestion();
 			}
 		});
-		Button showTranslationButton = (Button) wordGameView.findViewById(R.id.showAnswerButton);
-		showTranslationButton.setOnClickListener(new Button.OnClickListener() {
+		Button showAnswerButton = (Button) wordGameView.findViewById(R.id.showAnswerButton);
+		showAnswerButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				showAnswer();
 			}
@@ -74,31 +83,22 @@ public class QuestionGameFragment extends Fragment {
 	}
 	
 	
-	public void showNextWord() {
-		currentQuestion = questionRepository.getRandomWord();
+	public void showNextQuestion() {
+		cursor.goToNext();
+		currentQuestion = cursor.getCurrent();
 		questionLabel.setText(currentQuestion.getValue());
 		clearAnswer();
 	}
 
+
+
 	public void showAnswer() {
 		assert (currentQuestion != null);
-		answerLabel.setText(currentQuestion.getTranslation());
+		answerLabel.setText(currentQuestion.getAnswer());
 		answerIsShown = true;
 
 	}
 
-	public void setQuestionRepository(QuestionRepository questionRepository) {
-		this.questionRepository = questionRepository;
-	}
-
-	public Question getCurrentQuestion() {
-		return currentQuestion;
-	}
-
-	public void setCurrentQuestion(Question currentQuestion) {
-		this.currentQuestion = currentQuestion;
-	}
-	
 	private void clearAnswer() {
 		answerLabel.setText(R.string.click_here_to_see_answer);
 		answerIsShown = false;
@@ -112,6 +112,5 @@ public class QuestionGameFragment extends Fragment {
 		outState.putBoolean(ANSWER_IS_SHOWN_KEY, answerIsShown);
 	}
 
-	
-	
+
 }
