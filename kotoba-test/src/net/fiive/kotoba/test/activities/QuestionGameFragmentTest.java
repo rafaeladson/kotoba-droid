@@ -4,6 +4,7 @@ import junit.framework.Assert;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.activities.game.QuestionGameFragment;
+import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.domain.Question;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,8 +38,6 @@ public class QuestionGameFragmentTest extends
 		nextQuestionButton = (Button) activity.findViewById(R.id.nextQuestionButton);
 		showAnswerButton = (Button) activity
 				.findViewById(R.id.showAnswerButton);
-	
-		QuestionGameFragment questionGameFragment = getFragment();
 	}
 
 	private QuestionGameFragment getFragment() {
@@ -62,6 +61,13 @@ public class QuestionGameFragmentTest extends
 		nextQuestionButton.performClick();
 		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText());
 		assertNotNull(valueLabel.getText());
+	}
+
+	public void testClickOnAnswerTestViewDoesShowAnswer() throws Exception {
+		nextQuestionButton.performClick();
+		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText());
+		answerLabel.performClick();
+		assertFalse(CLICK_HERE_TO_SEE_ANSWER_TEXT.equals(answerLabel.getText()));
 	}
 	
 	
@@ -94,6 +100,12 @@ public class QuestionGameFragmentTest extends
 		Assert.assertTrue(fragmentBundle.getBoolean("answerIsShown"));
 		
 		
+	}
+
+	public void testShouldDispatchIntentToListWhenIClickOnMenu() throws Exception {
+		getInstrumentation().invokeMenuActionSync(activity, R.id.manage_questions_menu,0);
+		Intent manageQuestionsIntent = getStartedActivityIntent();
+		Assert.assertEquals(QuestionListActivity.MANAGE_QUESTIONS_ACTION, manageQuestionsIntent.getAction());
 	}
 
 }

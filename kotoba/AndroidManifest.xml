@@ -24,9 +24,10 @@
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="net.fiive.kotoba.EDIT_QUESTION"/>
+                <action android:name="net.fiive.kotoba.ADD_QUESTION" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.questionEdit.QuestionEditFragment"/>
+
 
     </application>
 </manifest>

@@ -5,7 +5,7 @@
               android:layout_height="fill_parent">
 
     <fragment class="net.fiive.kotoba.activities.questionEdit.QuestionEditFragment"
-                android:id="@+id/questionListFragment"
+                android:id="@+id/question_edit_fragment"
                 android:layout_width="match_parent" android:layout_height="match_parent" />
 
 </LinearLayout>
