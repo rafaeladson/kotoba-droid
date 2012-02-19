@@ -1,21 +1,21 @@
 package net.fiive.kotoba.activities.game;
 
 
+import android.content.Intent;
+import android.view.*;
 import net.fiive.intern.random.CircularItemCursor;
 import net.fiive.intern.random.RandomIterator;
 import net.fiive.kotoba.R;
+import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.dao.QuestionDAO;
 import net.fiive.kotoba.domain.Question;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class QuestionGameFragment extends Fragment {
-	
+
 	private static final String ANSWER_IS_SHOWN_KEY = "answerIsShown";
 	private static final String CURRENT_QUESTION_KEY = "currentQuestion";
 	private TextView questionLabel;
@@ -34,7 +34,7 @@ public class QuestionGameFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
+
 
 		if (savedInstanceState != null) {
 			currentQuestion = (Question) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
@@ -49,12 +49,12 @@ public class QuestionGameFragment extends Fragment {
 		}
 
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+				 Bundle savedInstanceState) {
 		View wordGameView = inflater.inflate(R.layout.question_game, container);
-		
+
 		questionLabel = (TextView) wordGameView.findViewById(R.id.questionLabel);
 		answerLabel = (TextView) wordGameView.findViewById(R.id.answerLabel);
 		answerLabel.setOnClickListener(new Button.OnClickListener() {
@@ -63,7 +63,7 @@ public class QuestionGameFragment extends Fragment {
 				showAnswer();
 			}
 		});
-		
+
 		Button nextQuestionButton = (Button) wordGameView.findViewById(R.id.nextQuestionButton);
 		nextQuestionButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
@@ -77,19 +77,18 @@ public class QuestionGameFragment extends Fragment {
 			}
 
 		});
-		
-		
+
+
 		return wordGameView;
 	}
-	
-	
+
+
 	public void showNextQuestion() {
 		cursor.goToNext();
 		currentQuestion = cursor.getCurrent();
 		questionLabel.setText(currentQuestion.getValue());
 		clearAnswer();
 	}
-
 
 
 	public void showAnswer() {
@@ -113,4 +112,24 @@ public class QuestionGameFragment extends Fragment {
 	}
 
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.question_game, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.manage_questions_menu:
+				manageQuestions();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void manageQuestions() {
+		Intent manageQuestionsIntent = new Intent(QuestionListActivity.MANAGE_QUESTIONS_ACTION);
+	}
 }
