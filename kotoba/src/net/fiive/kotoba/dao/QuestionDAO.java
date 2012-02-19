@@ -16,6 +16,10 @@ public class QuestionDAO implements RandomItemRepository<Question>{
 						 new Question( "私はべんごしじゃないです。私はインギニアです。", "I'm not a lawyer. I'm an engineer" ));
 	}
 
+	public Question findById(int id) {
+		return questions.get(id);
+	}
+
 	public List<Question> findAll() {
 		return Collections.unmodifiableList(questions);
 	}

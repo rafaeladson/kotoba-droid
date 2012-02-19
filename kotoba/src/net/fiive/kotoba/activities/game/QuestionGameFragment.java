@@ -118,18 +118,5 @@ public class QuestionGameFragment extends Fragment {
 		inflater.inflate(R.menu.question_game, menu);
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.manage_questions_menu:
-				manageQuestions();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
 
-	private void manageQuestions() {
-		Intent manageQuestionsIntent = new Intent(QuestionListActivity.MANAGE_QUESTIONS_ACTION);
-	}
 }
