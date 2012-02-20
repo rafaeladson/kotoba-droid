@@ -1,6 +1,7 @@
 package net.fiive.kotoba.activities.questionEdit;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import net.fiive.intern.android.view.validation.TextValidator;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.base.Constants;
@@ -21,11 +23,13 @@ import java.util.List;
 
 public class QuestionEditFragment extends Fragment {
 
-	private Long currentQuestionId;
+	private Question currentQuestion;
 	private boolean isEditing;
 	private DataService dataService;
 	private EditText valueText;
 	private EditText answerText;
+
+	private TextValidator validator;
 
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,20 +40,25 @@ public class QuestionEditFragment extends Fragment {
 
 		Intent intent = getActivity().getIntent();
 		initializeState(intent);
+		this.validator = new TextValidator(this.getActivity().getApplicationContext());
 
 
 	}
 
 	private void initializeState(Intent intent) {
 		if (intent.getAction().equals(QuestionEditActivity.ADD_QUESTION_ACTION)) {
-			currentQuestionId = null;
+			currentQuestion = new Question();
 			isEditing = false;
 			Log.i(Constants.LOG_TAG, "Editing a new question");
 		} else if (intent.getAction().equals(QuestionEditActivity.EDIT_QUESTION_ACTION)) {
 			isEditing = true;
 			Uri data = intent.getData();
 			List<String> pathSegments = data.getPathSegments();
-			currentQuestionId = Long.parseLong(pathSegments.get(pathSegments.size() - 1));
+			Long currentQuestionId = Long.parseLong(pathSegments.get(pathSegments.size() - 1));
+			currentQuestion = dataService.findQuestionById(currentQuestionId);
+			if ( currentQuestion == null ) {
+				throw new IllegalStateException("Error: Current question is null");
+			}
 		} else {
 			throw new IllegalArgumentException("Error: activity was started with incompatible intent");
 		}
@@ -85,21 +94,16 @@ public class QuestionEditFragment extends Fragment {
 	private void saveCurrentQuestion() {
 		String questionValue = valueText.getText().toString();
 		String answer = answerText.getText().toString();
-		Question question;
-		if (isEditing) {
-			question = dataService.findQuestionById(currentQuestionId);
-			if ( question != null ) {
-			question.setValue(questionValue);
-			question.setAnswer(answer);
-			} else {
-				throw new IllegalStateException("Error: could not find current question on database");
-			}
-		} else {
-			question = new Question(questionValue, answer);
-		}
 
-		dataService.saveOrUpdateQuestion(question);
-		goBack();
+		Resources resources = getResources();
+
+		if ( validator.validateTextIsFilled(questionValue, resources.getString(R.string.must_type_question)) &&
+			     validator.validateTextIsFilled(answer, resources.getString(R.string.must_type_answer))) {
+			currentQuestion.setValue(questionValue);
+			currentQuestion.setAnswer(answer);
+			dataService.saveOrUpdateQuestion(currentQuestion);
+			goBack();
+		}
 	}
 
 

@@ -58,21 +58,21 @@ public final class R {
     }
     public static final class string {
         public static final int add=0x7f040011;
-        public static final int alert_title=0x7f040012;
         public static final int answer=0x7f04000d;
         public static final int app_name=0x7f040001;
         public static final int cancel=0x7f04000f;
         public static final int click_here_to_see_answer=0x7f040007;
-        public static final int continue_string=0x7f040013;
         public static final int edit=0x7f040009;
         public static final int edit_words=0x7f040008;
         public static final int hello=0x7f040000;
         public static final int how_do_i_use_kotoba_answer=0x7f040006;
         public static final int how_do_i_use_kotoba_question=0x7f040005;
         public static final int manage_questions=0x7f04000a;
+        public static final int must_type_answer=0x7f040014;
+        public static final int must_type_question=0x7f040013;
         public static final int next_question=0x7f040002;
         public static final int next_word=0x7f040015;
-        public static final int no_items_on_list=0x7f040014;
+        public static final int no_items_on_list=0x7f040012;
         public static final int question=0x7f04000c;
         public static final int remove=0x7f040010;
         public static final int sample=0x7f04000b;

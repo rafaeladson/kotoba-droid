@@ -14,10 +14,12 @@ public class Question implements Serializable {
 	private String answer;
 
 
+	public Question() {
 
-	public Question( @Nullable Long id, String value, String answer) {
-		Preconditions.checkNotNull(value, "Value cannot be null");
-		Preconditions.checkNotNull(answer, "Answer cannot be null");
+	}
+
+
+	public Question(Long id, String value, String answer) {
 		this.id = id;
 		this.value = value;
 		this.answer = answer;
