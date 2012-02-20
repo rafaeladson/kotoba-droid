@@ -4,24 +4,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import com.google.common.base.Preconditions;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
-import net.fiive.kotoba.data.dao.QuestionDAO;
+import net.fiive.kotoba.data.dao.DataService;
+import net.fiive.kotoba.data.table.QuestionTable;
 
 public class QuestionListFragment extends ListFragment {
-
-	private QuestionDAO questionDAO = new QuestionDAO();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setListAdapter(new QuestionListAdapter(this.getActivity().getApplicationContext(), questionDAO.findAll()));
+
+		DataService dataService = new DataService(getActivity().getApplicationContext());
+		CursorAdapter questionListAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.question_list_item, dataService.cursorForFindAll(),
+			new String[] {QuestionTable.Columns.VALUE}, new int[] {R.id.questionListItemValue });
+		this.setListAdapter(questionListAdapter);
 		this.setHasOptionsMenu(true);
 	}
 

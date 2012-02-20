@@ -20,4 +20,5 @@
     <string name="add">Add</string>
     <string name="alert_title">Alert!</string>
     <string name="continue_string">Continue</string>
+    <string name="no_items_on_list">There are no items on the list.\nIf you want to add some, please click on the Add button on the menu.</string>
 </resources>

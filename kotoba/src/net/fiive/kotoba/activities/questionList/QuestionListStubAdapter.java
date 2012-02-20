@@ -11,12 +11,12 @@ import net.fiive.kotoba.domain.Question;
 
 import java.util.List;
 
-public class QuestionListAdapter extends BaseAdapter {
+public class QuestionListStubAdapter extends BaseAdapter {
 
 	private final List<Question> questions;
 	private final Context context;
 
-	public QuestionListAdapter(Context context, List<Question> questions) {
+	public QuestionListStubAdapter(Context context, List<Question> questions) {
 		this.questions = questions;
 		this.context = context;
 	}

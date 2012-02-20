@@ -3,7 +3,7 @@ package net.fiive.kotoba.test.data.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import net.fiive.intern.data.OpenHelper;
+import net.fiive.intern.android.data.OpenHelper;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.data.migration.M00_001_CreateQuestion;
 import net.fiive.kotoba.data.table.QuestionTable;

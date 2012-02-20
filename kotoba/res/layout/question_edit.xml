@@ -12,11 +12,13 @@
             android:textAppearance="@style/titleFont"/>
 
     <EditText
-            android:id="@+id/edit_question_value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:inputType="textMultiLine">
+        android:id="@+id/edit_question_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:gravity="top"
+        android:inputType="textLongMessage" >
+
         <requestFocus/>
     </EditText>
 
@@ -31,6 +33,7 @@
             android:id="@+id/edit_question_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="top"
             android:layout_weight="0.7"
             android:inputType="textMultiLine"/>
 

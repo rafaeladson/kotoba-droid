@@ -7,7 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import net.fiive.intern.data.OpenHelper;
+import net.fiive.intern.android.data.OpenHelper;
 import net.fiive.kotoba.base.Constants;
 import net.fiive.kotoba.data.exceptions.DataOperationFailedException;
 import net.fiive.kotoba.data.migration.M00_001_CreateQuestion;

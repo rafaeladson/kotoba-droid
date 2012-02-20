@@ -43,14 +43,14 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 			assertEquals(".activities.MainActivity", goToHomeIntent.getComponent().getShortClassName());
 		}
 	}
-//
+
 	public void testUserClicksCancelButton() {
 		Button cancelButton = (Button)this.getActivity().findViewById(R.id.cancel_edit_question);
 		cancelButton.performClick();
 		Intent backIntent = getStartedActivityIntent();
 		assertEquals(".activities.questionList.QuestionListActivity", backIntent.getComponent().getShortClassName());
 	}
-//
+
 	public void testUserSaveNewQuestion() {
 		EditText valueText = (EditText) this.getActivity().findViewById(R.id.edit_question_value);
 		valueText.setText("foo");

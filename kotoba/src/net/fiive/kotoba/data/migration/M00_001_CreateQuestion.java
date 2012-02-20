@@ -1,10 +1,10 @@
 package net.fiive.kotoba.data.migration;
 
 import android.database.sqlite.SQLiteDatabase;
-import net.fiive.intern.data.DatabaseMigration;
+import net.fiive.intern.android.data.DatabaseMigration;
 import net.fiive.kotoba.data.table.QuestionTable;
 
-public class M00_001_CreateQuestion implements DatabaseMigration{
+public class M00_001_CreateQuestion implements DatabaseMigration {
 
 
 	@Override
