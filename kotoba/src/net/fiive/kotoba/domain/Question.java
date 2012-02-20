@@ -14,6 +14,7 @@ public class Question implements Serializable {
 	private String answer;
 
 
+
 	public Question( @Nullable Long id, String value, String answer) {
 		Preconditions.checkNotNull(value, "Value cannot be null");
 		Preconditions.checkNotNull(answer, "Answer cannot be null");

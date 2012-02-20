@@ -7,12 +7,12 @@ import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListFragment;
 
-public class EditWordIntegrationTest extends ActivityInstrumentationTestCase2<QuestionListActivity> {
+public class EditQuestionIntegrationTest extends ActivityInstrumentationTestCase2<QuestionListActivity> {
 
 
 	private Solo solo;
 
-	public EditWordIntegrationTest() {
+	public EditQuestionIntegrationTest() {
 		super("net.fiive.kotoba.activities", QuestionListActivity.class);
 	}
 
