@@ -1,6 +1,5 @@
 package net.fiive.kotoba.test.activities;
 
-import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import com.jayway.android.robotium.solo.Solo;
 import net.fiive.kotoba.R;

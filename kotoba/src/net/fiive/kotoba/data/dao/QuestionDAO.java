@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.provider.BaseColumns;
 import com.google.common.base.Preconditions;
-import net.fiive.intern.random.RandomItemRepository;
 import net.fiive.kotoba.data.table.QuestionTable;
 import net.fiive.kotoba.domain.Question;
 

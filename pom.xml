@@ -15,7 +15,6 @@
 
     <modules>
         <module>kotoba</module>
-	<module>kotoba-testng</module>
         <module>kotoba-test</module>
     </modules>
 

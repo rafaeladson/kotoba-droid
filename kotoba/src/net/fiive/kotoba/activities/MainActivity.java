@@ -6,9 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import net.fiive.kotoba.R;
-import net.fiive.kotoba.activities.game.QuestionGameFragment;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
-import net.fiive.kotoba.activities.questionList.QuestionListAdapter;
 
 public class MainActivity extends FragmentActivity {
 
