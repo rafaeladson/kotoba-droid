@@ -32,7 +32,6 @@
             <groupId>net.fiive.intern</groupId>
             <artifactId>android</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>

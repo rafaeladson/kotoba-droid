@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import net.fiive.intern.android.view.alerts.ErrorAlertInfo;
 import net.fiive.intern.android.view.validation.TextValidator;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
@@ -40,7 +41,7 @@ public class QuestionEditFragment extends Fragment {
 
 		Intent intent = getActivity().getIntent();
 		initializeState(intent);
-		this.validator = new TextValidator(this.getActivity().getApplicationContext());
+		this.validator = new TextValidator(this.getActivity());
 
 
 	}
@@ -96,9 +97,13 @@ public class QuestionEditFragment extends Fragment {
 		String answer = answerText.getText().toString();
 
 		Resources resources = getResources();
+		String alertTitle = resources.getString(R.string.alert_title);
+		String continueButtonLabel = resources.getString(R.string.continue_button_label);
+		String mustTypeQuestionMessage = resources.getString(R.string.must_type_question);
+		String mustTypeAnswerMessage = resources.getString(R.string.must_type_answer);
 
-		if ( validator.validateTextIsFilled(questionValue, resources.getString(R.string.must_type_question)) &&
-			     validator.validateTextIsFilled(answer, resources.getString(R.string.must_type_answer))) {
+		if ( validator.validateTextIsFilled(questionValue, new ErrorAlertInfo(alertTitle, mustTypeQuestionMessage, continueButtonLabel)) &&
+			     validator.validateTextIsFilled(answer, new ErrorAlertInfo(alertTitle, mustTypeAnswerMessage, continueButtonLabel))) {
 			currentQuestion.setValue(questionValue);
 			currentQuestion.setAnswer(answer);
 			dataService.saveOrUpdateQuestion(currentQuestion);
