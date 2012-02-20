@@ -35,26 +35,5 @@ public class QuestionListFragment extends ListFragment {
 		startActivity(editQuestionIntent);
 	}
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.question_list, menu);
-		super.onCreateOptionsMenu(menu, inflater);
-	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch( item.getItemId()) {
-			case R.id.add_question_menu:
-				addNewQuestion();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-
-	}
-
-	private void addNewQuestion() {
-		Intent addQuestionIntent = new Intent(QuestionEditActivity.ADD_QUESTION_ACTION, Uri.parse("kotoba://kotoba.fiive.net/question/new"));
-		startActivity(addQuestionIntent);
-	}
 }

@@ -38,7 +38,7 @@ public class QuestionListFragmentTest extends ActivityUnitTestCase<QuestionListA
 
 	public void testShouldDispatchIntentWhenUserClicksOnNewQuestionMenu() {
 		MenuItem item = new MenuItemStub(R.id.add_question_menu);
-		getFragment().onOptionsItemSelected(item);
+		activity.onOptionsItemSelected(item);
 		Intent addQuestionIntent = this.getStartedActivityIntent();
 		assertEquals(QuestionEditActivity.ADD_QUESTION_ACTION, addQuestionIntent.getAction());
 		assertEquals("kotoba://kotoba.fiive.net/question/new", addQuestionIntent.getDataString());
