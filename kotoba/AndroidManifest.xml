@@ -25,6 +25,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="net.fiive.kotoba.EDIT_QUESTION"/>
                 <action android:name="net.fiive.kotoba.ADD_QUESTION" />
+                <data android:scheme="kotoba" android:host="kotoba.fiive.net" />
             </intent-filter>
         </activity>
 

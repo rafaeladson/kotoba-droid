@@ -30,7 +30,7 @@ public class QuestionListFragment extends ListFragment {
 		Preconditions.checkNotNull(id, "Id should not be null");
 		super.onListItemClick(l, v, position, id);
 
-		String uriValue = String.format("kotoba://kotoba.fiive.net/edit_question/%d", id);
+		String uriValue = String.format("kotoba://kotoba.fiive.net/question/%d", id);
 		Intent editQuestionIntent = new Intent(QuestionEditActivity.EDIT_QUESTION_ACTION, Uri.parse(uriValue));
 		startActivity(editQuestionIntent);
 	}
@@ -54,7 +54,7 @@ public class QuestionListFragment extends ListFragment {
 	}
 
 	private void addNewQuestion() {
-		Intent addQuestionIntent = new Intent(QuestionEditActivity.ADD_QUESTION_ACTION);
+		Intent addQuestionIntent = new Intent(QuestionEditActivity.ADD_QUESTION_ACTION, Uri.parse("kotoba://kotoba.fiive.net/question/new"));
 		startActivity(addQuestionIntent);
 	}
 }

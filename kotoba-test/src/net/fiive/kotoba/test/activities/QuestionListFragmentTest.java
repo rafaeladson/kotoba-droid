@@ -32,7 +32,7 @@ public class QuestionListFragmentTest extends ActivityUnitTestCase<QuestionListA
 		fragment.onListItemClick(fragment.getListView(), null, 0, 0);
 		Intent editQuestionIntent = this.getStartedActivityIntent();
 		assertEquals(QuestionEditActivity.EDIT_QUESTION_ACTION, editQuestionIntent.getAction());
-		assertEquals("kotoba://kotoba.fiive.net/edit_question/0", editQuestionIntent.getDataString());
+		assertEquals("kotoba://kotoba.fiive.net/question/0", editQuestionIntent.getDataString());
 	}
 
 
@@ -41,7 +41,7 @@ public class QuestionListFragmentTest extends ActivityUnitTestCase<QuestionListA
 		getFragment().onOptionsItemSelected(item);
 		Intent addQuestionIntent = this.getStartedActivityIntent();
 		assertEquals(QuestionEditActivity.ADD_QUESTION_ACTION, addQuestionIntent.getAction());
-		assertNull(addQuestionIntent.getData());
+		assertEquals("kotoba://kotoba.fiive.net/question/new", addQuestionIntent.getDataString());
 	}
 
 	private QuestionListFragment getFragment() {

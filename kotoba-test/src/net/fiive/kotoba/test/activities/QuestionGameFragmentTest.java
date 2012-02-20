@@ -1,5 +1,6 @@
 package net.fiive.kotoba.test.activities;
 
+import android.view.MenuItem;
 import junit.framework.Assert;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
@@ -98,12 +99,11 @@ public class QuestionGameFragmentTest extends
 		assertNotNull(question.getValue());
 		
 		Assert.assertTrue(fragmentBundle.getBoolean("answerIsShown"));
-		
-		
 	}
 
 	public void testShouldDispatchIntentToListWhenIClickOnMenu() throws Exception {
-		getInstrumentation().invokeMenuActionSync(activity, R.id.manage_questions_menu,0);
+		MenuItem menuItem = new MenuItemStub(R.id.manage_questions_menu);
+		activity.onOptionsItemSelected(menuItem);
 		Intent manageQuestionsIntent = getStartedActivityIntent();
 		Assert.assertEquals(QuestionListActivity.MANAGE_QUESTIONS_ACTION, manageQuestionsIntent.getAction());
 	}
