@@ -1,16 +1,17 @@
 package net.fiive.kotoba.activities.game;
 
 
-import android.view.*;
-import net.fiive.intern.random.CircularItemCursor;
-import net.fiive.intern.random.RandomIterator;
-import net.fiive.kotoba.R;
-import net.fiive.kotoba.data.dao.QuestionDAO;
-import net.fiive.kotoba.domain.Question;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.*;
 import android.widget.Button;
 import android.widget.TextView;
+import net.fiive.intern.random.CircularItemCursor;
+import net.fiive.kotoba.R;
+import net.fiive.kotoba.data.dao.DataService;
+import net.fiive.kotoba.domain.Question;
+
+import java.util.List;
 
 public class QuestionGameFragment extends Fragment {
 
@@ -21,17 +22,23 @@ public class QuestionGameFragment extends Fragment {
 
 	private boolean answerIsShown = false;
 
-	private CircularItemCursor<Question> cursor;
+	private CircularItemCursor<Long> cursor;
 	private Question currentQuestion;
+	private DataService dataService;
 
 	public QuestionGameFragment() {
 		super();
-		cursor = new CircularItemCursor<Question>(new RandomIterator.Builder<Question>(new QuestionDAO()));
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		dataService = new DataService(this.getActivity().getApplicationContext());
+
+		List<Long> questionIds = dataService.findAllQuestionIds();
+		if ( questionIds.size() > 0 ) {
+			cursor = new CircularItemCursor<Long>(questionIds);
+		}
 
 
 		if (savedInstanceState != null) {
@@ -82,17 +89,23 @@ public class QuestionGameFragment extends Fragment {
 
 
 	public void showNextQuestion() {
-		cursor.goToNext();
-		currentQuestion = cursor.getCurrent();
-		questionLabel.setText(currentQuestion.getValue());
+		if ( cursor != null ) {
+			cursor.goToNext();
+			currentQuestion = dataService.findQuestionById(cursor.getCurrent());
+			questionLabel.setText(currentQuestion.getValue());
+		}
 		clearAnswer();
 	}
 
 
 	public void showAnswer() {
-		assert (currentQuestion != null);
-		answerLabel.setText(currentQuestion.getAnswer());
+		if ( currentQuestion != null ) {
+			answerLabel.setText(currentQuestion.getAnswer());
+		} else {
+			answerLabel.setText(getResources().getText(R.string.how_do_i_use_kotoba_answer));
+		}
 		answerIsShown = true;
+
 
 	}
 
@@ -116,5 +129,19 @@ public class QuestionGameFragment extends Fragment {
 		inflater.inflate(R.menu.question_game, menu);
 	}
 
+	/**
+	 * DO NOT USE!! Only for use in tests!
+	 * @param currentQuestion a new value for current question
+	 */
+	public void setCurrentQuestion(Question currentQuestion) {
+		this.currentQuestion = currentQuestion;
+	}
 
+	/**
+	 * DO NOT USE!! Only for use in tests!!
+	 * @param cursor a new value for the cursor.
+	 */
+	public void setCursor(CircularItemCursor<Long> cursor) {
+		this.cursor = cursor;
+	}
 }

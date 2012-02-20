@@ -8,12 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import net.fiive.intern.data.OpenHelper;
-import net.fiive.intern.random.RandomItemRepository;
 import net.fiive.kotoba.base.Constants;
 import net.fiive.kotoba.data.exceptions.DataOperationFailedException;
 import net.fiive.kotoba.data.migration.M00_001_CreateQuestion;
 import net.fiive.kotoba.domain.Question;
 
+import java.util.List;
 
 
 public class DataService {
@@ -41,9 +41,15 @@ public class DataService {
 		}
 	}
 
-	public RandomItemRepository<Question> getRandomQuestionRepository() {
-		return null;
+	public List<Long> findAllQuestionIds() {
+		try {
+			return questionDAO.findAllIds();
+		} catch( SQLException sqlException) {
+			Log.e( Constants.LOG_TAG, "Error fetching all ids", sqlException);
+			throw new DataOperationFailedException(sqlException.getMessage());
+		}
 	}
+
 
 	public Question findQuestionById(Long id) {
 		try {

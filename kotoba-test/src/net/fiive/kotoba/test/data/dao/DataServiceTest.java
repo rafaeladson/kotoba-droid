@@ -13,6 +13,8 @@ import net.fiive.kotoba.data.migration.M00_001_CreateQuestion;
 import net.fiive.kotoba.data.table.QuestionTable;
 import net.fiive.kotoba.domain.Question;
 
+import java.util.List;
+
 public class DataServiceTest extends ActivityUnitTestCase<MainActivity> {
 
 	private DataService dataService;
@@ -29,7 +31,7 @@ public class DataServiceTest extends ActivityUnitTestCase<MainActivity> {
 		getActivity();
 		this.dataService = new DataService(getInstrumentation().getTargetContext());
 
-		cleanDatabase();
+		new DatabaseCleaner().cleanDatabase(getInstrumentation().getTargetContext());
 	}
 
 	public void testQuestionLifecycle() {
@@ -72,12 +74,19 @@ public class DataServiceTest extends ActivityUnitTestCase<MainActivity> {
 		}
 	}
 
-	private void cleanDatabase() {
-		SQLiteOpenHelper openHelper = new OpenHelper(getInstrumentation().getTargetContext(), DataService.DATABASE_NAME, DataService.DATABASE_VERSION, new M00_001_CreateQuestion());
-		SQLiteDatabase database = openHelper.getWritableDatabase();
-		database.delete(QuestionTable.TABLE_NAME, null, null);
+	public void testFindAllQuestionIds() {
+		Question questionA = new Question("foo", "bar");
+		questionA = this.dataService.saveOrUpdateQuestion(questionA);
+		Question questionB = new Question("bar", "foo");
+		questionB = dataService.saveOrUpdateQuestion(questionB);
 
+		List<Long> allQuestionIds = dataService.findAllQuestionIds();
+		assertEquals(2, allQuestionIds.size());
+		assertEquals( questionA.getId(), allQuestionIds.get(0));
+		assertEquals( questionB.getId(), allQuestionIds.get(1));
 	}
+
+
 
 
 }

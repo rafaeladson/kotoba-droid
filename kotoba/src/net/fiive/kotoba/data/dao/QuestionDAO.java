@@ -10,11 +10,12 @@ import net.fiive.intern.random.RandomItemRepository;
 import net.fiive.kotoba.data.table.QuestionTable;
 import net.fiive.kotoba.domain.Question;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class QuestionDAO implements RandomItemRepository<Question>{
+public class QuestionDAO {
 
 	private final List<Question> questions;
 	private SQLiteDatabase database;
@@ -57,11 +58,23 @@ public class QuestionDAO implements RandomItemRepository<Question>{
 					     null, null, null, null, QuestionTable.Columns._ID, null);
 	}
 
+	public List<Long> findAllIds() {
+		List<Long> allIds = new ArrayList<Long>();
+		Cursor cursor = database.query(QuestionTable.TABLE_NAME, new String[] { QuestionTable.Columns._ID}, null, null, null, null, QuestionTable.Columns._ID, null);
+		if ( cursor.moveToFirst()) {
+			do {
+				allIds.add(cursor.getLong(0));
+			} while( cursor.moveToNext());
+		}
 
-	@Override
-	public List<Question> findUpToNItems(int n) {
-		return Collections.unmodifiableList(questions);
+		if ( !cursor.isClosed()) {
+			cursor.close();
+		}
+
+		return allIds;
 	}
+
+
 
 	public Question saveOrUpdate(Question question) {
 		Preconditions.checkNotNull(question);
