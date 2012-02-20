@@ -89,6 +89,12 @@ public class QuestionEditFragment extends Fragment {
 		valueText = (EditText) editQuestionView.findViewById(R.id.edit_question_value);
 		answerText = (EditText) editQuestionView.findViewById(R.id.edit_question_answer);
 
+			valueText.setText(currentQuestion.getValue());
+
+			answerText.setText(currentQuestion.getAnswer());
+
+
+
 		return editQuestionView;
 	}
 
