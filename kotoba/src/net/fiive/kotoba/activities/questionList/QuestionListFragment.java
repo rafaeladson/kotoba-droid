@@ -12,7 +12,7 @@ import android.widget.ListView;
 import com.google.common.base.Preconditions;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
-import net.fiive.kotoba.dao.QuestionDAO;
+import net.fiive.kotoba.data.dao.QuestionDAO;
 
 public class QuestionListFragment extends ListFragment {
 

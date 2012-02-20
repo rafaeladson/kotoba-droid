@@ -1,21 +1,38 @@
 package net.fiive.kotoba.domain;
 
+import com.google.common.base.Preconditions;
+
+import javax.annotation.Nullable;
 import java.io.Serializable;
 
 public class Question implements Serializable {
 
 	private static final long serialVersionUID = -7612746857877036642L;
-	
+
+	private Long id;
 	private String value;
 	private String answer;
-	
-	
-	public Question(String value, String answer) {
-		super();
+
+
+	public Question( @Nullable Long id, String value, String answer) {
+		Preconditions.checkNotNull(value, "Value cannot be null");
+		Preconditions.checkNotNull(answer, "Answer cannot be null");
+		this.id = id;
 		this.value = value;
 		this.answer = answer;
 	}
+	
+	public Question(String value, String answer) {
+		this(null, value, answer);
+	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getValue() {
 		return value;

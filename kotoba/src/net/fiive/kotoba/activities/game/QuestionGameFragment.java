@@ -1,13 +1,11 @@
 package net.fiive.kotoba.activities.game;
 
 
-import android.content.Intent;
 import android.view.*;
 import net.fiive.intern.random.CircularItemCursor;
 import net.fiive.intern.random.RandomIterator;
 import net.fiive.kotoba.R;
-import net.fiive.kotoba.activities.questionList.QuestionListActivity;
-import net.fiive.kotoba.dao.QuestionDAO;
+import net.fiive.kotoba.data.dao.QuestionDAO;
 import net.fiive.kotoba.domain.Question;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
