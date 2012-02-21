@@ -13,6 +13,7 @@ import net.fiive.kotoba.activities.game.QuestionGameFragment;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
+import net.fiive.kotoba.test.activities.stub.MenuItemStub;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
 
 public class QuestionGameFragmentTest extends

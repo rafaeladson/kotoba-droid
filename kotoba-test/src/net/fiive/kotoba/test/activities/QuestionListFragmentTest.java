@@ -10,6 +10,7 @@ import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListFragment;
+import net.fiive.kotoba.test.activities.stub.MenuItemStub;
 
 public class QuestionListFragmentTest extends ActivityUnitTestCase<QuestionListActivity> {
 

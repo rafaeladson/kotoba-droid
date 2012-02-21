@@ -4,14 +4,19 @@ package net.fiive.kotoba.test.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.test.ActivityUnitTestCase;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
+import net.fiive.kotoba.activities.questionEdit.QuestionEditFragment;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
+import net.fiive.kotoba.test.activities.stub.AlertHelperMock;
+import net.fiive.kotoba.test.activities.stub.MenuItemStub;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
 
 
@@ -19,6 +24,9 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 
 	private QuestionEditActivity activity;
 	private DataService dataService;
+
+	private EditText valueText;
+	private EditText answerText;
 
 
 	public QuestionEditNewFragmentTest() {
@@ -32,6 +40,11 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 		activity = getActivity();
 		new DatabaseCleaner().cleanDatabase(getInstrumentation().getTargetContext());
 		dataService = new DataService(getInstrumentation().getTargetContext());
+		FragmentManager fragmentManager = activity.getSupportFragmentManager();
+		QuestionEditFragment fragment = (QuestionEditFragment) fragmentManager.findFragmentById(R.id.question_edit_fragment);
+		fragment.onActivityCreated(null);
+		valueText = (EditText) this.getActivity().findViewById(R.id.edit_question_value);
+		answerText = (EditText) this.getActivity().findViewById(R.id.edit_question_answer);
 	}
 
 
@@ -52,9 +65,9 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 	}
 
 	public void testUserSaveNewQuestion() {
-		EditText valueText = (EditText) this.getActivity().findViewById(R.id.edit_question_value);
+
 		valueText.setText("foo");
-		EditText answerText = (EditText) this.getActivity().findViewById(R.id.edit_question_answer);
+
 		answerText.setText("bar");
 
 		Button saveButton = (Button) this.getActivity().findViewById(R.id.save_question);
@@ -64,5 +77,6 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 		assertEquals("foo", questionFromDb.getValue());
 		assertEquals("bar", questionFromDb.getAnswer());
 	}
+
 
 }

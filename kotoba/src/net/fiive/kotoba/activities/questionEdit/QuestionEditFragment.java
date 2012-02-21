@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import net.fiive.intern.android.view.alerts.AlertHelper;
 import net.fiive.intern.android.view.alerts.ErrorAlertInfo;
 import net.fiive.intern.android.view.validation.TextValidator;
 import net.fiive.kotoba.R;
@@ -23,6 +24,9 @@ import java.util.List;
 
 
 public class QuestionEditFragment extends Fragment {
+
+	public static final String QUESTION_BUNDLE_KEY = "currentQuestion";
+	public static final String IS_EDITING_BUNDLE_KEY = "isEditing";
 
 	private Question currentQuestion;
 	private boolean isEditing;
@@ -38,31 +42,8 @@ public class QuestionEditFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		this.setHasOptionsMenu(true);
 		dataService = new DataService(this.getActivity().getApplicationContext());
-
-		Intent intent = getActivity().getIntent();
-		initializeState(intent);
 		this.validator = new TextValidator(this.getActivity());
 
-
-	}
-
-	private void initializeState(Intent intent) {
-		if (intent.getAction().equals(QuestionEditActivity.ADD_QUESTION_ACTION)) {
-			currentQuestion = new Question();
-			isEditing = false;
-			Log.i(Constants.LOG_TAG, "Editing a new question");
-		} else if (intent.getAction().equals(QuestionEditActivity.EDIT_QUESTION_ACTION)) {
-			isEditing = true;
-			Uri data = intent.getData();
-			List<String> pathSegments = data.getPathSegments();
-			Long currentQuestionId = Long.parseLong(pathSegments.get(pathSegments.size() - 1));
-			currentQuestion = dataService.findQuestionById(currentQuestionId);
-			if ( currentQuestion == null ) {
-				throw new IllegalStateException("Error: Current question is null");
-			}
-		} else {
-			throw new IllegalArgumentException("Error: activity was started with incompatible intent");
-		}
 	}
 
 	@Override
@@ -77,6 +58,7 @@ public class QuestionEditFragment extends Fragment {
 			}
 		});
 
+
 		Button saveButton = (Button) editQuestionView.findViewById(R.id.save_question);
 		saveButton.setOnClickListener(new Button.OnClickListener() {
 
@@ -89,13 +71,33 @@ public class QuestionEditFragment extends Fragment {
 		valueText = (EditText) editQuestionView.findViewById(R.id.edit_question_value);
 		answerText = (EditText) editQuestionView.findViewById(R.id.edit_question_answer);
 
-			valueText.setText(currentQuestion.getValue());
-
-			answerText.setText(currentQuestion.getAnswer());
-
-
-
 		return editQuestionView;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		if (savedInstanceState != null && savedInstanceState.containsKey(QUESTION_BUNDLE_KEY) && savedInstanceState.containsKey(IS_EDITING_BUNDLE_KEY)) {
+			currentQuestion = (Question) savedInstanceState.getSerializable(QUESTION_BUNDLE_KEY);
+			isEditing = savedInstanceState.getBoolean(IS_EDITING_BUNDLE_KEY);
+		} else {
+			initializeState(getActivity().getIntent());
+		}
+
+		valueText.setText(currentQuestion.getValue());
+		answerText.setText(currentQuestion.getAnswer());
+
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putSerializable(QUESTION_BUNDLE_KEY, currentQuestion);
+		outState.putBoolean(IS_EDITING_BUNDLE_KEY, isEditing);
+	}
+
+	public void mockAlertHelper(AlertHelper helper) {
+		this.validator.mockAlertHelper(helper);
 	}
 
 	private void saveCurrentQuestion() {
@@ -108,8 +110,8 @@ public class QuestionEditFragment extends Fragment {
 		String mustTypeQuestionMessage = resources.getString(R.string.must_type_question);
 		String mustTypeAnswerMessage = resources.getString(R.string.must_type_answer);
 
-		if ( validator.validateTextIsFilled(questionValue, new ErrorAlertInfo(alertTitle, mustTypeQuestionMessage, continueButtonLabel)) &&
-			     validator.validateTextIsFilled(answer, new ErrorAlertInfo(alertTitle, mustTypeAnswerMessage, continueButtonLabel))) {
+		if (validator.validateTextIsFilled(questionValue, new ErrorAlertInfo(alertTitle, mustTypeQuestionMessage, continueButtonLabel)) &&
+			    validator.validateTextIsFilled(answer, new ErrorAlertInfo(alertTitle, mustTypeAnswerMessage, continueButtonLabel))) {
 			currentQuestion.setValue(questionValue);
 			currentQuestion.setAnswer(answer);
 			dataService.saveOrUpdateQuestion(currentQuestion);
@@ -122,5 +124,24 @@ public class QuestionEditFragment extends Fragment {
 		Intent intent = new Intent(this.getActivity(), QuestionListActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
+	}
+
+	private void initializeState(Intent intent) {
+		if (intent.getAction().equals(QuestionEditActivity.ADD_QUESTION_ACTION)) {
+			currentQuestion = new Question();
+			isEditing = false;
+			Log.i(Constants.LOG_TAG, "Editing a new question");
+		} else if (intent.getAction().equals(QuestionEditActivity.EDIT_QUESTION_ACTION)) {
+			isEditing = true;
+			Uri data = intent.getData();
+			List<String> pathSegments = data.getPathSegments();
+			Long currentQuestionId = Long.parseLong(pathSegments.get(pathSegments.size() - 1));
+			currentQuestion = dataService.findQuestionById(currentQuestionId);
+			if (currentQuestion == null) {
+				throw new IllegalStateException("Error: Current question is null");
+			}
+		} else {
+			throw new IllegalArgumentException("Error: activity was started with incompatible intent");
+		}
 	}
 }

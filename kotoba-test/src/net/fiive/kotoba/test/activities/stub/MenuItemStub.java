@@ -1,4 +1,4 @@
-package net.fiive.kotoba.test.activities;
+package net.fiive.kotoba.test.activities.stub;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 
-class MenuItemStub implements MenuItem {
+public class MenuItemStub implements MenuItem {
 	private int menuItemId;
 
 	public MenuItemStub(int menuItemId) {
