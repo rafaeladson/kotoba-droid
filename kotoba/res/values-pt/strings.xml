@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Kotoba</string>
-    <string name="next_word">Próximo</string>
-    <string name="show_answer">Resposta</string>
-    <string name="waiting_for_word">Esperando Palavra</string>
-    <string name="translation_asterisks">*******</string>
-</resources>

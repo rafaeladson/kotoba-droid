@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kotoba</string>
+    <string name="next_question">Próximo</string>
+    <string name="show_answer">Resposta</string>
+    <string name="how_do_i_use_kotoba_question">Como eu uso o Kotoba?</string>
+    <string name="how_do_i_use_kotoba_answer">Clique em Resposta para ver a resposta.\nClique Próximo para ver outra pergunta.\nClique em Gerenciar Perguntas no menupara adicionar ou remover
+        perguntas.</string>
+    <string name="click_here_to_see_answer">Aperte aqui para ver a resposta</string>
+    <string name="manage_questions">Gerenciar Perguntas</string>
+    <string name="question">Pergunta</string>
+    <string name="answer">Resposta</string>
+    <string name="save">Salvar</string>
+    <string name="ok">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="remove">Remover</string>
+    <string name="add">Adicionar</string>
+    <string name="no_items_on_list">Não existem itens na lista.\Para adicionar um item, clique em Adicionar no menu.</string>
+    <string name="must_type_question">Por favor digite uma pergunta.</string>
+    <string name="continue_button_label">Continuar</string>
+    <string name="alert_title">Aviso</string>
+    <string name="are_you_sure_you_want_to_remove_question">Tem certeza de que você quer remover essa pergunta?</string>
+    <string name="info">Informações</string>
+    <string name="help">Ajuda</string>
+    <string name="help_kotoba_text">Para usar o Kotoba:\n\t1. Vá para a tela inicial.\n\t2. Aperte Próximo para ver outra pergunta.\n\t3. Aperte Resposta para ver a resposta da pergunta atual.\n\t4.
+        Aperte Gerenciar Perguntas para adicionar, remover ou atualizar perguntas.</string>
+    <string name="copyright">Kotoba v0.1. Produzido em 2012 por Rafael Adson Barbosa Barros. Todos os direitos reservados.</string>
+
+</resources>

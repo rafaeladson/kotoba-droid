@@ -3,14 +3,10 @@
     <string name="app_name">Kotoba</string>
     <string name="next_question">Next</string>
     <string name="show_answer">Answer</string>
-    <string name="waiting_for_word">Waiting for Word</string>
     <string name="how_do_i_use_kotoba_question">How do I use Kotoba?</string>
-    <string name="how_do_i_use_kotoba_answer">Click Answer to see the answer.\nClick next to see next question.\nClick Manage Questions on the Menu to add and remove questions.</string>
+    <string name="how_do_i_use_kotoba_answer">Click Answer to see the answer.\nClick next to see another question.\nClick Manage Questions on the Menu to add and remove questions.</string>
     <string name="click_here_to_see_answer">Click here to see answer</string>
-    <string name="edit_words">Edit Words</string>
-    <string name="edit">Edit</string>
     <string name="manage_questions">Manage Questions</string>
-    <string name="sample">Sample Test</string>
     <string name="question">Question</string>
     <string name="answer">Answer</string>
     <string name="save">Save</string>
@@ -25,7 +21,7 @@
     <string name="are_you_sure_you_want_to_remove_question">Are you sure you want to remove this question?</string>
     <string name="info">Info</string>
     <string name="help">Help</string>
-    <string name="help_kotoba_text">To use Kotoba:\n\t1. Go to the Main Screen.\n\t2. Click Next to see the next question.\n\t3. Click Answer to see the answer to the current question.\n\t4. Click
+    <string name="help_kotoba_text">To use Kotoba:\n\t1. Go to the Main Screen.\n\t2. Click Next to see another question.\n\t3. Click Answer to see the answer to the current question.\n\t4. Click
         Manage Questions to add, remove or update questions.</string>
     <string name="copyright">Kotoba v0.1. Created in 2012 by Rafael Adson Barbosa Barros. All rights reserved.</string>
 
