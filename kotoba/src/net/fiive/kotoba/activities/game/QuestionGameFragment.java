@@ -25,6 +25,7 @@ public class QuestionGameFragment extends Fragment {
 	private CircularItemCursor<Long> cursor;
 	private Question currentQuestion;
 	private DataService dataService;
+	private List<Long> questionIds;
 
 	public QuestionGameFragment() {
 		super();
@@ -35,7 +36,7 @@ public class QuestionGameFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		dataService = new DataService(this.getActivity().getApplicationContext());
 
-		List<Long> questionIds = dataService.findAllQuestionIds();
+		questionIds = dataService.findAllQuestionIds();
 		if ( questionIds.size() > 0 ) {
 			cursor = new CircularItemCursor<Long>(questionIds);
 		}
@@ -87,6 +88,20 @@ public class QuestionGameFragment extends Fragment {
 		return wordGameView;
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		List<Long> questionIds = dataService.findAllQuestionIds();
+		Boolean databaseChanged = !questionIds.equals(this.questionIds);
+		if ( databaseChanged ) {
+			if ( questionIds.size() > 0 ) {
+				cursor = new CircularItemCursor<Long>(questionIds);
+			} else {
+				cursor = null;
+			}
+			showNextQuestion();
+		}
+	}
 
 	public void showNextQuestion() {
 		if ( cursor != null ) {

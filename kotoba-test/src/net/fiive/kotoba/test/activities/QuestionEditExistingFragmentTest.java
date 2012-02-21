@@ -73,6 +73,19 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 		assertEquals(".activities.questionList.QuestionListActivity", goBackIntent.getComponent().getShortClassName());
 	}
 
+	public void testUpdateQuestionByMenu() {
+		questionValueText.setText("menu");
+
+		MenuItem menuItem = new MenuItemStub(R.id.save_question_menu);
+		fragment.onOptionsItemSelected(menuItem);
+
+		Question questionFromDatabase = dataService.findQuestionById(currentQuestionId);
+		assertEquals( "menu", questionFromDatabase.getValue());
+
+		Intent goBackIntent = getStartedActivityIntent();
+		assertEquals(".activities.questionList.QuestionListActivity", goBackIntent.getComponent().getShortClassName());
+	}
+
 	public void testRestoreFromBundle() {
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(QuestionEditFragment.QUESTION_BUNDLE_KEY, new Question("fromBundleValue", "fromBundleAnswer"));

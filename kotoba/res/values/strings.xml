@@ -25,5 +25,6 @@
     <string name="continue_button_label">Continue</string>
     <string name="alert_title">Alert!</string>
     <string name="are_you_sure_you_want_to_remove_question">Are you sure you want to remove this question?</string>
+    <string name="info">Info</string>
 
 </resources>

@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -25,6 +27,12 @@ public class QuestionListFragment extends ListFragment {
 			new String[] {QuestionTable.Columns.VALUE}, new int[] {R.id.questionListItemValue });
 		this.setListAdapter(questionListAdapter);
 		this.setHasOptionsMenu(true);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
+		return inflater.inflate(R.layout.default_view_for_list_fragment, container);
 	}
 
 	@Override

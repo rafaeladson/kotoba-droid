@@ -99,8 +99,14 @@ public class QuestionEditFragment extends Fragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch ( item.getItemId() ) {
+			case R.id.save_question_menu:
+				saveCurrentQuestion();
+				return true;
 			case R.id.remove_question_menu:
 				removeCurrentQuestion();
+				return true;
+			case R.id.cancel_edit_question_menu:
+				goBack();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

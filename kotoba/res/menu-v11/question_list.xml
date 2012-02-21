@@ -5,4 +5,9 @@
           android:icon="@drawable/ic_action_add"
           android:title="@string/add"
           android:showAsAction="ifRoom|withText"/>
+
+    <item android:id="@+id/info_menu"
+          android:icon="@drawable/ic_action_info"
+          android:title="@string/info"
+          android:showAsAction="ifRoom" />
 </menu>
