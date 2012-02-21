@@ -2,6 +2,7 @@ package net.fiive.kotoba.activities.questionEdit;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -141,6 +142,7 @@ public class QuestionEditFragment extends Fragment {
 				@Override
 				public void onCallback() {
 					dataService.removeQuestion(currentQuestion);
+					Log.i(Constants.LOG_TAG, "User has removed question " + currentQuestion.toString());
 					goBack();
 				}
 			}, null);
@@ -160,6 +162,7 @@ public class QuestionEditFragment extends Fragment {
 			currentQuestion.setValue(questionValue);
 			currentQuestion.setAnswer(answer);
 			dataService.saveOrUpdateQuestion(currentQuestion);
+			Log.i(Constants.LOG_TAG, "user has saved question " + currentQuestion.toString());
 			goBack();
 		}
 	}

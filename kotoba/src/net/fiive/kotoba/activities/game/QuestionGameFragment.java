@@ -4,11 +4,13 @@ package net.fiive.kotoba.activities.game;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.TextView;
 import net.fiive.intern.random.CircularItemCursor;
 import net.fiive.kotoba.R;
+import net.fiive.kotoba.base.Constants;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
 
@@ -113,6 +115,7 @@ public class QuestionGameFragment extends Fragment {
 			cursor.goToNext();
 			currentQuestion = dataService.findQuestionById(cursor.getCurrent());
 			questionLabel.setText(currentQuestion.getValue());
+			Log.i(Constants.LOG_TAG, "User asked to see next question");
 		} else {
 			currentQuestion = null;
 			questionLabel.setText(getString(R.string.how_do_i_use_kotoba_question));
@@ -124,6 +127,7 @@ public class QuestionGameFragment extends Fragment {
 	public void showAnswer() {
 		if ( currentQuestion != null ) {
 			answerLabel.setText(currentQuestion.getAnswer());
+			Log.i(Constants.LOG_TAG, "User asked to see answer");
 		} else {
 			answerLabel.setText(getResources().getText(R.string.how_do_i_use_kotoba_answer));
 		}

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.SimpleCursorAdapter;
 import com.google.common.base.Preconditions;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
+import net.fiive.kotoba.base.Constants;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.data.table.QuestionTable;
 
@@ -40,6 +42,7 @@ public class QuestionListFragment extends ListFragment {
 		Preconditions.checkNotNull(id, "Id should not be null");
 		super.onListItemClick(l, v, position, id);
 
+		Log.i(Constants.LOG_TAG, "User is going to edit a question");
 		String uriValue = String.format("kotoba://kotoba.fiive.net/question/%d", id);
 		Intent editQuestionIntent = new Intent(QuestionEditActivity.EDIT_QUESTION_ACTION, Uri.parse(uriValue));
 		startActivity(editQuestionIntent);

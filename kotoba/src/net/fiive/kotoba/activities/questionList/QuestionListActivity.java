@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.activities.info.InfoActivity;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
+import net.fiive.kotoba.base.Constants;
 
 
 public class QuestionListActivity extends FragmentActivity {
@@ -54,6 +56,7 @@ public class QuestionListActivity extends FragmentActivity {
 	}
 
 	private void addNewQuestion() {
+		Log.i(Constants.LOG_TAG, "User is going to add a new question");
 		Intent addQuestionIntent = new Intent(QuestionEditActivity.ADD_QUESTION_ACTION, Uri.parse("kotoba://kotoba.fiive.net/question/new"));
 		startActivity(addQuestionIntent);
 	}
