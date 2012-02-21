@@ -16,7 +16,7 @@ import net.fiive.kotoba.domain.Question;
 import net.fiive.kotoba.test.activities.stub.MenuItemStub;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
 
-public class QuestionGameFragmentTest extends
+public class QuestionGameBeginsWithZeroQuestionsTest extends
 		ActivityUnitTestCase<MainActivity> {
 
 	private MainActivity activity;
@@ -27,7 +27,7 @@ public class QuestionGameFragmentTest extends
 	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see answer";
 	private DataService dataService;
 
-	public QuestionGameFragmentTest() {
+	public QuestionGameBeginsWithZeroQuestionsTest() {
 		super(MainActivity.class);
 	}
 
@@ -136,5 +136,15 @@ public class QuestionGameFragmentTest extends
 		Intent manageQuestionsIntent = getStartedActivityIntent();
 		assertEquals(QuestionListActivity.MANAGE_QUESTIONS_ACTION, manageQuestionsIntent.getAction());
 	}
+
+	public void testOnResume() throws Exception {
+		getFragment().onActivityCreated(null);
+		getFragment().showNextQuestion();
+		getFragment().onResume();
+		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText().toString());
+
+	}
+
+
 
 }

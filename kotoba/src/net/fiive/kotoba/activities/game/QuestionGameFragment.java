@@ -1,6 +1,7 @@
 package net.fiive.kotoba.activities.game;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.*;
@@ -93,6 +94,10 @@ public class QuestionGameFragment extends Fragment {
 		super.onResume();
 		List<Long> questionIds = dataService.findAllQuestionIds();
 		Boolean databaseChanged = !questionIds.equals(this.questionIds);
+		if ( currentQuestion != null ) {
+			Question questionFromDb = dataService.findQuestionById(currentQuestion.getId());
+			databaseChanged = databaseChanged || questionFromDb == null || !questionFromDb.equals(currentQuestion);
+		}
 		if ( databaseChanged ) {
 			if ( questionIds.size() > 0 ) {
 				cursor = new CircularItemCursor<Long>(questionIds);
@@ -108,6 +113,9 @@ public class QuestionGameFragment extends Fragment {
 			cursor.goToNext();
 			currentQuestion = dataService.findQuestionById(cursor.getCurrent());
 			questionLabel.setText(currentQuestion.getValue());
+		} else {
+			currentQuestion = null;
+			questionLabel.setText(getString(R.string.how_do_i_use_kotoba_question));
 		}
 		clearAnswer();
 	}
