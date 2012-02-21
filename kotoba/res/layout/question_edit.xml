@@ -17,7 +17,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:gravity="top"
-        android:inputType="textLongMessage" >
+        android:inputType="textLongMessage|textMultiLine|textPostalAddress"
+        android:singleLine="false" >
+
     </EditText>
 
     <TextView

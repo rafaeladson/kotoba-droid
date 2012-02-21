@@ -1,14 +1,11 @@
 package net.fiive.kotoba.activities.info;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.MenuItem;
-import android.view.View;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
 
 
 public class InfoActivity extends Activity {

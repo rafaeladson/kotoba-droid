@@ -1,19 +1,17 @@
 package net.fiive.kotoba.data.dao;
 
 
+import java.util.List;
+
+import net.fiive.intern.android.data.OpenHelper;
+import net.fiive.kotoba.data.exceptions.DataOperationFailedException;
+import net.fiive.kotoba.data.migration.M00_001_CreateQuestion;
+import net.fiive.kotoba.domain.Question;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import net.fiive.intern.android.data.OpenHelper;
-import net.fiive.kotoba.base.Constants;
-import net.fiive.kotoba.data.exceptions.DataOperationFailedException;
-import net.fiive.kotoba.data.migration.M00_001_CreateQuestion;
-import net.fiive.kotoba.domain.Question;
-
-import java.util.List;
 
 
 public class DataService {
@@ -36,7 +34,6 @@ public class DataService {
 		try {
 			return questionDAO.cursorForFindAll();
 		} catch( SQLException sqlException ) {
-			Log.e(Constants.LOG_TAG, "Error fetching questions cursor", sqlException);
 			throw new DataOperationFailedException(sqlException.getMessage());
 		}
 	}
@@ -45,7 +42,6 @@ public class DataService {
 		try {
 			return questionDAO.findAllIds();
 		} catch( SQLException sqlException) {
-			Log.e( Constants.LOG_TAG, "Error fetching all ids", sqlException);
 			throw new DataOperationFailedException(sqlException.getMessage());
 		}
 	}
@@ -55,7 +51,6 @@ public class DataService {
 		try {
 			return questionDAO.findById(id);
 		} catch( SQLException exception ) {
-			Log.e(Constants.LOG_TAG, "Error fetching question", exception);
 			throw new DataOperationFailedException(exception.getMessage());
 		}
 	}
@@ -66,7 +61,6 @@ public class DataService {
 			question = questionDAO.saveOrUpdate(question);
 			database.setTransactionSuccessful();
 		} catch( SQLException sqlException ) {
-			Log.e(Constants.LOG_TAG, "Error saving question", sqlException);
 			throw new DataOperationFailedException(sqlException.getMessage());
 		} finally {
 			database.endTransaction();
@@ -81,7 +75,6 @@ public class DataService {
 			questionDAO.delete(question);
 			database.setTransactionSuccessful();
 		} catch( SQLException sqlException ) {
-			Log.e(Constants.LOG_TAG, "Error removing question", sqlException);
 			throw new DataOperationFailedException(sqlException.getMessage());
 		}
 		finally {
@@ -92,7 +85,6 @@ public class DataService {
 	public Question buildQuestionFromCursor(Cursor cursor) {
 		Question question = questionDAO.buildFromCursor(cursor);
 		if ( question == null ) {
-			Log.e(Constants.LOG_TAG, "Error building question from cursor");
 			throw new DataOperationFailedException("Error building question from cursor");
 		}
 		return question;

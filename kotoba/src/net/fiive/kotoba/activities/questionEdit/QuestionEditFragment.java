@@ -1,26 +1,28 @@
 package net.fiive.kotoba.activities.questionEdit;
 
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.*;
-import android.widget.Button;
-import android.widget.EditText;
+import java.util.List;
+
 import net.fiive.intern.android.view.alerts.AlertHelper;
 import net.fiive.intern.android.view.alerts.ErrorAlertInfo;
 import net.fiive.intern.android.view.alerts.RemoveAlertInfo;
 import net.fiive.intern.android.view.validation.TextValidator;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
-import net.fiive.kotoba.base.Constants;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
-
-import java.util.List;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class QuestionEditFragment extends Fragment {
@@ -142,7 +144,6 @@ public class QuestionEditFragment extends Fragment {
 				@Override
 				public void onCallback() {
 					dataService.removeQuestion(currentQuestion);
-					Log.i(Constants.LOG_TAG, "User has removed question " + currentQuestion.toString());
 					goBack();
 				}
 			}, null);
@@ -162,7 +163,6 @@ public class QuestionEditFragment extends Fragment {
 			currentQuestion.setValue(questionValue);
 			currentQuestion.setAnswer(answer);
 			dataService.saveOrUpdateQuestion(currentQuestion);
-			Log.i(Constants.LOG_TAG, "user has saved question " + currentQuestion.toString());
 			goBack();
 		}
 	}
@@ -178,7 +178,6 @@ public class QuestionEditFragment extends Fragment {
 		if (intent.getAction().equals(QuestionEditActivity.ADD_QUESTION_ACTION)) {
 			currentQuestion = new Question();
 			isEditing = false;
-			Log.i(Constants.LOG_TAG, "Editing a new question");
 		} else if (intent.getAction().equals(QuestionEditActivity.EDIT_QUESTION_ACTION)) {
 			isEditing = true;
 			Uri data = intent.getData();

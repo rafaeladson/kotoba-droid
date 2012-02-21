@@ -1,8 +1,5 @@
 package net.fiive.kotoba.domain;
 
-import com.google.common.base.Preconditions;
-
-import javax.annotation.Nullable;
 import java.io.Serializable;
 
 public class Question implements Serializable {
