@@ -7,6 +7,7 @@ import android.support.v4.app.ListFragment;
 import android.test.ActivityUnitTestCase;
 import android.view.MenuItem;
 import net.fiive.kotoba.R;
+import net.fiive.kotoba.activities.info.InfoActivity;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListFragment;
@@ -43,6 +44,14 @@ public class QuestionListFragmentTest extends ActivityUnitTestCase<QuestionListA
 		Intent addQuestionIntent = this.getStartedActivityIntent();
 		assertEquals(QuestionEditActivity.ADD_QUESTION_ACTION, addQuestionIntent.getAction());
 		assertEquals("kotoba://kotoba.fiive.net/question/new", addQuestionIntent.getDataString());
+	}
+
+	public void testSeeInfo() {
+		MenuItem item = new MenuItemStub(R.id.info_menu);
+		activity.onOptionsItemSelected(item);
+
+		Intent infoIntent = this.getStartedActivityIntent();
+		assertEquals(InfoActivity.VIEW_INFO_ACTION, infoIntent.getAction());
 	}
 
 	private QuestionListFragment getFragment() {

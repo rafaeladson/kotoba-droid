@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
+import net.fiive.kotoba.activities.info.InfoActivity;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 
 
@@ -39,9 +40,17 @@ public class QuestionListActivity extends FragmentActivity {
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				return true;
+			case R.id.info_menu:
+				showInfo();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void showInfo() {
+		Intent infoIntent = new Intent(InfoActivity.VIEW_INFO_ACTION);
+		startActivity(infoIntent);
 	}
 
 	private void addNewQuestion() {
