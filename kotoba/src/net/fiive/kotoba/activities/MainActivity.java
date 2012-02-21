@@ -40,7 +40,7 @@ public class MainActivity extends FragmentActivity {
 
 	}
 
-	private void manageQuestions() {
+	public void manageQuestions() {
 		Intent manageQuestionsIntent = new Intent(QuestionListActivity.MANAGE_QUESTIONS_ACTION);
 		startActivity(manageQuestionsIntent);
 	}

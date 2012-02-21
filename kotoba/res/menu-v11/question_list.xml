@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/add_question_menu"
+    <!-- <item android:id="@+id/add_question_menu"
           android:icon="@drawable/ic_action_add"
           android:title="@string/add"
           android:showAsAction="ifRoom|withText"/>
@@ -9,5 +9,5 @@
     <item android:id="@+id/info_menu"
           android:icon="@drawable/ic_action_info"
           android:title="@string/info"
-          android:showAsAction="ifRoom" />
+          android:showAsAction="ifRoom" /> -->
 </menu>

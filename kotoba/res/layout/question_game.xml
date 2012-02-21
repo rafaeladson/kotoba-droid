@@ -11,6 +11,7 @@
 	<LinearLayout android:id="@+id/linearLayout3" android:layout_width="match_parent" android:layout_height="wrap_content">
 		<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5" android:text="@string/next_question" android:id="@+id/nextQuestionButton"></Button>
 		<Button android:text="@string/show_answer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5" android:id="@+id/showAnswerButton"></Button>
+		<Button android:text="@string/manage_questions" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5" android:id="@+id/manage_questions_button"/>
 	</LinearLayout>
 
 </LinearLayout>

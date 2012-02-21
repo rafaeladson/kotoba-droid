@@ -14,3 +14,4 @@ target/
 /kotoba-droid/test-output/
 test-output/
 /kotoba/.externalToolBuilders/
+kotoba/dist/

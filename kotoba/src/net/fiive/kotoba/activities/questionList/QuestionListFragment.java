@@ -1,6 +1,7 @@
 package net.fiive.kotoba.activities.questionList;
 
 import net.fiive.kotoba.R;
+import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.data.table.QuestionTable;
@@ -11,6 +12,7 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;

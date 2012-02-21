@@ -5,6 +5,7 @@
     android:baselineAligned="false"
     android:gravity="center"
     android:orientation="vertical" >
+    
 
     <ListView android:id="@android:id/list"
               android:layout_width="match_parent"
@@ -18,5 +19,7 @@
         android:text="@string/no_items_on_list"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+    
 
 </LinearLayout>

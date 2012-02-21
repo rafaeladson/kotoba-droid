@@ -28,25 +28,26 @@ public final class R {
         public static final int layout_border=0x7f02000e;
     }
     public static final class id {
-        public static final int add_question_menu=0x7f070015;
+        public static final int add_question_menu=0x7f070016;
         public static final int answerLabel=0x7f07000b;
-        public static final int cancel_edit_question=0x7f070008;
-        public static final int cancel_edit_question_menu=0x7f070013;
+        public static final int cancel_edit_question=0x7f070007;
+        public static final int cancel_edit_question_menu=0x7f070014;
         public static final int edit_question_answer=0x7f070005;
         public static final int edit_question_value=0x7f070004;
-        public static final int info_menu=0x7f070016;
+        public static final int info_menu=0x7f070017;
         public static final int linearLayout1=0x7f070006;
         public static final int linearLayout3=0x7f07000c;
-        public static final int manage_questions_menu=0x7f070014;
+        public static final int manage_questions_button=0x7f07000f;
+        public static final int manage_questions_menu=0x7f070015;
         public static final int nextQuestionButton=0x7f07000d;
         public static final int questionGameFragment=0x7f070003;
         public static final int questionLabel=0x7f07000a;
-        public static final int questionListItemValue=0x7f070010;
+        public static final int questionListItemValue=0x7f070011;
         public static final int question_edit_fragment=0x7f070009;
-        public static final int question_list_fragment=0x7f07000f;
-        public static final int remove_question_menu=0x7f070012;
-        public static final int save_question=0x7f070007;
-        public static final int save_question_menu=0x7f070011;
+        public static final int question_list_fragment=0x7f070010;
+        public static final int remove_question_menu=0x7f070013;
+        public static final int save_question=0x7f070008;
+        public static final int save_question_menu=0x7f070012;
         public static final int showAnswerButton=0x7f07000e;
         public static final int textView1=0x7f070000;
         public static final int textView2=0x7f070001;

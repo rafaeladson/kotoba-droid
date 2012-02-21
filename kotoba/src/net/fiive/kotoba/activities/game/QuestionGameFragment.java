@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.fiive.intern.random.CircularItemCursor;
 import net.fiive.kotoba.R;
+import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
 import android.os.Bundle;
@@ -86,6 +87,13 @@ public class QuestionGameFragment extends Fragment {
 				showAnswer();
 			}
 
+		});
+		
+		Button manageQuestionButton = (Button) wordGameView.findViewById(R.id.manage_questions_button);
+		manageQuestionButton.setOnClickListener(new Button.OnClickListener()  {
+			public void onClick(View v) {
+				((MainActivity)getActivity()).manageQuestions();
+			}
 		});
 
 

@@ -34,11 +34,11 @@ public class QuestionListActivity extends FragmentActivity {
 			case R.id.add_question_menu:
 				addNewQuestion();
 				return true;
-			case android.R.id.home:
-				Intent intent = new Intent(this, MainActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-				return true;
+//			case android.R.id.home:
+//				Intent intent = new Intent(this, MainActivity.class);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				startActivity(intent);
+//				return true;
 			case R.id.info_menu:
 				showInfo();
 				return true;
@@ -52,7 +52,7 @@ public class QuestionListActivity extends FragmentActivity {
 		startActivity(infoIntent);
 	}
 
-	private void addNewQuestion() {
+	public void addNewQuestion() {
 		Intent addQuestionIntent = new Intent(QuestionEditActivity.ADD_QUESTION_ACTION, Uri.parse("kotoba://kotoba.fiive.net/question/new"));
 		startActivity(addQuestionIntent);
 	}
