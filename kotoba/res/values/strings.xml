@@ -25,7 +25,8 @@
     <string name="are_you_sure_you_want_to_remove_question">Are you sure you want to remove this question?</string>
     <string name="info">Info</string>
     <string name="help">Help</string>
-    <string name="help_kotoba_text">To use Kotoba, go to the Main Screen.\nClick Next to see the next question.\nClick Answer to see the answer to the current question.\nClick Manage Questions to add, remove or update questions.</string>
-    <string name="copyright">Created in 2012 by Rafael Adson Barbosa Barros. All rights reserved.</string>
+    <string name="help_kotoba_text">To use Kotoba:\n\t1. Go to the Main Screen.\n\t2. Click Next to see the next question.\n\t3. Click Answer to see the answer to the current question.\n\t4. Click
+        Manage Questions to add, remove or update questions.</string>
+    <string name="copyright">Kotoba v0.1. Created in 2012 by Rafael Adson Barbosa Barros. All rights reserved.</string>
 
 </resources>

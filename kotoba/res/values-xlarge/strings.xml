@@ -2,7 +2,5 @@
 <resources>
     <string name="next_question">Next Question</string>
     <string name="show_answer">Show Answer</string>
-    <string name="help_kotoba_text">To use Kotoba, go to the Main Screen.\nClick Next Question to see the next question.\nClick Show Answer to see the answer to the current question.\nClick Manage
-      Questions to add, remove or update questions.</string>
     <string name="how_do_i_use_kotoba_answer">Click Show Answer to see the answer.\nClick Next Question to see next question.\nClick Manage Questions on the Menu to add and remove questions.</string>
 </resources>
