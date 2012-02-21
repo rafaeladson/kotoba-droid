@@ -4,18 +4,18 @@ package net.fiive.kotoba.test.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.test.ActivityUnitTestCase;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import net.fiive.intern.android.view.alerts.AlertHelper;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditFragment;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
 import net.fiive.kotoba.test.activities.stub.AlertHelperMock;
+import net.fiive.kotoba.test.activities.stub.MenuItemStub;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
 
 public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<QuestionEditActivity> {
@@ -123,8 +123,15 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
 		assertFalse( questionFromDb.getValue().equals("question_with_no_answer"));
 
-
-
 	}
 
+	public void testUserRemovedQuestion() {
+		AlertHelperMock alertHelperMock = new AlertHelperMock();
+		fragment.mockAlertHelper(alertHelperMock);
+
+		MenuItem removeMenuItem = new MenuItemStub(R.id.remove_question_menu);
+		fragment.onOptionsItemSelected(removeMenuItem);
+		assertTrue(alertHelperMock.showRemoveAlertWasCalled());
+		assertNull( dataService.findQuestionById(currentQuestionId));
+	}
 }

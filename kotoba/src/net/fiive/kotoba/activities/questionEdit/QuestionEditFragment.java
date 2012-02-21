@@ -6,13 +6,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
 import net.fiive.intern.android.view.alerts.AlertHelper;
 import net.fiive.intern.android.view.alerts.ErrorAlertInfo;
+import net.fiive.intern.android.view.alerts.RemoveAlertInfo;
 import net.fiive.intern.android.view.validation.TextValidator;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
@@ -35,12 +34,12 @@ public class QuestionEditFragment extends Fragment {
 	private EditText answerText;
 
 	private TextValidator validator;
+	private AlertHelper alertHelper = new AlertHelper();
 
 
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		this.setHasOptionsMenu(true);
 		dataService = new DataService(this.getActivity().getApplicationContext());
 		this.validator = new TextValidator(this.getActivity());
 
@@ -86,7 +85,26 @@ public class QuestionEditFragment extends Fragment {
 
 		valueText.setText(currentQuestion.getValue());
 		answerText.setText(currentQuestion.getAnswer());
+		this.setHasOptionsMenu(true);
 
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.question_edit, menu);
+		menu.findItem(R.id.remove_question_menu).setEnabled(isEditing);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch ( item.getItemId() ) {
+			case R.id.remove_question_menu:
+				removeCurrentQuestion();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override
@@ -98,6 +116,29 @@ public class QuestionEditFragment extends Fragment {
 
 	public void mockAlertHelper(AlertHelper helper) {
 		this.validator.mockAlertHelper(helper);
+		this.alertHelper = helper;
+	}
+
+
+
+	private void removeCurrentQuestion() {
+	 	if ( isEditing ) {
+			 Resources resources = getResources();
+			 String alertTitle = resources.getString(R.string.alert_title);
+			 String confirmationMessage = resources.getString(R.string.are_you_sure_you_want_to_remove_question);
+			 String okButtonLabel = resources.getString(R.string.ok);
+			 String cancelButtonLabel = resources.getString(R.string.cancel);
+
+			 RemoveAlertInfo removeAlertInfo = new RemoveAlertInfo(alertTitle, confirmationMessage, okButtonLabel, cancelButtonLabel);
+			alertHelper.showRemoveAlert(this.getActivity(), removeAlertInfo, new AlertHelper.Callback() {
+
+				@Override
+				public void onCallback() {
+					dataService.removeQuestion(currentQuestion);
+					goBack();
+				}
+			}, null);
+		 }
 	}
 
 	private void saveCurrentQuestion() {
@@ -144,4 +185,6 @@ public class QuestionEditFragment extends Fragment {
 			throw new IllegalArgumentException("Error: activity was started with incompatible intent");
 		}
 	}
+
+
 }

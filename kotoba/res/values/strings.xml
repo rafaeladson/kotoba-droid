@@ -15,6 +15,7 @@
     <string name="question">Question</string>
     <string name="answer">Answer</string>
     <string name="save">Save</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="remove">Remove</string>
     <string name="add">Add</string>
@@ -23,5 +24,6 @@
     <string name="must_type_answer">Please type an answer.</string>
     <string name="continue_button_label">Continue</string>
     <string name="alert_title">Alert!</string>
+    <string name="are_you_sure_you_want_to_remove_question">Are you sure you want to remove this question?</string>
 
 </resources>
