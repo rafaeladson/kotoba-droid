@@ -155,10 +155,8 @@ public class QuestionEditFragment extends Fragment {
 		String alertTitle = resources.getString(R.string.alert_title);
 		String continueButtonLabel = resources.getString(R.string.continue_button_label);
 		String mustTypeQuestionMessage = resources.getString(R.string.must_type_question);
-		String mustTypeAnswerMessage = resources.getString(R.string.must_type_answer);
 
-		if (validator.validateTextIsFilled(questionValue, new ErrorAlertInfo(alertTitle, mustTypeQuestionMessage, continueButtonLabel)) &&
-			    validator.validateTextIsFilled(answer, new ErrorAlertInfo(alertTitle, mustTypeAnswerMessage, continueButtonLabel))) {
+		if (validator.validateTextIsFilled(questionValue, new ErrorAlertInfo(alertTitle, mustTypeQuestionMessage, continueButtonLabel))) {
 			currentQuestion.setValue(questionValue);
 			currentQuestion.setAnswer(answer);
 			dataService.saveOrUpdateQuestion(currentQuestion);
