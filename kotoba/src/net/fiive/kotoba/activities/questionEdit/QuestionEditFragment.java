@@ -93,6 +93,16 @@ public class QuestionEditFragment extends Fragment {
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		if (dataService == null) {
+			dataService = new DataService(this.getActivity().getApplicationContext());
+			validator = new TextValidator(this.getActivity());
+			alertHelper = new AlertHelper();
+		}
+	}
+
+	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.question_edit, menu);
 		menu.findItem(R.id.remove_question_menu).setEnabled(isEditing);
@@ -101,7 +111,7 @@ public class QuestionEditFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch ( item.getItemId() ) {
+		switch (item.getItemId()) {
 			case R.id.save_question_menu:
 				saveCurrentQuestion();
 				return true;
@@ -129,16 +139,15 @@ public class QuestionEditFragment extends Fragment {
 	}
 
 
-
 	private void removeCurrentQuestion() {
-	 	if ( isEditing ) {
-			 Resources resources = getResources();
-			 String alertTitle = resources.getString(R.string.alert_title);
-			 String confirmationMessage = resources.getString(R.string.are_you_sure_you_want_to_remove_question);
-			 String okButtonLabel = resources.getString(R.string.ok);
-			 String cancelButtonLabel = resources.getString(R.string.cancel);
+		if (isEditing) {
+			Resources resources = getResources();
+			String alertTitle = resources.getString(R.string.alert_title);
+			String confirmationMessage = resources.getString(R.string.are_you_sure_you_want_to_remove_question);
+			String okButtonLabel = resources.getString(R.string.ok);
+			String cancelButtonLabel = resources.getString(R.string.cancel);
 
-			 RemoveAlertInfo removeAlertInfo = new RemoveAlertInfo(alertTitle, confirmationMessage, okButtonLabel, cancelButtonLabel);
+			RemoveAlertInfo removeAlertInfo = new RemoveAlertInfo(alertTitle, confirmationMessage, okButtonLabel, cancelButtonLabel);
 			alertHelper.showRemoveAlert(this.getActivity(), removeAlertInfo, new AlertHelper.Callback() {
 
 				@Override
@@ -147,7 +156,7 @@ public class QuestionEditFragment extends Fragment {
 					goBack();
 				}
 			}, null);
-		 }
+		}
 	}
 
 	private void saveCurrentQuestion() {

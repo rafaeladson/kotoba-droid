@@ -38,12 +38,15 @@ public class QuestionGameFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+
+
 		dataService = new DataService(this.getActivity().getApplicationContext());
 
 		questionIds = dataService.findAllQuestionIds();
 		if ( questionIds.size() > 0 ) {
 			cursor = new CircularItemCursor<Long>(questionIds);
 		}
+
 
 
 		if (savedInstanceState != null) {
@@ -95,6 +98,9 @@ public class QuestionGameFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		if ( dataService == null ) {
+			dataService = new DataService(this.getActivity().getApplicationContext());
+		}
 		List<Long> questionIds = dataService.findAllQuestionIds();
 		Boolean databaseChanged = !questionIds.equals(this.questionIds);
 		if ( currentQuestion != null ) {
@@ -169,5 +175,10 @@ public class QuestionGameFragment extends Fragment {
 	 */
 	public void setCursor(CircularItemCursor<Long> cursor) {
 		this.cursor = cursor;
+	}
+
+	private void initializeData() {
+
+
 	}
 }
