@@ -49,7 +49,7 @@ public class QuestionGameFragment extends Fragment {
 
 
 
-		if (savedInstanceState != null) {
+		if (savedInstanceState != null && savedInstanceState.containsKey(CURRENT_QUESTION_KEY) && savedInstanceState.containsKey(ANSWER_IS_SHOWN_KEY)) {
 			currentQuestion = (Question) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
 			questionLabel.setText(currentQuestion.getValue());
 			if (savedInstanceState.getBoolean(ANSWER_IS_SHOWN_KEY)) {

@@ -47,19 +47,9 @@ public class QuestionListFragment extends ListFragment {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		if( findAllCursor.isClosed() ) {
-			initializeFragment();
-		}
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-		if( !findAllCursor.isClosed() ) {
-			findAllCursor.close();
-		}
+	public void onDestroy() {
+		findAllCursor.close();
+		super.onDestroy();
 	}
 
 	private void initializeFragment() {
