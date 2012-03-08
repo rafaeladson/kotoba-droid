@@ -39,6 +39,8 @@ public class QuestionGameFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+
+
 		dataService = new DataService(this.getActivity().getApplicationContext());
 
 		questionIds = dataService.findAllQuestionIds();
@@ -47,7 +49,8 @@ public class QuestionGameFragment extends Fragment {
 		}
 
 
-		if (savedInstanceState != null) {
+
+		if (savedInstanceState != null && savedInstanceState.containsKey(CURRENT_QUESTION_KEY) && savedInstanceState.containsKey(ANSWER_IS_SHOWN_KEY)) {
 			currentQuestion = (Question) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
 			questionLabel.setText(currentQuestion.getValue());
 			if (savedInstanceState.getBoolean(ANSWER_IS_SHOWN_KEY)) {
@@ -103,6 +106,9 @@ public class QuestionGameFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		if ( dataService == null ) {
+			dataService = new DataService(this.getActivity().getApplicationContext());
+		}
 		List<Long> questionIds = dataService.findAllQuestionIds();
 		Boolean databaseChanged = !questionIds.equals(this.questionIds);
 		if ( currentQuestion != null ) {
@@ -178,4 +184,6 @@ public class QuestionGameFragment extends Fragment {
 	public void setCursor(CircularItemCursor<Long> cursor) {
 		this.cursor = cursor;
 	}
+
+
 }
