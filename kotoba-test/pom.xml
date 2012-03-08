@@ -46,7 +46,7 @@
                 <configuration>
                     <sdk>
                         <platform>11</platform>
-                        <path>${user.home}/dev/fiive/android-sdk</path>
+                        <path>${user.home}/dev/android/sdk</path>
                     </sdk>
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
                     <enableIntegrationTest>true</enableIntegrationTest>
