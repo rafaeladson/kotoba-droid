@@ -10,7 +10,6 @@ import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 
 public class MainActivity extends FragmentActivity {
 
-
 	/**
 	 * Called when the activity is first created.
 	 */
@@ -30,17 +29,16 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.manage_questions_menu:
-				manageQuestions();
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		case R.id.manage_questions_menu:
+			manageQuestions();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-
 
 	}
 
-	public void manageQuestions() {
+	private void manageQuestions() {
 		Intent manageQuestionsIntent = new Intent(QuestionListActivity.MANAGE_QUESTIONS_ACTION);
 		startActivity(manageQuestionsIntent);
 	}

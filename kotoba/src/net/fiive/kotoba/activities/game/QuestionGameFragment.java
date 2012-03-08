@@ -1,11 +1,9 @@
 package net.fiive.kotoba.activities.game;
 
-
 import java.util.List;
 
 import net.fiive.intern.random.CircularItemCursor;
 import net.fiive.kotoba.R;
-import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
 import android.os.Bundle;
@@ -40,15 +38,12 @@ public class QuestionGameFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-
 		dataService = new DataService(this.getActivity().getApplicationContext());
 
 		questionIds = dataService.findAllQuestionIds();
-		if ( questionIds.size() > 0 ) {
+		if (questionIds.size() > 0) {
 			cursor = new CircularItemCursor<Long>(questionIds);
 		}
-
-
 
 		if (savedInstanceState != null && savedInstanceState.containsKey(CURRENT_QUESTION_KEY) && savedInstanceState.containsKey(ANSWER_IS_SHOWN_KEY)) {
 			currentQuestion = (Question) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
@@ -65,8 +60,7 @@ public class QuestionGameFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				 Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View wordGameView = inflater.inflate(R.layout.question_game, container);
 
 		questionLabel = (TextView) wordGameView.findViewById(R.id.questionLabel);
@@ -89,16 +83,7 @@ public class QuestionGameFragment extends Fragment {
 			public void onClick(View v) {
 				showAnswer();
 			}
-
 		});
-		
-		Button manageQuestionButton = (Button) wordGameView.findViewById(R.id.manage_questions_button);
-		manageQuestionButton.setOnClickListener(new Button.OnClickListener()  {
-			public void onClick(View v) {
-				((MainActivity)getActivity()).manageQuestions();
-			}
-		});
-
 
 		return wordGameView;
 	}
@@ -106,17 +91,17 @@ public class QuestionGameFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if ( dataService == null ) {
+		if (dataService == null) {
 			dataService = new DataService(this.getActivity().getApplicationContext());
 		}
 		List<Long> questionIds = dataService.findAllQuestionIds();
 		Boolean databaseChanged = !questionIds.equals(this.questionIds);
-		if ( currentQuestion != null ) {
+		if (currentQuestion != null) {
 			Question questionFromDb = dataService.findQuestionById(currentQuestion.getId());
 			databaseChanged = databaseChanged || questionFromDb == null || !questionFromDb.equals(currentQuestion);
 		}
-		if ( databaseChanged ) {
-			if ( questionIds.size() > 0 ) {
+		if (databaseChanged) {
+			if (questionIds.size() > 0) {
 				cursor = new CircularItemCursor<Long>(questionIds);
 			} else {
 				cursor = null;
@@ -126,7 +111,7 @@ public class QuestionGameFragment extends Fragment {
 	}
 
 	public void showNextQuestion() {
-		if ( cursor != null ) {
+		if (cursor != null) {
 			cursor.goToNext();
 			currentQuestion = dataService.findQuestionById(cursor.getCurrent());
 			questionLabel.setText(currentQuestion.getValue());
@@ -137,15 +122,13 @@ public class QuestionGameFragment extends Fragment {
 		clearAnswer();
 	}
 
-
 	public void showAnswer() {
-		if ( currentQuestion != null ) {
+		if (currentQuestion != null) {
 			answerLabel.setText(currentQuestion.getAnswer());
 		} else {
 			answerLabel.setText(getResources().getText(R.string.how_do_i_use_kotoba_answer));
 		}
 		answerIsShown = true;
-
 
 	}
 
@@ -162,7 +145,6 @@ public class QuestionGameFragment extends Fragment {
 		outState.putBoolean(ANSWER_IS_SHOWN_KEY, answerIsShown);
 	}
 
-
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
@@ -171,7 +153,9 @@ public class QuestionGameFragment extends Fragment {
 
 	/**
 	 * DO NOT USE!! Only for use in tests!
-	 * @param currentQuestion a new value for current question
+	 * 
+	 * @param currentQuestion
+	 *            a new value for current question
 	 */
 	public void setCurrentQuestion(Question currentQuestion) {
 		this.currentQuestion = currentQuestion;
@@ -179,11 +163,12 @@ public class QuestionGameFragment extends Fragment {
 
 	/**
 	 * DO NOT USE!! Only for use in tests!!
-	 * @param cursor a new value for the cursor.
+	 * 
+	 * @param cursor
+	 *            a new value for the cursor.
 	 */
 	public void setCursor(CircularItemCursor<Long> cursor) {
 		this.cursor = cursor;
 	}
-
 
 }
