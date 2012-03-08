@@ -50,16 +50,6 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 		answerText = (EditText) this.getActivity().findViewById(R.id.edit_question_answer);
 	}
 
-
-	public void testShouldGoToHomeWhenUserClicksHomeButton() {
-		if (Build.VERSION.SDK_INT >= 11 ) {
-			MenuItem menuItem = new MenuItemStub(android.R.id.home);
-			activity.onOptionsItemSelected(menuItem);
-			Intent goToHomeIntent = getStartedActivityIntent();
-			assertEquals(".activities.MainActivity", goToHomeIntent.getComponent().getShortClassName());
-		}
-	}
-
 	public void testUserClicksCancelButton() {
 		Button cancelButton = (Button)this.getActivity().findViewById(R.id.cancel_edit_question);
 		cancelButton.performClick();

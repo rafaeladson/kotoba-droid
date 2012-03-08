@@ -1,7 +1,6 @@
 package net.fiive.kotoba.activities.questionList;
 
 import net.fiive.kotoba.R;
-import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.activities.info.InfoActivity;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import android.content.Intent;
@@ -34,11 +33,6 @@ public class QuestionListActivity extends FragmentActivity {
 			case R.id.add_question_menu:
 				addNewQuestion();
 				return true;
-//			case android.R.id.home:
-//				Intent intent = new Intent(this, MainActivity.class);
-//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//				startActivity(intent);
-//				return true;
 			case R.id.info_menu:
 				showInfo();
 				return true;
