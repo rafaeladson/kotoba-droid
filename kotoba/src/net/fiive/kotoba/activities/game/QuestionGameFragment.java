@@ -177,8 +177,5 @@ public class QuestionGameFragment extends Fragment {
 		this.cursor = cursor;
 	}
 
-	private void initializeData() {
 
-
-	}
 }
