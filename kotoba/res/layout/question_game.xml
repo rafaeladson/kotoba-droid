@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
 	android:weightSum="1">
 	<LinearLayout style="@style/titlePanel" android:id="@+id/linearLayout1" android:layout_width="fill_parent" android:layout_height="wrap_content">
-		<TextView style="@style/titleFont" android:layout_width="match_parent" android:layout_height="match_parent" android:text="@string/how_do_i_use_kotoba_question" android:id="@+id/questionLabel"></TextView>
+		<TextView style="@style/titleFont" android:layout_width="match_parent" android:layout_height="match_parent" android:text="@string/how_do_i_use_kotoba_question" android:id="@+id/questionLabel"/>
 	</LinearLayout>
 	
 	<FrameLayout style="@style/answerPanel" android:layout_height="wrap_content" android:layout_width="match_parent" android:layout_weight="0.83" android:layout_margin="5dp">
 		<TextView style="@style/answerText" android:layout_width="match_parent" android:layout_height="match_parent" android:text="@string/how_do_i_use_kotoba_answer" android:id="@+id/answerLabel" />
 	</FrameLayout>
 	<LinearLayout android:id="@+id/linearLayout3" android:layout_width="match_parent" android:layout_height="wrap_content">
-		<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5" android:text="@string/next_question" android:id="@+id/nextQuestionButton"></Button>
-		<Button android:text="@string/show_answer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5" android:id="@+id/showAnswerButton"></Button>
+		<Button android:text="@string/show_answer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5" android:id="@+id/showAnswerButton"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="0.5" android:text="@string/next_question" android:id="@+id/nextQuestionButton"/>
 	</LinearLayout>
 
 </LinearLayout>
