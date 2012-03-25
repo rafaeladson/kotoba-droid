@@ -112,14 +112,11 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 	}
 
 	public void testUserUpdateQuestionWithNoValue() {
-		AlertHelperMock alertHelperMock = new AlertHelperMock();
-		fragment.mockAlertHelper(alertHelperMock);
-
 		questionValueText.setText("");
 		questionAnswerText.setText("question_with_no_value");
 		saveQuestionButton.performClick();
 
-		assertTrue( alertHelperMock.showErrorAlertWasCalled());
+		assertEquals("Please type a question.", questionValueText.getError());
 		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
 		assertFalse(questionFromDb.getAnswer().equals("question_with_no_value"));
 	}

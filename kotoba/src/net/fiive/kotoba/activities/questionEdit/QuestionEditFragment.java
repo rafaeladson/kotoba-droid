@@ -1,28 +1,22 @@
 package net.fiive.kotoba.activities.questionEdit;
 
-import java.util.List;
-
+import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.*;
+import android.widget.Button;
+import android.widget.EditText;
 import net.fiive.intern.android.view.alerts.AlertHelper;
-import net.fiive.intern.android.view.alerts.ErrorAlertInfo;
 import net.fiive.intern.android.view.alerts.RemoveAlertInfo;
 import net.fiive.intern.android.view.validation.TextValidator;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+
+import java.util.List;
 
 
 public class QuestionEditFragment extends Fragment {
@@ -44,7 +38,7 @@ public class QuestionEditFragment extends Fragment {
 
 		super.onCreate(savedInstanceState);
 		dataService = new DataService(this.getActivity().getApplicationContext());
-		this.validator = new TextValidator(this.getActivity());
+		this.validator = new TextValidator();
 
 	}
 
@@ -97,7 +91,7 @@ public class QuestionEditFragment extends Fragment {
 		super.onResume();
 		if (dataService == null) {
 			dataService = new DataService(this.getActivity().getApplicationContext());
-			validator = new TextValidator(this.getActivity());
+			validator = new TextValidator();
 			alertHelper = new AlertHelper();
 		}
 	}
@@ -134,7 +128,6 @@ public class QuestionEditFragment extends Fragment {
 	}
 
 	public void mockAlertHelper(AlertHelper helper) {
-		this.validator.mockAlertHelper(helper);
 		this.alertHelper = helper;
 	}
 
@@ -164,11 +157,9 @@ public class QuestionEditFragment extends Fragment {
 		String answer = answerText.getText().toString();
 
 		Resources resources = getResources();
-		String alertTitle = resources.getString(R.string.alert_title);
-		String continueButtonLabel = resources.getString(R.string.continue_button_label);
 		String mustTypeQuestionMessage = resources.getString(R.string.must_type_question);
 
-		if (validator.validateTextIsFilled(questionValue, new ErrorAlertInfo(alertTitle, mustTypeQuestionMessage, continueButtonLabel))) {
+		if (validator.validateTextNotEmpty(valueText, mustTypeQuestionMessage)) {
 			currentQuestion.setValue(questionValue);
 			currentQuestion.setAnswer(answer);
 			dataService.saveOrUpdateQuestion(currentQuestion);
