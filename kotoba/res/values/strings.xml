@@ -5,7 +5,7 @@
     <string name="show_answer">Answer</string>
     <string name="how_do_i_use_kotoba_question">How do I use Kotoba?</string>
     <string name="how_do_i_use_kotoba_answer">Click Answer to see the answer.\nClick next to see another question.\nClick Manage Questions on the Menu to add and remove questions.</string>
-    <string name="click_here_to_see_answer">Click here to see answer</string>
+    <string name="click_here_to_see_answer">Click here to see the answer</string>
     <string name="manage_questions">Manage Questions</string>
     <string name="question">Question</string>
     <string name="answer">Answer</string>

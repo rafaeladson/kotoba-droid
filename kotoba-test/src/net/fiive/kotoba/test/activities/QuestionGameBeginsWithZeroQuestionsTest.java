@@ -24,7 +24,7 @@ public class QuestionGameBeginsWithZeroQuestionsTest extends
 	private TextView answerLabel;
 	private Button nextQuestionButton;
 	private Button showAnswerButton;
-	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see answer";
+	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see the answer";
 	private DataService dataService;
 
 	public QuestionGameBeginsWithZeroQuestionsTest() {

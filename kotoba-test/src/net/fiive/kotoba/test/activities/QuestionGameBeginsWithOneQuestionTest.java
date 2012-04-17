@@ -21,7 +21,7 @@ public class QuestionGameBeginsWithOneQuestionTest extends ActivityUnitTestCase<
 	private TextView answerTextView;
 	private MainActivity activity;
 
-	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see answer";
+	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see the answer";
 
 	public QuestionGameBeginsWithOneQuestionTest() {
 		super(MainActivity.class);
