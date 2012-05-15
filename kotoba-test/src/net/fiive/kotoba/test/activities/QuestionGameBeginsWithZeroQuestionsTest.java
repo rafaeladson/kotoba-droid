@@ -17,14 +17,15 @@ import net.fiive.kotoba.test.activities.stub.MenuItemStub;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
 
 public class QuestionGameBeginsWithZeroQuestionsTest extends
-		ActivityUnitTestCase<MainActivity> {
+	ActivityUnitTestCase<MainActivity> {
 
 	private MainActivity activity;
 	private TextView valueLabel;
 	private TextView answerLabel;
 	private Button nextQuestionButton;
 	private Button showAnswerButton;
-	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see the answer";
+	private static final String CLICK_ANSWER_TO_SEE_ANSWER_TEXT = "Click Answer to see the answer";
+	private static final String CLICK_SHOW_ANSWER_TO_SEE_ANSWER_TEXT = "Click Show Answer to see the answer";
 	private DataService dataService;
 
 	public QuestionGameBeginsWithZeroQuestionsTest() {
@@ -34,14 +35,14 @@ public class QuestionGameBeginsWithZeroQuestionsTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		startActivity(new Intent(getInstrumentation().getTargetContext(), MainActivity.class), null, null );
+		startActivity(new Intent(getInstrumentation().getTargetContext(), MainActivity.class), null, null);
 		activity = this.getActivity();
 		valueLabel = (TextView) activity.findViewById(R.id.questionLabel);
 		answerLabel = (TextView) activity
-				.findViewById(R.id.answerLabel);
+						 .findViewById(R.id.answerLabel);
 		nextQuestionButton = (Button) activity.findViewById(R.id.nextQuestionButton);
 		showAnswerButton = (Button) activity
-				.findViewById(R.id.showAnswerButton);
+						    .findViewById(R.id.showAnswerButton);
 
 		new DatabaseCleaner().cleanDatabase(getInstrumentation().getTargetContext());
 		dataService = new DataService(getInstrumentation().getTargetContext());
@@ -49,12 +50,12 @@ public class QuestionGameBeginsWithZeroQuestionsTest extends
 
 	private QuestionGameFragment getFragment() {
 		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		return (QuestionGameFragment)fragmentManager.findFragmentById(R.id.questionGameFragment);
+		return (QuestionGameFragment) fragmentManager.findFragmentById(R.id.questionGameFragment);
 	}
 
 
 	public void testNormalInteration() throws Exception {
-		Question questionA = new Question( "foo", "bar");
+		Question questionA = new Question("foo", "bar");
 		dataService.saveOrUpdateQuestion(questionA);
 		Question questionB = new Question("bar", "foo");
 		dataService.saveOrUpdateQuestion(questionB);
@@ -64,17 +65,17 @@ public class QuestionGameBeginsWithZeroQuestionsTest extends
 
 		final CharSequence firstWord = valueLabel.getText();
 		assertNotNull(firstWord);
-		
+
 		nextQuestionButton.performClick();
 		CharSequence secondWord = valueLabel.getText();
 		assertNotNull(firstWord);
 		assertFalse(secondWord.equals(firstWord));
-		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText());
+		assertAnswerIsHidden();
 
 		showAnswerButton.performClick();
-		assertFalse(CLICK_HERE_TO_SEE_ANSWER_TEXT.equals(answerLabel.getText()));
+		assertFalse(CLICK_ANSWER_TO_SEE_ANSWER_TEXT.equals(answerLabel.getText()));
 		nextQuestionButton.performClick();
-		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText());
+		assertAnswerIsHidden();
 		assertNotNull(valueLabel.getText());
 	}
 
@@ -82,38 +83,38 @@ public class QuestionGameBeginsWithZeroQuestionsTest extends
 		getFragment().onActivityCreated(null);
 
 		final CharSequence firstWord = valueLabel.getText();
-		assertEquals( activity.getResources().getText(R.string.how_do_i_use_kotoba_question), firstWord);
-		assertEquals( CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText());
+		assertEquals(activity.getResources().getText(R.string.how_do_i_use_kotoba_question), firstWord);
+		assertAnswerIsHidden();
 
 		showAnswerButton.performClick();
-		assertEquals( activity.getResources().getText(R.string.how_do_i_use_kotoba_answer), answerLabel.getText());
+		assertEquals(activity.getResources().getText(R.string.how_do_i_use_kotoba_answer), answerLabel.getText());
 
 		nextQuestionButton.performClick();
-		assertEquals( firstWord, valueLabel.getText());
+		assertEquals(firstWord, valueLabel.getText());
 	}
 
 	public void testClickOnAnswerTestViewDoesShowAnswer() throws Exception {
 		nextQuestionButton.performClick();
-		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText());
+		assertAnswerIsHidden();
 		answerLabel.performClick();
-		assertFalse(CLICK_HERE_TO_SEE_ANSWER_TEXT.equals(answerLabel.getText()));
+		assertFalse(CLICK_ANSWER_TO_SEE_ANSWER_TEXT.equals(answerLabel.getText()));
 	}
-	
-	
+
+
 	public void testRestoreFromBundle() throws Exception {
-		
+
 		Bundle newActivityBundle = new Bundle();
 		newActivityBundle.putSerializable("currentQuestion", new Question("das Auto", "car"));
 		newActivityBundle.putBoolean("answerIsShown", true);
-		
+
 		QuestionGameFragment fragment = getFragment();
 		fragment.onActivityCreated(newActivityBundle);
-		
+
 		TextView newAnswerLabel = (TextView) activity.findViewById(R.id.answerLabel);
 		assertEquals("car", newAnswerLabel.getText());
-		
+
 	}
-	
+
 	public void testShouldSaveBundle() throws Exception {
 		Question question = new Question("foo", "bar");
 		getFragment().setCurrentQuestion(question);
@@ -122,11 +123,11 @@ public class QuestionGameBeginsWithZeroQuestionsTest extends
 		Bundle fragmentBundle = new Bundle();
 		QuestionGameFragment fragment = getFragment();
 		fragment.onSaveInstanceState(fragmentBundle);
-		
+
 		Question questionFromBundle = (Question) fragmentBundle.get("currentQuestion");
 		assertNotNull(questionFromBundle);
-		assertEquals( question, questionFromBundle);
-		
+		assertEquals(question, questionFromBundle);
+
 		assertTrue(fragmentBundle.getBoolean("answerIsShown"));
 	}
 
@@ -141,10 +142,13 @@ public class QuestionGameBeginsWithZeroQuestionsTest extends
 		getFragment().onActivityCreated(null);
 		getFragment().showNextQuestion();
 		getFragment().onResume();
-		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerLabel.getText().toString());
+		assertEquals(CLICK_ANSWER_TO_SEE_ANSWER_TEXT, answerLabel.getText().toString());
 
 	}
 
+	private void assertAnswerIsHidden() {
+		assertTrue(CLICK_ANSWER_TO_SEE_ANSWER_TEXT.equals(answerLabel.getText()) || CLICK_SHOW_ANSWER_TO_SEE_ANSWER_TEXT.equals(answerLabel.getText()));
+	}
 
 
 }

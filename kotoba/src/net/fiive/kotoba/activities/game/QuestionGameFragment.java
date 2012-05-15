@@ -3,6 +3,9 @@ package net.fiive.kotoba.activities.game;
 
 import java.util.List;
 
+import android.text.method.ScrollingMovementMethod;
+import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import net.fiive.intern.random.CircularItemCursor;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.data.dao.DataService;
@@ -70,12 +73,15 @@ public class QuestionGameFragment extends Fragment {
 
 		questionLabel = (TextView) wordGameView.findViewById(R.id.questionLabel);
 		answerLabel = (TextView) wordGameView.findViewById(R.id.answerLabel);
+
+
 		answerLabel.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				showAnswer();
 			}
 		});
+
 
 		Button nextQuestionButton = (Button) wordGameView.findViewById(R.id.nextQuestionButton);
 		nextQuestionButton.setOnClickListener(new Button.OnClickListener() {
@@ -142,7 +148,7 @@ public class QuestionGameFragment extends Fragment {
 	}
 
 	private void clearAnswer() {
-		answerLabel.setText(R.string.click_here_to_see_answer);
+		answerLabel.setText(R.string.click_answer_to_see_answer);
 		answerIsShown = false;
 	}
 

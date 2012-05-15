@@ -21,7 +21,9 @@ public class QuestionGameBeginsWithOneQuestionTest extends ActivityUnitTestCase<
 	private TextView answerTextView;
 	private MainActivity activity;
 
-	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see the answer";
+	private static final String CLICK_ANSWER_TO_SEE_ANSWER_TEXT = "Click Answer to see the answer";
+	private static final String CLICK_SHOW_ANSWER_TO_SEE_ANSWER_TEXT = "Click Show Answer to see the answer";
+
 
 	public QuestionGameBeginsWithOneQuestionTest() {
 		super(MainActivity.class);
@@ -39,7 +41,7 @@ public class QuestionGameBeginsWithOneQuestionTest extends ActivityUnitTestCase<
 		startActivity(new Intent(getInstrumentation().getTargetContext(), MainActivity.class), null, null);
 		activity = this.getActivity();
 		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		fragment = (QuestionGameFragment)fragmentManager.findFragmentById(R.id.questionGameFragment);
+		fragment = (QuestionGameFragment) fragmentManager.findFragmentById(R.id.questionGameFragment);
 
 		fragment.onActivityCreated(null);
 
@@ -69,7 +71,7 @@ public class QuestionGameBeginsWithOneQuestionTest extends ActivityUnitTestCase<
 		dataService.saveOrUpdateQuestion(anotherQuestion);
 
 		fragment.onResume();
-		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerTextView.getText().toString());
+		assertAnswerIsHidden(answerTextView);
 	}
 
 	public void testOnResumeAfterUpdate() {
@@ -79,6 +81,10 @@ public class QuestionGameBeginsWithOneQuestionTest extends ActivityUnitTestCase<
 
 		fragment.onResume();
 		assertEquals("bar", valueTextView.getText().toString());
+	}
+
+	private void assertAnswerIsHidden(TextView answerTextView) {
+		assertTrue(CLICK_ANSWER_TO_SEE_ANSWER_TEXT.equals(answerTextView.getText()) || CLICK_SHOW_ANSWER_TO_SEE_ANSWER_TEXT.equals(answerTextView.getText()));
 	}
 
 }

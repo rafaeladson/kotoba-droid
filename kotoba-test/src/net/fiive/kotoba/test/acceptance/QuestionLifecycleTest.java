@@ -1,9 +1,7 @@
 package net.fiive.kotoba.test.acceptance;
 
-import android.app.ListActivity;
 import android.os.Build;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.jayway.android.robotium.solo.Solo;
@@ -13,8 +11,6 @@ import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListFragment;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
-
-import java.util.StringTokenizer;
 
 
 public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<MainActivity> {

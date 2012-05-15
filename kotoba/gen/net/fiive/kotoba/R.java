@@ -38,7 +38,7 @@ public final class R {
         public static final int linearLayout1=0x7f070006;
         public static final int linearLayout3=0x7f07000c;
         public static final int manage_questions_menu=0x7f070014;
-        public static final int nextQuestionButton=0x7f07000d;
+        public static final int nextQuestionButton=0x7f07000e;
         public static final int questionGameFragment=0x7f070003;
         public static final int questionLabel=0x7f07000a;
         public static final int questionListItemValue=0x7f070010;
@@ -47,7 +47,7 @@ public final class R {
         public static final int remove_question_menu=0x7f070012;
         public static final int save_question=0x7f070007;
         public static final int save_question_menu=0x7f070011;
-        public static final int showAnswerButton=0x7f07000e;
+        public static final int showAnswerButton=0x7f07000d;
         public static final int textView1=0x7f070000;
         public static final int textView2=0x7f070001;
         public static final int textView3=0x7f070002;
