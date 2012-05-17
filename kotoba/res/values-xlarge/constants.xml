@@ -1,0 +1,3 @@
+<resources>
+    <integer name="max_question_length">70</integer>
+</resources>

@@ -17,6 +17,7 @@
     <string name="add">Adicionar</string>
     <string name="no_items_on_list">Não existem itens na lista.\Para adicionar um item, clique em Adicionar no menu.</string>
     <string name="must_type_question">Por favor digite uma pergunta.</string>
+    <string name="max_question_length_message">A questão deve ter no máximo %d letras.</string>
     <string name="continue_button_label">Continuar</string>
     <string name="alert_title">Aviso</string>
     <string name="are_you_sure_you_want_to_remove_question">Tem certeza de que você quer remover essa pergunta?</string>

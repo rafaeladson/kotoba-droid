@@ -121,6 +121,41 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 		assertFalse(questionFromDb.getAnswer().equals("question_with_no_value"));
 	}
 
+	public void testUserUpdateQuestionWithValueTooLong() {
+		int maxLength = getActivity().getResources().getInteger(R.integer.max_question_length);
+
+		String text = "I. THE BURIAL OF THE DEAD\n" +
+				      "APRIL is the cruellest month, breeding\t \n" +
+				      "Lilacs out of the dead land, mixing\t \n" +
+				      "Memory and desire, stirring\t \n" +
+				      "Dull roots with spring rain.\t \n" +
+				      "Winter kept us warm, covering\t         5\n" +
+				      "Earth in forgetful snow, feeding\t \n" +
+				      "A little life with dried tubers.\t \n" +
+				      "Summer surprised us, coming over the Starnbergersee\t \n" +
+				      "With a shower of rain; we stopped in the colonnade,\t \n" +
+				      "And went on in sunlight, into the Hofgarten,\t  10\n" +
+				      "And drank coffee, and talked for an hour.\t \n" +
+				      "Bin gar keine Russin, stamm’ aus Litauen, echt deutsch.\t \n" +
+				      "And when we were children, staying at the archduke’s,\t \n" +
+				      "My cousin’s, he took me out on a sled,\t \n" +
+				      "And I was frightened. He said, Marie,";
+		String textWithoutNewLines = text.replace("\n", " ");
+		String textTruncatedAtLimit = textWithoutNewLines.substring(0, maxLength);
+
+		questionValueText.setText(text);
+		saveQuestionButton.performClick();
+		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
+		assertEquals(textTruncatedAtLimit, questionFromDb.getValue());
+	}
+
+	public void testUserUpdateQuestionWithNewlines() {
+		questionValueText.setText("foo\nbar");
+		saveQuestionButton.performClick();
+		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
+		assertEquals("foo bar", questionFromDb.getValue());
+	}
+
 
 
 	public void testUserRemovedQuestion() {

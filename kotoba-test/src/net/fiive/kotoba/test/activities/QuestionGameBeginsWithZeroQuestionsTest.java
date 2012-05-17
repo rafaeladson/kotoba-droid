@@ -142,8 +142,7 @@ public class QuestionGameBeginsWithZeroQuestionsTest extends
 		getFragment().onActivityCreated(null);
 		getFragment().showNextQuestion();
 		getFragment().onResume();
-		assertEquals(CLICK_ANSWER_TO_SEE_ANSWER_TEXT, answerLabel.getText().toString());
-
+		assertAnswerIsHidden();
 	}
 
 	private void assertAnswerIsHidden() {
