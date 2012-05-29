@@ -6,6 +6,7 @@ import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
+import net.fiive.kotoba.test.screen.questionGame.QuestionGameScreen;
 
 public class QuestionGameBeginsWithOneQuestionTest extends ActivityUnitTestCase<MainActivity> {
 
@@ -29,7 +30,7 @@ public class QuestionGameBeginsWithOneQuestionTest extends ActivityUnitTestCase<
 
 		startActivity(new Intent(getInstrumentation().getTargetContext(), MainActivity.class), null, null);
 		MainActivity activity = this.getActivity();
-		screen = new QuestionGameScreen(activity);
+		screen = QuestionGameScreen.screenForUnitTest(activity);
 		screen.onActivityCreated(null);
 		screen.clickOnShowAnswerButton();
 	}

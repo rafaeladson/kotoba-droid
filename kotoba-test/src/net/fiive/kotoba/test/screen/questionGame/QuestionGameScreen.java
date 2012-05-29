@@ -1,36 +1,45 @@
-package net.fiive.kotoba.test.activities;
+package net.fiive.kotoba.test.screen.questionGame;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
+import com.jayway.android.robotium.solo.Solo;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.activities.game.QuestionGameFragment;
 import net.fiive.kotoba.domain.Question;
-import net.fiive.kotoba.test.activities.stub.MenuItemStub;
 
 public class QuestionGameScreen {
 
 	private MainActivity activity;
 	private QuestionGameFragment fragment;
+	private QuestionGameScreenAutomator automator;
 
-	public QuestionGameScreen(MainActivity activity) {
+
+	public static QuestionGameScreen screenForUnitTest(MainActivity activity) {
+		QuestionGameFragment fragment = getFragmentFromActivity(activity);
+		return new QuestionGameScreen(activity, fragment, new QuestionGameScreenUnitTestAutomator(activity, fragment));
+	}
+
+	public static QuestionGameScreen screenForAcceptanceTest(MainActivity activity, Solo solo) {
+		QuestionGameFragment fragment = getFragmentFromActivity(activity);
+		return new QuestionGameScreen(activity, fragment, new QuestionGameScreenSoloAutomator(activity, solo));
+	}
+
+	private QuestionGameScreen(MainActivity activity, QuestionGameFragment fragment, QuestionGameScreenAutomator automator) {
 		this.activity = activity;
-		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		fragment = (QuestionGameFragment) fragmentManager.findFragmentById(R.id.questionGameFragment);
-
+		this.fragment = fragment;
+		this.automator = automator;
 	}
 
 	public void clickOnNextQuestionButton() {
-		Button nextQuestionButton = (Button) activity.findViewById(R.id.nextQuestionButton);
-		nextQuestionButton.performClick();
+		automator.clickOnNextQuestionButton();
 	}
 
 	public void clickOnShowAnswerButton() {
-		Button showAnswerButton = (Button) activity.findViewById(R.id.showAnswerButton);
-		showAnswerButton.performClick();
+		automator.clickOnShowAnswerButton();
 	}
 
 	public String getValueText() {
@@ -48,7 +57,7 @@ public class QuestionGameScreen {
 	}
 
 	public void clickOnAnswerView() {
-		fragment.getAnswerLayout().performClick();
+		automator.clickOnAnswerView();
 
 	}
 
@@ -69,8 +78,7 @@ public class QuestionGameScreen {
 	}
 
 	public void selectMenuItem(int itemId) {
-		MenuItem menuItem = new MenuItemStub(itemId);
-		activity.onOptionsItemSelected(menuItem);
+		automator.selectMenuItem(itemId);
 	}
 
 	public void setCurrentQuestion(Question question) {
@@ -83,6 +91,12 @@ public class QuestionGameScreen {
 
 	public boolean hasDefaultAnswerValue() {
 		return activity.getResources().getText(R.string.how_do_i_use_kotoba_answer).equals(getAnswerText());
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <F extends Fragment, A extends FragmentActivity> F getFragmentFromActivity(A activity) {
+		FragmentManager fragmentManager = activity.getSupportFragmentManager();
+		return (F) fragmentManager.findFragmentById(R.id.questionGameFragment);
 	}
 
 }

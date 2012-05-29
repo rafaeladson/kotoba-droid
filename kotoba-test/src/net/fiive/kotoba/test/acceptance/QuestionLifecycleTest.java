@@ -11,6 +11,7 @@ import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListFragment;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
+import net.fiive.kotoba.test.screen.questionGame.QuestionGameScreen;
 
 
 public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<MainActivity> {
@@ -32,21 +33,19 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 	public void testIteration() throws InterruptedException {
 		if (Build.VERSION.SDK_INT < 11) {
 			MainActivity mainActivity = getActivity();
-			TextView questionTextView = (TextView) mainActivity.findViewById(R.id.questionLabel);
-			TextView answerTextView = (TextView) mainActivity.findViewById(R.id.answer_label);
-			assertNotNull(questionTextView);
-			assertNotNull(answerTextView);
+			QuestionGameScreen screen = QuestionGameScreen.screenForAcceptanceTest(mainActivity, solo);
+			assertTrue(screen.hasDefaultQuestionValue());
+			assertFalse(screen.isAnswerVisible());
 
-			assertEquals("How do I use Kotoba?", questionTextView.getText().toString());
-			assertAnswerIsHidden(answerTextView);
-
-			solo.clickOnButton("Answer");
-			assertTrue(answerTextView.getText().toString().contains("Click Answer to see the answer."));
+			screen.clickOnShowAnswerButton();
+			assertTrue(screen.isAnswerVisible());
+			assertTrue(screen.hasDefaultAnswerValue());
 
 			solo.clickOnButton("Next");
-			assertEquals("How do I use Kotoba?", questionTextView.getText().toString());
+			assertFalse(screen.isAnswerVisible());
+			assertTrue(screen.hasDefaultQuestionValue());
 
-			solo.clickOnMenuItem("Manage");
+			screen.selectMenuItem(R.string.manage_questions);
 			QuestionListActivity listActivity = (QuestionListActivity) solo.getCurrentActivity();
 			QuestionListFragment listFragment = (QuestionListFragment) listActivity.getSupportFragmentManager().findFragmentById(R.id.question_list_fragment);
 			assertEquals(0, listFragment.getListView().getChildCount());
@@ -77,21 +76,20 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 
 			solo.goBack();
 			mainActivity = (MainActivity) solo.getCurrentActivity();
-			questionTextView = (TextView) mainActivity.findViewById(R.id.questionLabel);
-			answerTextView = (TextView) mainActivity.findViewById(R.id.answer_label);
-			String firstText = questionTextView.getText().toString();
+			screen = QuestionGameScreen.screenForAcceptanceTest(mainActivity, solo);
+			String firstText = screen.getValueText();
 			assertTrue(firstText.equals("Question 01") || firstText.equals("Question 03"));
-			assertAnswerIsHidden(answerTextView);
-			solo.clickOnButton("Answer");
+			assertFalse(screen.isAnswerVisible());
+			screen.clickOnShowAnswerButton();
 			if (firstText.equals("Question 01")) {
-				assertEquals("Answer 01", answerTextView.getText().toString());
+				assertEquals("Answer 01", screen.getAnswerText());
 			} else {
-				assertEquals("", answerTextView.getText().toString());
+				assertEquals("", screen.getAnswerText());
 			}
-			solo.clickOnButton("Next");
-			String secondText = questionTextView.getText().toString();
+			screen.clickOnNextQuestionButton();
+			String secondText = screen.getValueText();
 			assertTrue(secondText.equals("Question 01") || secondText.equals("Question 03"));
-			assertAnswerIsHidden(answerTextView);
+			assertFalse(screen.isAnswerVisible());
 
 			solo.clickOnMenuItem("Manage");
 			removeQuestion("Question 01");
@@ -106,8 +104,8 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 
 			solo.goBack();
 			mainActivity = (MainActivity) solo.getCurrentActivity();
-			questionTextView = (TextView) mainActivity.findViewById(R.id.questionLabel);
-			assertEquals("How do I use Kotoba?", questionTextView.getText().toString());
+			screen = QuestionGameScreen.screenForAcceptanceTest(mainActivity, solo);
+			assertTrue(screen.hasDefaultQuestionValue());
 		}
 	}
 
@@ -116,10 +114,6 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 		solo.clickOnMenuItem("Remove");
 		solo.clickOnButton("OK");
 		Thread.sleep(500L);
-	}
-
-	private void assertAnswerIsHidden(TextView answerTextView) {
-		assertEquals("Click here to see the answer", answerTextView.getText().toString());
 	}
 
 	private QuestionListFragment getListFragment() {
