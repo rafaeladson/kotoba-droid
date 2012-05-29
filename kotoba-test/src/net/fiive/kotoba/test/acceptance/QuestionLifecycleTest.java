@@ -30,10 +30,10 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 	}
 
 	public void testIteration() throws InterruptedException {
-		if (Build.VERSION.SDK_INT < 11 ) {
+		if (Build.VERSION.SDK_INT < 11) {
 			MainActivity mainActivity = getActivity();
 			TextView questionTextView = (TextView) mainActivity.findViewById(R.id.questionLabel);
-			TextView answerTextView = (TextView) mainActivity.findViewById(R.id.answerLabel);
+			TextView answerTextView = (TextView) mainActivity.findViewById(R.id.answer_label);
 			assertNotNull(questionTextView);
 			assertNotNull(answerTextView);
 
@@ -78,12 +78,12 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 			solo.goBack();
 			mainActivity = (MainActivity) solo.getCurrentActivity();
 			questionTextView = (TextView) mainActivity.findViewById(R.id.questionLabel);
-			answerTextView = (TextView) mainActivity.findViewById(R.id.answerLabel);
+			answerTextView = (TextView) mainActivity.findViewById(R.id.answer_label);
 			String firstText = questionTextView.getText().toString();
-			assertTrue(firstText.equals("Question 01")|| firstText.equals("Question 03"));
+			assertTrue(firstText.equals("Question 01") || firstText.equals("Question 03"));
 			assertAnswerIsHidden(answerTextView);
 			solo.clickOnButton("Answer");
-			if ( firstText.equals("Question 01")) {
+			if (firstText.equals("Question 01")) {
 				assertEquals("Answer 01", answerTextView.getText().toString());
 			} else {
 				assertEquals("", answerTextView.getText().toString());

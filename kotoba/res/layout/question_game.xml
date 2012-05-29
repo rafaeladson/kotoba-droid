@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
               android:weightSum="1">
-    <LinearLayout style="@style/titlePanel" android:id="@+id/linearLayout1" android:layout_width="fill_parent" android:layout_height="0dp" >
-
-        <ScrollView android:scrollbars="vertical" android:layout_height="match_parent" android:layout_width="match_parent">
-            <TextView style="@style/titleFont" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/how_do_i_use_kotoba_question"
-                  android:id="@+id/questionLabel" android:scrollbars="vertical" />
-        </ScrollView>
+    <LinearLayout style="@style/titlePanel" android:id="@+id/linearLayout1" android:layout_width="fill_parent" android:layout_height="0dp">
+        <TextView style="@style/titleFont" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/how_do_i_use_kotoba_question"
+                  android:id="@+id/questionLabel" android:scrollbars="vertical"/>
     </LinearLayout>
 
-    <FrameLayout  style="@style/answerPanel" android:layout_width="match_parent" android:layout_weight="0.83" android:layout_margin="5dp" android:layout_height="0dp">
-        <ScrollView android:layout_height="match_parent" android:layout_width="match_parent" android:scrollbars="vertical" >
-            <TextView style="@style/answerText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/how_do_i_use_kotoba_answer" android:id="@+id/answerLabel"
-                android:scrollbars="vertical"/>
-        </ScrollView>
+    <FrameLayout android:id="@+id/answer_frame_layout" style="@style/answerPanel" android:layout_width="match_parent" android:layout_weight="0.83" android:layout_margin="5dp"
+                 android:layout_height="0dp">
 
 
     </FrameLayout>
