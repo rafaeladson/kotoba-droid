@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+              android:layout_width="fill_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
@@ -12,15 +12,15 @@
             android:textAppearance="@style/titleFont"/>
 
     <EditText
-        android:id="@+id/edit_question_value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.3"
-        android:gravity="top"
-        android:inputType="textLongMessage|textMultiLine|textPostalAddress"
-        android:singleLine="false" >
+            android:id="@+id/edit_question_value"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:maxLength="@integer/max_question_length" />
 
-    </EditText>
+
 
     <TextView
             android:id="@+id/textView2"
@@ -32,7 +32,7 @@
     <EditText
             android:id="@+id/edit_question_answer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:gravity="top"
             android:layout_weight="0.7"
             android:inputType="textMultiLine"/>

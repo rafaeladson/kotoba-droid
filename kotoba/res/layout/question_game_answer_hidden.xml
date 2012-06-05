@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android" style="@style/answerText" android:layout_width="match_parent" android:layout_height="wrap_content"
+          android:text="@string/click_answer_to_see_answer"
+          android:id="@+id/question_mark_text"
+          android:scrollbars="vertical"/>
+
+

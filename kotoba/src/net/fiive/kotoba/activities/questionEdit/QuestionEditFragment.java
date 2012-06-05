@@ -1,34 +1,29 @@
 package net.fiive.kotoba.activities.questionEdit;
 
-import java.util.List;
-
+import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.*;
+import android.widget.Button;
+import android.widget.EditText;
 import net.fiive.intern.android.view.alerts.AlertHelper;
-import net.fiive.intern.android.view.alerts.ErrorAlertInfo;
 import net.fiive.intern.android.view.alerts.RemoveAlertInfo;
 import net.fiive.intern.android.view.validation.TextValidator;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+
+import java.util.List;
 
 
 public class QuestionEditFragment extends Fragment {
 
 	public static final String QUESTION_BUNDLE_KEY = "currentQuestion";
 	public static final String IS_EDITING_BUNDLE_KEY = "isEditing";
+
 
 	private Question currentQuestion;
 	private boolean isEditing;
@@ -44,7 +39,7 @@ public class QuestionEditFragment extends Fragment {
 
 		super.onCreate(savedInstanceState);
 		dataService = new DataService(this.getActivity().getApplicationContext());
-		this.validator = new TextValidator(this.getActivity());
+		this.validator = new TextValidator();
 
 	}
 
@@ -60,7 +55,6 @@ public class QuestionEditFragment extends Fragment {
 			}
 		});
 
-
 		Button saveButton = (Button) editQuestionView.findViewById(R.id.save_question);
 		saveButton.setOnClickListener(new Button.OnClickListener() {
 
@@ -72,6 +66,18 @@ public class QuestionEditFragment extends Fragment {
 		
 		valueText = (EditText) editQuestionView.findViewById(R.id.edit_question_value);
 		answerText = (EditText) editQuestionView.findViewById(R.id.edit_question_answer);
+		valueText.setOnKeyListener(new View.OnKeyListener() {
+			@Override
+			public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+				if ( keyCode == KeyEvent.KEYCODE_ENTER) {
+					answerText.requestFocus();
+					return true;
+				}
+				return false;
+			}
+		});
+
+
 
 		return editQuestionView;
 	}
@@ -97,7 +103,7 @@ public class QuestionEditFragment extends Fragment {
 		super.onResume();
 		if (dataService == null) {
 			dataService = new DataService(this.getActivity().getApplicationContext());
-			validator = new TextValidator(this.getActivity());
+			validator = new TextValidator();
 			alertHelper = new AlertHelper();
 		}
 	}
@@ -134,7 +140,6 @@ public class QuestionEditFragment extends Fragment {
 	}
 
 	public void mockAlertHelper(AlertHelper helper) {
-		this.validator.mockAlertHelper(helper);
 		this.alertHelper = helper;
 	}
 
@@ -160,15 +165,16 @@ public class QuestionEditFragment extends Fragment {
 	}
 
 	private void saveCurrentQuestion() {
-		String questionValue = valueText.getText().toString();
+
 		String answer = answerText.getText().toString();
 
 		Resources resources = getResources();
-		String alertTitle = resources.getString(R.string.alert_title);
-		String continueButtonLabel = resources.getString(R.string.continue_button_label);
+		int maxQuestionLength = resources.getInteger(R.integer.max_question_length);
+		String questionValue = valueText.getText().toString().replace("\n", " ");
 		String mustTypeQuestionMessage = resources.getString(R.string.must_type_question);
+		String maxQuestionLengthMessage = String.format(resources.getString(R.string.max_question_length_message), maxQuestionLength);
 
-		if (validator.validateTextIsFilled(questionValue, new ErrorAlertInfo(alertTitle, mustTypeQuestionMessage, continueButtonLabel))) {
+		if (validator.validateTextNotEmpty(valueText, mustTypeQuestionMessage) && validator.validateTextMaxLength(valueText, maxQuestionLength, maxQuestionLengthMessage)) {
 			currentQuestion.setValue(questionValue);
 			currentQuestion.setAnswer(answer);
 			dataService.saveOrUpdateQuestion(currentQuestion);

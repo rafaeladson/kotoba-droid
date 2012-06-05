@@ -1,27 +1,19 @@
 package net.fiive.kotoba.test.activities;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
 import android.test.ActivityUnitTestCase;
-import android.widget.Button;
-import android.widget.TextView;
-import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
-import net.fiive.kotoba.activities.game.QuestionGameFragment;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
+import net.fiive.kotoba.test.screen.questionGame.QuestionGameScreen;
 
 public class QuestionGameBeginsWithOneQuestionTest extends ActivityUnitTestCase<MainActivity> {
 
-	private QuestionGameFragment fragment;
 	private DataService dataService;
 	private Question savedQuestion;
-	private TextView valueTextView;
-	private TextView answerTextView;
-	private MainActivity activity;
+	private QuestionGameScreen screen;
 
-	private static final String CLICK_HERE_TO_SEE_ANSWER_TEXT = "Click here to see answer";
 
 	public QuestionGameBeginsWithOneQuestionTest() {
 		super(MainActivity.class);
@@ -37,48 +29,38 @@ public class QuestionGameBeginsWithOneQuestionTest extends ActivityUnitTestCase<
 		savedQuestion = dataService.saveOrUpdateQuestion(savedQuestion);
 
 		startActivity(new Intent(getInstrumentation().getTargetContext(), MainActivity.class), null, null);
-		activity = this.getActivity();
-		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		fragment = (QuestionGameFragment)fragmentManager.findFragmentById(R.id.questionGameFragment);
-
-		fragment.onActivityCreated(null);
-
-		Button showAnswerButton = (Button) activity.findViewById(R.id.showAnswerButton);
-		showAnswerButton.performClick();
-
-		valueTextView = (TextView) activity.findViewById(R.id.questionLabel);
-		answerTextView = (TextView) activity.findViewById(R.id.answerLabel);
-
-
+		MainActivity activity = this.getActivity();
+		screen = QuestionGameScreen.screenForUnitTest(activity);
+		screen.onActivityCreated(null);
+		screen.clickOnShowAnswerButton();
 	}
 
 	public void testOnResumeWithSameItem() {
-		fragment.onResume();
-		assertEquals("bar", answerTextView.getText().toString());
+		assertEquals("bar", screen.getAnswerText());
 	}
 
 	public void testOnResumeWithZeroItems() {
 		dataService.removeQuestion(savedQuestion);
-		fragment.onResume();
-		String howDoIUseKotobaQuestionString = activity.getResources().getString(R.string.how_do_i_use_kotoba_question);
-		assertEquals(howDoIUseKotobaQuestionString, valueTextView.getText().toString());
+		screen.onResume();
+		assertTrue(screen.hasDefaultQuestionValue());
 	}
 
 	public void testOnResumeWithTwoItems() {
 		Question anotherQuestion = new Question("testing", "question");
 		dataService.saveOrUpdateQuestion(anotherQuestion);
 
-		fragment.onResume();
-		assertEquals(CLICK_HERE_TO_SEE_ANSWER_TEXT, answerTextView.getText().toString());
+		screen.onResume();
+		assertFalse(screen.isAnswerVisible());
 	}
 
 	public void testOnResumeAfterUpdate() {
-		fragment.showNextQuestion();
+		screen.clickOnNextQuestionButton();
 		savedQuestion.setValue("bar");
 		dataService.saveOrUpdateQuestion(savedQuestion);
 
-		fragment.onResume();
-		assertEquals("bar", valueTextView.getText().toString());
+		screen.onResume();
+		assertEquals("bar", screen.getValueText());
 	}
+
 
 }

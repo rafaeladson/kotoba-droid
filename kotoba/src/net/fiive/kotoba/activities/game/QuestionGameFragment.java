@@ -1,29 +1,27 @@
 package net.fiive.kotoba.activities.game;
 
-import java.util.List;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.*;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import net.fiive.intern.random.CircularItemCursor;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+
+import java.util.List;
 
 public class QuestionGameFragment extends Fragment {
 
-	private static final String ANSWER_IS_SHOWN_KEY = "answerIsShown";
+	private static final String ANSWER_VISIBLE_KEY = "answerVisible";
 	private static final String CURRENT_QUESTION_KEY = "currentQuestion";
 	private TextView questionLabel;
-	private TextView answerLabel;
+	private FrameLayout answerLayout;
 
-	private boolean answerIsShown = false;
+	private boolean answerVisible = false;
 
 	private CircularItemCursor<Long> cursor;
 	private Question currentQuestion;
@@ -45,10 +43,12 @@ public class QuestionGameFragment extends Fragment {
 			cursor = new CircularItemCursor<Long>(questionIds);
 		}
 
-		if (savedInstanceState != null && savedInstanceState.containsKey(CURRENT_QUESTION_KEY) && savedInstanceState.containsKey(ANSWER_IS_SHOWN_KEY)) {
+
+		if (savedInstanceState != null && savedInstanceState.containsKey(CURRENT_QUESTION_KEY) && savedInstanceState.get(CURRENT_QUESTION_KEY) != null
+			    && savedInstanceState.containsKey(ANSWER_VISIBLE_KEY)) {
 			currentQuestion = (Question) savedInstanceState.getSerializable(CURRENT_QUESTION_KEY);
 			questionLabel.setText(currentQuestion.getValue());
-			if (savedInstanceState.getBoolean(ANSWER_IS_SHOWN_KEY)) {
+			if (savedInstanceState.getBoolean(ANSWER_VISIBLE_KEY)) {
 				this.showAnswer();
 			} else {
 				clearAnswer();
@@ -62,15 +62,11 @@ public class QuestionGameFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View wordGameView = inflater.inflate(R.layout.question_game, container);
+		answerLayout = (FrameLayout) wordGameView.findViewById(R.id.answer_frame_layout);
+
 
 		questionLabel = (TextView) wordGameView.findViewById(R.id.questionLabel);
-		answerLabel = (TextView) wordGameView.findViewById(R.id.answerLabel);
-		answerLabel.setOnClickListener(new Button.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				showAnswer();
-			}
-		});
+
 
 		Button nextQuestionButton = (Button) wordGameView.findViewById(R.id.nextQuestionButton);
 		nextQuestionButton.setOnClickListener(new Button.OnClickListener() {
@@ -123,26 +119,23 @@ public class QuestionGameFragment extends Fragment {
 	}
 
 	public void showAnswer() {
+		showAnswerView();
+		TextView answerView = (TextView) answerLayout.findViewById(R.id.answer_label);
 		if (currentQuestion != null) {
-			answerLabel.setText(currentQuestion.getAnswer());
+			answerView.setText(currentQuestion.getAnswer());
 		} else {
-			answerLabel.setText(getResources().getText(R.string.how_do_i_use_kotoba_answer));
+			answerView.setText(getResources().getText(R.string.how_do_i_use_kotoba_answer));
 		}
-		answerIsShown = true;
-
+		answerVisible = true;
 	}
 
-	private void clearAnswer() {
-		answerLabel.setText(R.string.click_here_to_see_answer);
-		answerIsShown = false;
-	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 
 		outState.putSerializable(CURRENT_QUESTION_KEY, currentQuestion);
-		outState.putBoolean(ANSWER_IS_SHOWN_KEY, answerIsShown);
+		outState.putBoolean(ANSWER_VISIBLE_KEY, answerVisible);
 	}
 
 	@Override
@@ -153,9 +146,8 @@ public class QuestionGameFragment extends Fragment {
 
 	/**
 	 * DO NOT USE!! Only for use in tests!
-	 * 
-	 * @param currentQuestion
-	 *            a new value for current question
+	 *
+	 * @param currentQuestion a new value for current question
 	 */
 	public void setCurrentQuestion(Question currentQuestion) {
 		this.currentQuestion = currentQuestion;
@@ -163,12 +155,48 @@ public class QuestionGameFragment extends Fragment {
 
 	/**
 	 * DO NOT USE!! Only for use in tests!!
-	 * 
-	 * @param cursor
-	 *            a new value for the cursor.
+	 *
+	 * @param cursor a new value for the cursor.
 	 */
 	public void setCursor(CircularItemCursor<Long> cursor) {
 		this.cursor = cursor;
 	}
+
+	public TextView getQuestionLabel() {
+		return questionLabel;
+	}
+
+	public FrameLayout getAnswerLayout() {
+		return answerLayout;
+	}
+
+	public boolean isAnswerVisible() {
+		return answerVisible;
+	}
+
+	private void showAnswerView() {
+		LayoutInflater inflater = this.getActivity().getLayoutInflater();
+		answerLayout.removeAllViews();
+		inflater.inflate(R.layout.question_game_answer_shown, answerLayout);
+		answerLayout.setOnClickListener(null);
+	}
+
+	private void clearAnswer() {
+		hideAnswerView();
+		answerVisible = false;
+	}
+
+	private void hideAnswerView() {
+		answerLayout.removeAllViews();
+		LayoutInflater inflater = this.getActivity().getLayoutInflater();
+		answerLayout = (FrameLayout) inflater.inflate(R.layout.question_game_answer_hidden, answerLayout);
+		answerLayout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				showAnswer();
+			}
+		});
+	}
+
 
 }
