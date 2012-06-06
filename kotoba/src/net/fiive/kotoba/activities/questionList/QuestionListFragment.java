@@ -1,9 +1,5 @@
 package net.fiive.kotoba.activities.questionList;
 
-import net.fiive.kotoba.R;
-import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
-import net.fiive.kotoba.data.dao.DataService;
-import net.fiive.kotoba.data.table.QuestionTable;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-
 import com.google.common.base.Preconditions;
+import net.fiive.kotoba.R;
+import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
+import net.fiive.kotoba.data.dao.DataService;
+import net.fiive.kotoba.data.table.QuestionTable;
 
 public class QuestionListFragment extends ListFragment {
 
@@ -34,6 +33,7 @@ public class QuestionListFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
 		return inflater.inflate(R.layout.default_view_for_list_fragment, container);
+
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class QuestionListFragment extends ListFragment {
 		DataService dataService = new DataService(getActivity().getApplicationContext());
 		findAllCursor = dataService.cursorForFindAll();
 		CursorAdapter questionListAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(), R.layout.question_list_item, findAllCursor,
-			new String[] {QuestionTable.Columns.VALUE}, new int[] {R.id.questionListItemValue });
+										   new String[]{QuestionTable.Columns.VALUE}, new int[]{R.id.questionListItemValue});
 		this.setListAdapter(questionListAdapter);
 	}
 

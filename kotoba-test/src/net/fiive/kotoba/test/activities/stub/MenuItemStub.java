@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
 
 public class MenuItemStub implements MenuItem {
 	private int menuItemId;
@@ -164,23 +163,5 @@ public class MenuItemStub implements MenuItem {
 		return null;
 	}
 
-	@Override
-	public void setShowAsAction(int i) {
 
-	}
-
-	@Override
-	public MenuItem setActionView(View view) {
-		return null;
-	}
-
-	@Override
-	public MenuItem setActionView(int i) {
-		return null;
-	}
-
-	@Override
-	public View getActionView() {
-		return null;
-	}
 }
