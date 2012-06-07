@@ -1,15 +1,14 @@
 package net.fiive.kotoba.activities.questionList;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.activities.info.InfoActivity;
-import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 
 public class QuestionListActivity extends FragmentActivity {
@@ -20,6 +19,7 @@ public class QuestionListActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.question_list_activity);
+
 	}
 
 	@Override
@@ -30,9 +30,9 @@ public class QuestionListActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch( item.getItemId()) {
+		switch (item.getItemId()) {
 			case R.id.add_question_menu:
-				addNewQuestion();
+				getListFragment().addNewQuestion();
 				return true;
 			case android.R.id.home:
 				Intent intent = new Intent(this, MainActivity.class);
@@ -52,9 +52,9 @@ public class QuestionListActivity extends FragmentActivity {
 		startActivity(infoIntent);
 	}
 
-	private void addNewQuestion() {
-		Intent addQuestionIntent = new Intent(QuestionEditActivity.ADD_QUESTION_ACTION, Uri.parse("kotoba://kotoba.fiive.net/question/new"));
-		startActivity(addQuestionIntent);
+	private QuestionListFragment getListFragment() {
+		FragmentManager fragmentManager = this.getSupportFragmentManager();
+		return (QuestionListFragment) fragmentManager.findFragmentById(R.id.question_list_fragment);
 	}
 
 

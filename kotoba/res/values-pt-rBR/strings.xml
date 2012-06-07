@@ -5,7 +5,8 @@
     <string name="show_answer">Resposta</string>
     <string name="how_do_i_use_kotoba_question">Como eu uso o Kotoba?</string>
     <string name="how_do_i_use_kotoba_answer">Clique em Resposta para ver a resposta.\nClique Próximo para ver outra pergunta.\nClique em Gerenciar Perguntas no menupara adicionar ou remover
-        perguntas.</string>
+        perguntas.
+    </string>
     <string name="click_answer_to_see_answer">Clique em Resposta para ver a resposta</string>
     <string name="manage_questions">Gerenciar Perguntas</string>
     <string name="question">Pergunta</string>
@@ -24,7 +25,9 @@
     <string name="info">Informações</string>
     <string name="help">Ajuda</string>
     <string name="help_kotoba_text">Para usar o Kotoba:\n\t1. Vá para a tela inicial.\n\t2. Aperte Próximo para ver outra pergunta.\n\t3. Aperte Resposta para ver a resposta da pergunta atual.\n\t4.
-        Aperte Gerenciar Perguntas para adicionar, remover ou atualizar perguntas.</string>
+        Aperte Gerenciar Perguntas para adicionar, remover ou atualizar perguntas.
+    </string>
     <string name="copyright">Kotoba v0.1. Produzido em 2012 por Rafael Adson Barbosa Barros. Todos os direitos reservados.</string>
+    <string name="add_new_question">Adicionar Pergunta</string>
 
 </resources>
