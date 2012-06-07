@@ -37,4 +37,12 @@ public class BaseScreen<F extends Fragment, AT extends BaseScreenAutomator> {
 	protected AT getAutomator() {
 		return automator;
 	}
+
+	protected void sleep(int milliseconds) {
+		try {
+			Thread.sleep(milliseconds);
+		} catch (InterruptedException exception) {
+		      //do nothing, the only thing that can happen is a test failure.
+		}
+	}
 }

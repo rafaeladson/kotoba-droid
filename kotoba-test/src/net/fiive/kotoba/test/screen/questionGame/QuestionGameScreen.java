@@ -13,6 +13,7 @@ import net.fiive.kotoba.test.screen.base.BaseScreen;
 
 public class QuestionGameScreen extends BaseScreen<QuestionGameFragment, QuestionGameScreenAutomator> {
 
+	static final int DEFAULT_WAIT_TIME = 100;
 	private MainActivity activity;
 
 
@@ -38,6 +39,7 @@ public class QuestionGameScreen extends BaseScreen<QuestionGameFragment, Questio
 
 	public void clickOnShowAnswerButton() {
 		getAutomator().clickOnShowAnswerButton();
+		sleep(DEFAULT_WAIT_TIME);
 	}
 
 	public String getValueText() {
