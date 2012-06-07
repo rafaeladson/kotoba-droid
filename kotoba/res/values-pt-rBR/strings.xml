@@ -29,5 +29,6 @@
     </string>
     <string name="copyright">Kotoba v0.1. Produzido em 2012 por Rafael Adson Barbosa Barros. Todos os direitos reservados.</string>
     <string name="add_new_question">Adicionar Pergunta</string>
+    <string name="save_and_new">Salvar e Criar Nova</string>
 
 </resources>

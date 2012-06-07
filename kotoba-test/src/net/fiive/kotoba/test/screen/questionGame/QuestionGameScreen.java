@@ -1,6 +1,5 @@
 package net.fiive.kotoba.test.screen.questionGame;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -10,12 +9,11 @@ import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.activities.game.QuestionGameFragment;
 import net.fiive.kotoba.domain.Question;
+import net.fiive.kotoba.test.screen.base.BaseScreen;
 
-public class QuestionGameScreen {
+public class QuestionGameScreen extends BaseScreen<QuestionGameFragment, QuestionGameScreenAutomator> {
 
 	private MainActivity activity;
-	private QuestionGameFragment fragment;
-	private QuestionGameScreenAutomator automator;
 
 
 	public static QuestionGameScreen screenForUnitTest(MainActivity activity) {
@@ -29,17 +27,17 @@ public class QuestionGameScreen {
 	}
 
 	private QuestionGameScreen(MainActivity activity, QuestionGameFragment fragment, QuestionGameScreenAutomator automator) {
+		super(fragment, automator);
 		this.activity = activity;
-		this.fragment = fragment;
-		this.automator = automator;
+
 	}
 
 	public void clickOnNextQuestionButton() {
-		automator.clickOnNextQuestionButton();
+		getAutomator().clickOnNextQuestionButton();
 	}
 
 	public void clickOnShowAnswerButton() {
-		automator.clickOnShowAnswerButton();
+		getAutomator().clickOnShowAnswerButton();
 	}
 
 	public String getValueText() {
@@ -57,32 +55,17 @@ public class QuestionGameScreen {
 	}
 
 	public void clickOnAnswerView() {
-		automator.clickOnAnswerView();
+		getAutomator().clickOnAnswerView();
 
 	}
 
 	public boolean isAnswerVisible() {
-		return fragment.isAnswerVisible();
+		return getFragment().isAnswerVisible();
 	}
 
-	public void onActivityCreated(Bundle bundle) {
-		this.fragment.onActivityCreated(bundle);
-	}
-
-	public void onSaveInstanceState(Bundle bundle) {
-		fragment.onSaveInstanceState(bundle);
-	}
-
-	public void onResume() {
-		fragment.onResume();
-	}
-
-	public void selectMenuItem(int itemId) {
-		automator.selectMenuItem(itemId);
-	}
 
 	public void setCurrentQuestion(Question question) {
-		fragment.setCurrentQuestion(question);
+		getFragment().setCurrentQuestion(question);
 	}
 
 	public boolean hasDefaultQuestionValue() {
