@@ -4,19 +4,14 @@ package net.fiive.kotoba.test.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.test.ActivityUnitTestCase;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditFragment;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
-import net.fiive.kotoba.test.activities.stub.AlertHelperMock;
-import net.fiive.kotoba.test.activities.stub.MenuItemStub;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
+import net.fiive.kotoba.test.screen.questionEdit.QuestionEditScreen;
 
 public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<QuestionEditActivity> {
 
@@ -24,10 +19,7 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 	private QuestionEditActivity activity;
 	private DataService dataService;
 	private Long currentQuestionId;
-	private QuestionEditFragment fragment;
-	private EditText questionValueText;
-	private EditText questionAnswerText;
-	private Button saveQuestionButton;
+	private QuestionEditScreen screen;
 
 
 	public QuestionEditExistingFragmentTest() {
@@ -47,22 +39,14 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 
 		this.startActivity(new Intent(QuestionEditActivity.EDIT_QUESTION_ACTION, Uri.parse("kotoba://kotoba.fiive.net/question/" + questionInDatabase.getId())), null, null);
 		activity = getActivity();
-		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		fragment = (QuestionEditFragment) fragmentManager.findFragmentById(R.id.question_edit_fragment);
-
-		questionValueText = (EditText) activity.findViewById(R.id.edit_question_value);
-		questionAnswerText = (EditText) activity.findViewById(R.id.edit_question_answer);
-		saveQuestionButton = (Button) activity.findViewById(R.id.save_question);
-
-		fragment.onActivityCreated(null);
+		screen = QuestionEditScreen.screenForUnitTests(activity);
+		screen.onActivityCreated(null);
 
 	}
 
 	public void testEditQuestion() {
-		questionValueText.setText("hello");
-		questionAnswerText.setText("world");
-
-		saveQuestionButton.performClick();
+		screen.fillQuestionAndAnswer("hello", "world");
+		screen.clickOnSaveButton();
 
 		Question questionFromDatabase = dataService.findQuestionById(currentQuestionId);
 		assertEquals("hello", questionFromDatabase.getValue());
@@ -73,10 +57,9 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 	}
 
 	public void testUpdateQuestionByMenu() {
-		questionValueText.setText("menu");
+		screen.fillQuestionAndAnswer("menu", "");
+		screen.selectMenuItem(R.id.save_question_menu);
 
-		MenuItem menuItem = new MenuItemStub(R.id.save_question_menu);
-		fragment.onOptionsItemSelected(menuItem);
 
 		Question questionFromDatabase = dataService.findQuestionById(currentQuestionId);
 		assertEquals("menu", questionFromDatabase.getValue());
@@ -89,18 +72,17 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(QuestionEditFragment.QUESTION_BUNDLE_KEY, new Question("fromBundleValue", "fromBundleAnswer"));
 		bundle.putBoolean(QuestionEditFragment.IS_EDITING_BUNDLE_KEY, true);
-		fragment.onActivityCreated(bundle);
+		screen.onActivityCreated(bundle);
 
-
-		assertEquals("fromBundleValue", questionValueText.getText().toString());
-		assertEquals("fromBundleAnswer", questionAnswerText.getText().toString());
+		assertEquals("fromBundleValue", screen.getValueText());
+		assertEquals("fromBundleAnswer", screen.getAnswerText());
 	}
 
 	public void testSaveBundleState() {
-		fragment.onActivityCreated(null);
+		screen.onActivityCreated(null);
 
 		Bundle bundle = new Bundle();
-		fragment.onSaveInstanceState(bundle);
+		screen.onSaveInstanceState(bundle);
 
 		assertTrue(bundle.containsKey(QuestionEditFragment.QUESTION_BUNDLE_KEY));
 		Question question = (Question) bundle.getSerializable(QuestionEditFragment.QUESTION_BUNDLE_KEY);
@@ -111,11 +93,10 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 	}
 
 	public void testUserUpdateQuestionWithNoValue() {
-		questionValueText.setText("");
-		questionAnswerText.setText("question_with_no_value");
-		saveQuestionButton.performClick();
+		screen.fillQuestionAndAnswer("", "question_with_no_value");
+		screen.clickOnSaveButton();
 
-		assertEquals("Please type a question.", questionValueText.getError());
+		assertEquals("Please type a question.", screen.getValueTextValidationError().get());
 		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
 		assertFalse(questionFromDb.getAnswer().equals("question_with_no_value"));
 	}
@@ -142,27 +123,22 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 		String textWithoutNewLines = text.replace("\n", " ");
 		String textTruncatedAtLimit = textWithoutNewLines.substring(0, maxLength);
 
-		questionValueText.setText(text);
-		saveQuestionButton.performClick();
+		screen.fillQuestionAndAnswer(text, "");
+		screen.clickOnSaveButton();
 		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
 		assertEquals(textTruncatedAtLimit, questionFromDb.getValue());
 	}
 
 	public void testUserUpdateQuestionWithNewlines() {
-		questionValueText.setText("foo\nbar");
-		saveQuestionButton.performClick();
+		screen.fillQuestionAndAnswer("foo\nbar", "");
+		screen.clickOnSaveButton();
 		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
 		assertEquals("foo bar", questionFromDb.getValue());
 	}
 
 
 	public void testUserRemovedQuestion() {
-		AlertHelperMock alertHelperMock = new AlertHelperMock();
-		fragment.mockAlertHelper(alertHelperMock);
-
-		MenuItem removeMenuItem = new MenuItemStub(R.id.remove_question_menu);
-		fragment.onOptionsItemSelected(removeMenuItem);
-		assertTrue(alertHelperMock.showRemoveAlertWasCalled());
+		screen.removeCurrentQuestion();
 		assertNull(dataService.findQuestionById(currentQuestionId));
 	}
 

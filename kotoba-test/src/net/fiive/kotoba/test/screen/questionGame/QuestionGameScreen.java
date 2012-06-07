@@ -11,34 +11,36 @@ import net.fiive.kotoba.activities.game.QuestionGameFragment;
 import net.fiive.kotoba.domain.Question;
 import net.fiive.kotoba.test.screen.base.BaseScreen;
 
-public class QuestionGameScreen extends BaseScreen<QuestionGameFragment, QuestionGameScreenAutomator> {
+public class QuestionGameScreen extends BaseScreen<MainActivity, QuestionGameFragment> {
 
 	static final int DEFAULT_WAIT_TIME = 100;
 	private MainActivity activity;
+	private TestIds testIds;
 
 
 	public static QuestionGameScreen screenForUnitTest(MainActivity activity) {
 		QuestionGameFragment fragment = getFragmentFromActivity(activity);
-		return new QuestionGameScreen(activity, fragment, new QuestionGameScreenUnitTestAutomator(activity, fragment));
+		return new QuestionGameScreen(activity, fragment, new QuestionGameScreenUnitTestScreenAutomator(activity, fragment), new TestIds.UnitTestIds());
 	}
 
 	public static QuestionGameScreen screenForAcceptanceTest(MainActivity activity, Solo solo) {
 		QuestionGameFragment fragment = getFragmentFromActivity(activity);
-		return new QuestionGameScreen(activity, fragment, new QuestionGameScreenSoloAutomator(activity, solo));
+		return new QuestionGameScreen(activity, fragment, new QuestionGameScreenSoloScreenAutomator(activity, solo), new TestIds.SoloTestIds());
 	}
 
-	private QuestionGameScreen(MainActivity activity, QuestionGameFragment fragment, QuestionGameScreenAutomator automator) {
-		super(fragment, automator);
+	private QuestionGameScreen(MainActivity activity, QuestionGameFragment fragment, QuestionGameScreenAutomator automator, TestIds testIds) {
+		super(activity, fragment, automator);
 		this.activity = activity;
+		this.testIds = testIds;
 
 	}
 
 	public void clickOnNextQuestionButton() {
-		getAutomator().clickOnNextQuestionButton();
+		getAutomator().clickOnButton(testIds.getNextQuestionButtonId());
 	}
 
 	public void clickOnShowAnswerButton() {
-		getAutomator().clickOnShowAnswerButton();
+		getAutomator().clickOnButton(testIds.getShowAnswerButtonId());
 		sleep(DEFAULT_WAIT_TIME);
 	}
 
@@ -57,7 +59,7 @@ public class QuestionGameScreen extends BaseScreen<QuestionGameFragment, Questio
 	}
 
 	public void clickOnAnswerView() {
-		getAutomator().clickOnAnswerView();
+		((QuestionGameScreenAutomator) getAutomator()).clickOnAnswerView();
 
 	}
 

@@ -4,18 +4,13 @@ package net.fiive.kotoba.test.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v4.app.FragmentManager;
 import android.test.ActivityUnitTestCase;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
-import net.fiive.kotoba.activities.questionEdit.QuestionEditFragment;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
-import net.fiive.kotoba.test.activities.stub.MenuItemStub;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
+import net.fiive.kotoba.test.screen.questionEdit.QuestionEditScreen;
 
 
 public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEditActivity> {
@@ -23,10 +18,7 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 	private QuestionEditActivity activity;
 	private DataService dataService;
 
-	private EditText valueText;
-	private EditText answerText;
-
-	QuestionEditFragment fragment;
+	private QuestionEditScreen screen;
 
 
 	public QuestionEditNewFragmentTest() {
@@ -40,46 +32,37 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 		activity = getActivity();
 		new DatabaseCleaner().cleanDatabase(getInstrumentation().getTargetContext());
 		dataService = new DataService(getInstrumentation().getTargetContext());
-		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		fragment = (QuestionEditFragment) fragmentManager.findFragmentById(R.id.question_edit_fragment);
-		fragment.onActivityCreated(null);
-		valueText = (EditText) this.getActivity().findViewById(R.id.edit_question_value);
-		answerText = (EditText) this.getActivity().findViewById(R.id.edit_question_answer);
+
+		screen = QuestionEditScreen.screenForUnitTests(activity);
+		screen.onActivityCreated(null);
 	}
 
 
 	public void testShouldGoToHomeWhenUserClicksHomeButton() {
 		if (Build.VERSION.SDK_INT >= 11) {
-			MenuItem menuItem = new MenuItemStub(android.R.id.home);
-			activity.onOptionsItemSelected(menuItem);
+			screen.selectMenuItem(android.R.id.home);
 			Intent goToHomeIntent = getStartedActivityIntent();
 			assertEquals(".activities.MainActivity", goToHomeIntent.getComponent().getShortClassName());
 		}
 	}
 
 	public void testUserClicksCancelButton() {
-		Button cancelButton = (Button) this.getActivity().findViewById(R.id.cancel_edit_question);
-		cancelButton.performClick();
+		screen.clickOnCancelButton();
 		Intent backIntent = getStartedActivityIntent();
 		assertEquals(".activities.questionList.QuestionListActivity", backIntent.getComponent().getShortClassName());
 	}
 
 	public void testUserClicksCancelMenu() {
-		MenuItem menuItem = new MenuItemStub(R.id.cancel_edit_question_menu);
-		fragment.onOptionsItemSelected(menuItem);
+		screen.selectMenuItem(R.id.cancel_edit_question_menu);
 
 		Intent backIntent = getStartedActivityIntent();
 		assertEquals(".activities.questionList.QuestionListActivity", backIntent.getComponent().getShortClassName());
 	}
 
 	public void testUserSaveNewQuestion() {
+		screen.fillQuestionAndAnswer("foo", "bar");
+		screen.clickOnSaveButton();
 
-		valueText.setText("foo");
-
-		answerText.setText("bar");
-
-		Button saveButton = (Button) this.getActivity().findViewById(R.id.save_question);
-		saveButton.performClick();
 
 		Question questionFromDb = dataService.findQuestionById(dataService.findAllQuestionIds().get(0));
 		assertEquals("foo", questionFromDb.getValue());

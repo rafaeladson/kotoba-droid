@@ -2,14 +2,19 @@ package net.fiive.kotoba.test.screen.base;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.widget.EditText;
+import com.google.common.base.Optional;
 
-public class BaseScreen<F extends Fragment, AT extends BaseScreenAutomator> {
+public class BaseScreen<A extends FragmentActivity, F extends Fragment> {
 
+	private A activity;
 	private F fragment;
-	private AT automator;
+	private ScreenAutomator automator;
 
 
-	public BaseScreen(F fragment, AT automator) {
+	public BaseScreen(A activity, F fragment, ScreenAutomator automator) {
+		this.activity = activity;
 		this.fragment = fragment;
 		this.automator = automator;
 	}
@@ -30,11 +35,22 @@ public class BaseScreen<F extends Fragment, AT extends BaseScreenAutomator> {
 		automator.selectMenuItem(itemId);
 	}
 
+	protected String getTextFromEditText(int editTextId) {
+		EditText editText = (EditText) activity.findViewById(editTextId);
+		return editText.getText().toString();
+	}
+
+	protected Optional<String> getErrorFromEditText(int editTextId) {
+		EditText editText = (EditText) activity.findViewById(editTextId);
+		CharSequence error = editText.getError();
+		return error != null ? Optional.of(error.toString()) : Optional.<String>absent();
+	}
+
 	protected F getFragment() {
 		return fragment;
 	}
 
-	protected AT getAutomator() {
+	protected ScreenAutomator getAutomator() {
 		return automator;
 	}
 
@@ -42,7 +58,7 @@ public class BaseScreen<F extends Fragment, AT extends BaseScreenAutomator> {
 		try {
 			Thread.sleep(milliseconds);
 		} catch (InterruptedException exception) {
-		      //do nothing, the only thing that can happen is a test failure.
+			//do nothing, the only thing that can happen is a test failure.
 		}
 	}
 }
