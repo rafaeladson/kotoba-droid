@@ -12,6 +12,8 @@ interface TestIds {
 
 	int getRemoveMenuItemId();
 
+	int getSaveAndNewButtonId();
+
 	public static class UnitTestIds implements TestIds {
 
 		@Override
@@ -33,6 +35,11 @@ interface TestIds {
 		@Override
 		public int getAlertOkButtonId() {
 			return R.string.ok;
+		}
+
+		@Override
+		public int getSaveAndNewButtonId() {
+			return R.id.question_save_and_new_menu;
 		}
 
 
@@ -59,6 +66,11 @@ interface TestIds {
 		@Override
 		public int getRemoveMenuItemId() {
 			return R.string.remove;
+		}
+
+		@Override
+		public int getSaveAndNewButtonId() {
+			return R.string.save_and_new;
 		}
 	}
 

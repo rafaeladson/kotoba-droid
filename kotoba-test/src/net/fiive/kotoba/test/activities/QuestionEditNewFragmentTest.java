@@ -69,5 +69,19 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 		assertEquals("bar", questionFromDb.getAnswer());
 	}
 
+	public void testUserClicksOnSaveAndNew() {
+		screen.fillQuestionAndAnswer("foo", "bar");
+		screen.selectSaveAndNewMenuItem();
+
+		Question questionFromDb = dataService.findQuestionById(dataService.findAllQuestionIds().get(0));
+		assertEquals("foo", questionFromDb.getValue());
+		assertEquals("", screen.getValueText());
+		assertEquals("", screen.getAnswerText());
+
+		screen.fillQuestionAndAnswer("foo2", "bar2");
+		screen.selectSaveAndNewMenuItem();
+		assertEquals(2, dataService.findAllQuestionIds().size());
+	}
+
 
 }

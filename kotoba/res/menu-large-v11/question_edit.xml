@@ -5,7 +5,7 @@
           android:icon="@drawable/ic_action_save"
           android:title="@string/save"
           android:showAsAction="ifRoom|withText"/>
-    <item android:id="@+id/question_save_new_menu"
+    <item android:id="@+id/question_save_and_new_menu"
           android:icon="@drawable/ic_action_save"
           android:title="@string/save_and_new"
           android:showAsAction="ifRoom|withText"/>

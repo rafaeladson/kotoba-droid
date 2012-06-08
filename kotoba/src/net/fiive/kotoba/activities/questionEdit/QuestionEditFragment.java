@@ -121,6 +121,9 @@ public class QuestionEditFragment extends Fragment {
 			case R.id.save_question_menu:
 				saveCurrentQuestion(PostSaveAction.GO_BACK);
 				return true;
+			case R.id.question_save_and_new_menu:
+				saveCurrentQuestion(PostSaveAction.CREATE_NEW);
+				return true;
 			case R.id.remove_question_menu:
 				removeCurrentQuestion();
 				return true;
@@ -211,6 +214,13 @@ public class QuestionEditFragment extends Fragment {
 		Preconditions.checkNotNull(action);
 		if (PostSaveAction.GO_BACK.equals(action)) {
 			goBack();
+		} else if (PostSaveAction.CREATE_NEW.equals(action)) {
+			isEditing = false;
+			currentQuestion = new Question();
+			valueText.setText("");
+			answerText.setText("");
+			valueText.requestFocus();
+
 		} else {
 			throw new IllegalArgumentException("Error: unsupported PostSaveAction.");
 		}
