@@ -32,11 +32,16 @@ public class QuestionListFragment extends ListFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
+<<<<<<< HEAD
+		return inflater.inflate(R.layout.default_view_for_list_fragment, container);
+
+=======
 		View view = inflater.inflate(R.layout.question_list_fragment, container);
 
 		setAddNewQuestionLinkOnClickListener(view);
 
 		return view;
+>>>>>>> refs/heads/master
 	}
 
 	@Override

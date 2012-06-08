@@ -1,12 +1,10 @@
 package net.fiive.kotoba.test.screen.questionGame;
 
-public interface QuestionGameScreenAutomator {
+import net.fiive.kotoba.test.screen.base.ScreenAutomator;
 
-	public void clickOnNextQuestionButton();
-
-	public void clickOnShowAnswerButton();
+public interface QuestionGameScreenAutomator extends ScreenAutomator {
 
 	public void clickOnAnswerView();
 
-	public void selectMenuItem(int itemId);
+
 }

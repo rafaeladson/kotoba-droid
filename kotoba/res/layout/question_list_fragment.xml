@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:baselineAligned="false"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/question_add_new_link"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_action_add"
+            android:paddingBottom="10dp"
+            android:paddingLeft="3dp"
+            android:paddingTop="10dp"
+            android:text="@string/add_new_question"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:background="@drawable/layout_gray_border">
+    </TextView>
+
+    <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+</LinearLayout>

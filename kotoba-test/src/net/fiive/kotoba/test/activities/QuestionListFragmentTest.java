@@ -2,10 +2,12 @@ package net.fiive.kotoba.test.activities;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.test.ActivityUnitTestCase;
 import android.view.MenuItem;
+import android.view.View;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.info.InfoActivity;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
@@ -41,9 +43,7 @@ public class QuestionListFragmentTest extends ActivityUnitTestCase<QuestionListA
 	public void testShouldDispatchIntentWhenUserClicksOnNewQuestionMenu() {
 		MenuItem item = new MenuItemStub(R.id.add_question_menu);
 		activity.onOptionsItemSelected(item);
-		Intent addQuestionIntent = this.getStartedActivityIntent();
-		assertEquals(QuestionEditActivity.ADD_QUESTION_ACTION, addQuestionIntent.getAction());
-		assertEquals("kotoba://kotoba.fiive.net/question/new", addQuestionIntent.getDataString());
+		assertAddNewQuestionIntentWasDispatched();
 	}
 
 	public void testSeeInfo() {
@@ -54,8 +54,22 @@ public class QuestionListFragmentTest extends ActivityUnitTestCase<QuestionListA
 		assertEquals(InfoActivity.VIEW_INFO_ACTION, infoIntent.getAction());
 	}
 
+	public void testShouldDispatchNewQuestionIntentWhenUserClicksOnAddNewQuestionOnTheTable() {
+		if (Build.VERSION.SDK_INT < 11) {
+			View clickToAddView = this.getActivity().findViewById(R.id.question_add_new_link);
+			clickToAddView.performClick();
+			assertAddNewQuestionIntentWasDispatched();
+		}
+	}
+
 	private QuestionListFragment getFragment() {
 		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		return (QuestionListFragment)fragmentManager.findFragmentById(R.id.question_list_fragment);
+		return (QuestionListFragment) fragmentManager.findFragmentById(R.id.question_list_fragment);
+	}
+
+	private void assertAddNewQuestionIntentWasDispatched() {
+		Intent addQuestionIntent = this.getStartedActivityIntent();
+		assertEquals(QuestionEditActivity.ADD_QUESTION_ACTION, addQuestionIntent.getAction());
+		assertEquals("kotoba://kotoba.fiive.net/question/new", addQuestionIntent.getDataString());
 	}
 }

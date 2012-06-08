@@ -37,9 +37,18 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 		screen.onActivityCreated(null);
 	}
 
+<<<<<<< HEAD
+=======
 
+	public void testShouldGoToHomeWhenUserClicksHomeButton() {
+		if (Build.VERSION.SDK_INT >= 11) {
+			screen.selectMenuItem(android.R.id.home);
+			Intent goToHomeIntent = getStartedActivityIntent();
+			assertEquals(".activities.MainActivity", goToHomeIntent.getComponent().getShortClassName());
+		}
+	}
 
-
+>>>>>>> refs/heads/master
 	public void testUserClicksCancelButton() {
 		screen.clickOnCancelButton();
 		Intent backIntent = getStartedActivityIntent();

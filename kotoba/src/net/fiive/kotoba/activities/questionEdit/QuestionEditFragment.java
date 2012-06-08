@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
+import com.google.common.base.Preconditions;
 import net.fiive.intern.android.view.alerts.AlertHelper;
 import net.fiive.intern.android.view.alerts.RemoveAlertInfo;
 import net.fiive.intern.android.view.validation.TextValidator;
@@ -60,7 +61,7 @@ public class QuestionEditFragment extends Fragment {
 
 			@Override
 			public void onClick(View view) {
-				saveCurrentQuestion();
+				saveCurrentQuestion(PostSaveAction.GO_BACK);
 			}
 		});
 		
@@ -69,14 +70,13 @@ public class QuestionEditFragment extends Fragment {
 		valueText.setOnKeyListener(new View.OnKeyListener() {
 			@Override
 			public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-				if ( keyCode == KeyEvent.KEYCODE_ENTER) {
+				if (keyCode == KeyEvent.KEYCODE_ENTER) {
 					answerText.requestFocus();
 					return true;
 				}
 				return false;
 			}
 		});
-
 
 
 		return editQuestionView;
@@ -119,7 +119,10 @@ public class QuestionEditFragment extends Fragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.save_question_menu:
-				saveCurrentQuestion();
+				saveCurrentQuestion(PostSaveAction.GO_BACK);
+				return true;
+			case R.id.question_save_and_new_menu:
+				saveCurrentQuestion(PostSaveAction.CREATE_NEW);
 				return true;
 			case R.id.remove_question_menu:
 				removeCurrentQuestion();
@@ -164,7 +167,7 @@ public class QuestionEditFragment extends Fragment {
 		}
 	}
 
-	private void saveCurrentQuestion() {
+	private void saveCurrentQuestion(PostSaveAction postSaveAction) {
 
 		String answer = answerText.getText().toString();
 
@@ -178,7 +181,7 @@ public class QuestionEditFragment extends Fragment {
 			currentQuestion.setValue(questionValue);
 			currentQuestion.setAnswer(answer);
 			dataService.saveOrUpdateQuestion(currentQuestion);
-			goBack();
+			executePostSaveAction(postSaveAction);
 		}
 	}
 
@@ -207,5 +210,20 @@ public class QuestionEditFragment extends Fragment {
 		}
 	}
 
+	private void executePostSaveAction(PostSaveAction action) {
+		Preconditions.checkNotNull(action);
+		if (PostSaveAction.GO_BACK.equals(action)) {
+			goBack();
+		} else if (PostSaveAction.CREATE_NEW.equals(action)) {
+			isEditing = false;
+			currentQuestion = new Question();
+			valueText.setText("");
+			answerText.setText("");
+			valueText.requestFocus();
+
+		} else {
+			throw new IllegalArgumentException("Error: unsupported PostSaveAction.");
+		}
+	}
 
 }

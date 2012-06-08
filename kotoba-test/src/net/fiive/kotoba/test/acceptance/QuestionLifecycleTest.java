@@ -2,7 +2,6 @@ package net.fiive.kotoba.test.acceptance;
 
 import android.os.Build;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.EditText;
 import android.widget.TextView;
 import com.jayway.android.robotium.solo.Solo;
 import net.fiive.kotoba.R;
@@ -11,6 +10,7 @@ import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListFragment;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
+import net.fiive.kotoba.test.screen.questionEdit.QuestionEditScreen;
 import net.fiive.kotoba.test.screen.questionGame.QuestionGameScreen;
 
 
@@ -64,10 +64,9 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 
 			solo.clickOnText("Question 02");
 			QuestionEditActivity editActivity = (QuestionEditActivity) solo.getCurrentActivity();
-			EditText questionEdit = (EditText) editActivity.findViewById(R.id.edit_question_value);
-			solo.clearEditText(questionEdit);
-			solo.enterText(questionEdit, "Question 03");
-			solo.clickOnMenuItem("Save");
+			QuestionEditScreen editScreen = QuestionEditScreen.screenForAcceptanceTests(editActivity, solo);
+			editScreen.fillQuestionAndAnswer("Question 03", editScreen.getAnswerText());
+			editScreen.clickOnSaveButton();
 
 			listFragment = getListFragment();
 			assertEquals(2, listFragment.getListView().getChildCount());
@@ -111,9 +110,9 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 
 	private void removeQuestion(String question) throws InterruptedException {
 		solo.clickOnText(question);
-		solo.clickOnMenuItem("Remove");
-		solo.clickOnButton("OK");
-		Thread.sleep(500L);
+		QuestionEditActivity editActivity = (QuestionEditActivity) solo.getCurrentActivity();
+		QuestionEditScreen editScreen = QuestionEditScreen.screenForAcceptanceTests(editActivity, solo);
+		editScreen.removeCurrentQuestion();
 	}
 
 	private QuestionListFragment getListFragment() {
@@ -124,11 +123,9 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 	private void addQuestionWithValueAndAnswer(String value, String answer) {
 		solo.clickOnMenuItem("Add");
 		QuestionEditActivity editActivity = (QuestionEditActivity) solo.getCurrentActivity();
-		EditText questionEdit = (EditText) editActivity.findViewById(R.id.edit_question_value);
-		EditText answerEdit = (EditText) editActivity.findViewById(R.id.edit_question_answer);
-		solo.enterText(questionEdit, value);
-		solo.enterText(answerEdit, answer);
-		solo.clickOnButton("Save");
+		QuestionEditScreen screen = QuestionEditScreen.screenForAcceptanceTests(editActivity, solo);
+		screen.fillQuestionAndAnswer(value, answer);
+		screen.clickOnSaveButton();
 	}
 
 

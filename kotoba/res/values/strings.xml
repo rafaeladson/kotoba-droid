@@ -23,7 +23,10 @@
     <string name="info">Info</string>
     <string name="help">Help</string>
     <string name="help_kotoba_text">To use Kotoba:\n\t1. Go to the Main Screen.\n\t2. Click Next to see another question.\n\t3. Click Answer to see the answer to the current question.\n\t4. Click
-        Manage Questions to add, remove or update questions.</string>
+        Manage Questions to add, remove or update questions.
+    </string>
     <string name="copyright">Kotoba v0.1.4. Created in 2012 by Rafael Adson Barbosa Barros. All rights reserved.</string>
+    <string name="add_new_question">Add New Question</string>
+    <string name="save_and_new">Save and New</string>
 
 </resources>
