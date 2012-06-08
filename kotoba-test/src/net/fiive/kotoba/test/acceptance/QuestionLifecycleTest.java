@@ -66,7 +66,7 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 			QuestionEditActivity editActivity = (QuestionEditActivity) solo.getCurrentActivity();
 			QuestionEditScreen editScreen = QuestionEditScreen.screenForAcceptanceTests(editActivity, solo);
 			editScreen.fillQuestionAndAnswer("Question 03", editScreen.getAnswerText());
-			editScreen.clickOnSaveButton();
+			editScreen.selectSaveMenuItem();
 
 			listFragment = getListFragment();
 			assertEquals(2, listFragment.getListView().getChildCount());
@@ -125,7 +125,7 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 		QuestionEditActivity editActivity = (QuestionEditActivity) solo.getCurrentActivity();
 		QuestionEditScreen screen = QuestionEditScreen.screenForAcceptanceTests(editActivity, solo);
 		screen.fillQuestionAndAnswer(value, answer);
-		screen.clickOnSaveButton();
+		screen.selectSaveMenuItem();
 	}
 
 

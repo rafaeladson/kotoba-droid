@@ -69,7 +69,16 @@ public class QuestionEditFragment extends Fragment {
 			});
 		}
 
+<<<<<<< HEAD
+			@Override
+			public void onClick(View view) {
+				saveCurrentQuestion(PostSaveAction.GO_BACK);
+			}
+		});
+		
+=======
 
+>>>>>>> refs/heads/master
 		valueText = (EditText) editQuestionView.findViewById(R.id.edit_question_value);
 		answerText = (EditText) editQuestionView.findViewById(R.id.edit_question_answer);
 		valueText.setOnKeyListener(new View.OnKeyListener() {

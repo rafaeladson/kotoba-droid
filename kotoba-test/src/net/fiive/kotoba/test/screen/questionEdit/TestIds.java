@@ -4,9 +4,11 @@ import net.fiive.kotoba.R;
 
 interface TestIds {
 
-	int getSaveButtonId();
+	int getSaveMenuItemId();
 
 	int getCancelButtonId();
+
+	int getCancelMenuItemId();
 
 	int getAlertOkButtonId();
 
@@ -17,14 +19,19 @@ interface TestIds {
 	public static class UnitTestIds implements TestIds {
 
 		@Override
-		public int getSaveButtonId() {
-			return R.id.save_question;
+		public int getSaveMenuItemId() {
+			return R.id.save_question_menu;
 		}
 
 
 		@Override
 		public int getCancelButtonId() {
 			return R.id.cancel_edit_question;
+		}
+
+		@Override
+		public int getCancelMenuItemId() {
+			return R.id.cancel_edit_question_menu;
 		}
 
 		@Override
@@ -49,12 +56,17 @@ interface TestIds {
 
 
 		@Override
-		public int getSaveButtonId() {
+		public int getSaveMenuItemId() {
 			return R.string.save;
 		}
 
 		@Override
 		public int getCancelButtonId() {
+			return R.string.cancel;
+		}
+
+		@Override
+		public int getCancelMenuItemId() {
 			return R.string.cancel;
 		}
 

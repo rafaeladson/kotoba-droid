@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.test.ActivityUnitTestCase;
-import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
@@ -40,22 +39,15 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 
 
 
-	public void testUserClicksCancelButton() {
-		screen.clickOnCancelButton();
-		Intent backIntent = getStartedActivityIntent();
-		assertEquals(".activities.questionList.QuestionListActivity", backIntent.getComponent().getShortClassName());
-	}
 
 	public void testUserClicksCancelMenu() {
-		screen.selectMenuItem(R.id.cancel_edit_question_menu);
-
-		Intent backIntent = getStartedActivityIntent();
-		assertEquals(".activities.questionList.QuestionListActivity", backIntent.getComponent().getShortClassName());
+		screen.selectCancelMenuItem();
+		assertBackToQuestionList();
 	}
 
 	public void testUserSaveNewQuestion() {
 		screen.fillQuestionAndAnswer("foo", "bar");
-		screen.clickOnSaveButton();
+		screen.selectSaveMenuItem();
 
 
 		Question questionFromDb = dataService.findQuestionById(dataService.findAllQuestionIds().get(0));
@@ -75,6 +67,18 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 		screen.fillQuestionAndAnswer("foo2", "bar2");
 		screen.selectSaveAndNewMenuItem();
 		assertEquals(2, dataService.findAllQuestionIds().size());
+	}
+
+	public void testUserClicksCancelButton() {
+		if (Build.VERSION.SDK_INT < 11) {
+			screen.clickOnCancelButton();
+			assertBackToQuestionList();
+		}
+	}
+
+	private void assertBackToQuestionList() {
+		Intent backIntent = getStartedActivityIntent();
+		assertEquals(".activities.questionList.QuestionListActivity", backIntent.getComponent().getShortClassName());
 	}
 
 
