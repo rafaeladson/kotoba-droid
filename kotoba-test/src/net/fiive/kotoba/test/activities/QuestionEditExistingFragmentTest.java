@@ -16,7 +16,6 @@ import net.fiive.kotoba.test.screen.questionEdit.QuestionEditScreen;
 public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<QuestionEditActivity> {
 
 
-	private QuestionEditActivity activity;
 	private DataService dataService;
 	private Long currentQuestionId;
 	private QuestionEditScreen screen;
@@ -38,7 +37,7 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 
 
 		this.startActivity(new Intent(QuestionEditActivity.EDIT_QUESTION_ACTION, Uri.parse("kotoba://kotoba.fiive.net/question/" + questionInDatabase.getId())), null, null);
-		activity = getActivity();
+		QuestionEditActivity activity = getActivity();
 		screen = QuestionEditScreen.screenForUnitTests(activity);
 		screen.onActivityCreated(null);
 
@@ -46,7 +45,7 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 
 	public void testEditQuestion() {
 		screen.fillQuestionAndAnswer("hello", "world");
-		screen.clickOnSaveButton();
+		screen.selectSaveMenuItem();
 
 		Question questionFromDatabase = dataService.findQuestionById(currentQuestionId);
 		assertEquals("hello", questionFromDatabase.getValue());
@@ -94,7 +93,7 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 
 	public void testUserUpdateQuestionWithNoValue() {
 		screen.fillQuestionAndAnswer("", "question_with_no_value");
-		screen.clickOnSaveButton();
+		screen.selectSaveMenuItem();
 
 		assertEquals("Please type a question.", screen.getValueTextValidationError().get());
 		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
@@ -124,14 +123,14 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 		String textTruncatedAtLimit = textWithoutNewLines.substring(0, maxLength);
 
 		screen.fillQuestionAndAnswer(text, "");
-		screen.clickOnSaveButton();
+		screen.selectSaveMenuItem();
 		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
 		assertEquals(textTruncatedAtLimit, questionFromDb.getValue());
 	}
 
 	public void testUserUpdateQuestionWithNewlines() {
 		screen.fillQuestionAndAnswer("foo\nbar", "");
-		screen.clickOnSaveButton();
+		screen.selectSaveMenuItem();
 		Question questionFromDb = dataService.findQuestionById(currentQuestionId);
 		assertEquals("foo bar", questionFromDb.getValue());
 	}

@@ -49,21 +49,26 @@ public class QuestionEditFragment extends Fragment {
 		super.onCreateView(inflater, container, savedInstanceState);
 		View editQuestionView = inflater.inflate(R.layout.question_edit, container);
 		Button cancelButton = (Button) editQuestionView.findViewById(R.id.cancel_edit_question);
-		cancelButton.setOnClickListener(new Button.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				goBack();
-			}
-		});
+		if (cancelButton != null) {
+			cancelButton.setOnClickListener(new Button.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					goBack();
+				}
+			});
+		}
 
 		Button saveButton = (Button) editQuestionView.findViewById(R.id.save_question);
-		saveButton.setOnClickListener(new Button.OnClickListener() {
+		if (saveButton != null) {
+			saveButton.setOnClickListener(new Button.OnClickListener() {
 
-			@Override
-			public void onClick(View view) {
-				saveCurrentQuestion(PostSaveAction.GO_BACK);
-			}
-		});
+				@Override
+				public void onClick(View view) {
+					saveCurrentQuestion(PostSaveAction.GO_BACK);
+				}
+			});
+		}
+
 
 		valueText = (EditText) editQuestionView.findViewById(R.id.edit_question_value);
 		answerText = (EditText) editQuestionView.findViewById(R.id.edit_question_answer);

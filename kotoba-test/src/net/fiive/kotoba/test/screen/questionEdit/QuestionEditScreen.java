@@ -43,8 +43,8 @@ public class QuestionEditScreen extends BaseScreen<QuestionEditActivity, Questio
 		getAutomator().typeTextInEditText(QUESTION_ANSWER_ID, answer);
 	}
 
-	public void clickOnSaveButton() {
-		getAutomator().clickOnButton(testIds.getSaveButtonId());
+	public void selectSaveMenuItem() {
+		getAutomator().selectMenuItem(testIds.getSaveMenuItemId());
 	}
 
 	public void selectSaveAndNewMenuItem() {
@@ -60,6 +60,10 @@ public class QuestionEditScreen extends BaseScreen<QuestionEditActivity, Questio
 
 	public void clickOnCancelButton() {
 		getAutomator().clickOnButton(testIds.getCancelButtonId());
+	}
+
+	public void selectCancelMenuItem() {
+		getAutomator().selectMenuItem(testIds.getCancelMenuItemId());
 	}
 
 	public String getValueText() {

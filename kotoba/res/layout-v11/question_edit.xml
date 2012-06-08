@@ -4,28 +4,6 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:background="@drawable/layout_gray_background"
-            android:padding="5dip">
-
-        <Button
-                android:id="@+id/save_question"
-                android:layout_width="100dip"
-                android:layout_height="wrap_content"
-                android:text="@string/save"/>
-
-        <Button
-                android:id="@+id/cancel_edit_question"
-                android:layout_width="100dip"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel"/>
-    </LinearLayout>
-
     <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
