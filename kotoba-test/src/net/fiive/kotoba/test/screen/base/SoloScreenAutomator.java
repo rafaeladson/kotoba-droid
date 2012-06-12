@@ -38,6 +38,11 @@ public class SoloScreenAutomator<T extends Activity> implements ScreenAutomator 
 	}
 
 	@Override
+	public void clickOnView(int viewId) {
+		getSolo().clickOnView(getActivity().findViewById(viewId));
+	}
+
+	@Override
 	public void selectRemoveMenuItem(int removeMenuItemId, int alertOkButtonId) {
 		this.selectMenuItem(removeMenuItemId);
 		solo.clickOnButton(getActivity().getResources().getString(alertOkButtonId));

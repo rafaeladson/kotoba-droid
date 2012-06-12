@@ -2,7 +2,6 @@ package net.fiive.kotoba.test.acceptance;
 
 import android.os.Build;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.TextView;
 import com.jayway.android.robotium.solo.Solo;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
@@ -12,6 +11,7 @@ import net.fiive.kotoba.activities.questionList.QuestionListFragment;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
 import net.fiive.kotoba.test.screen.questionEdit.QuestionEditScreen;
 import net.fiive.kotoba.test.screen.questionGame.QuestionGameScreen;
+import net.fiive.kotoba.test.screen.questionList.QuestionListScreen;
 
 
 public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<MainActivity> {
@@ -47,20 +47,19 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 
 			screen.selectMenuItem(R.string.manage_questions);
 			QuestionListActivity listActivity = (QuestionListActivity) solo.getCurrentActivity();
-			QuestionListFragment listFragment = (QuestionListFragment) listActivity.getSupportFragmentManager().findFragmentById(R.id.question_list_fragment);
-			assertEquals(0, listFragment.getListView().getChildCount());
+			QuestionListScreen listScreen = QuestionListScreen.screenForAcceptanceTests(listActivity, solo);
+			assertTrue(listScreen.isEmpty());
 
 			addQuestionWithValueAndAnswer("Question 01", "Answer 01");
-			listFragment = getListFragment();
-			assertEquals(1, listFragment.getListView().getChildCount());
-			TextView firstCell = (TextView) listFragment.getListView().getChildAt(0);
-			assertEquals("Question 01", firstCell.getText());
+			listScreen = QuestionListScreen.screenForAcceptanceTests((QuestionListActivity) solo.getCurrentActivity(), solo);
+			assertEquals(1, listScreen.getListSize());
+			assertEquals("Question 01", listScreen.getTextAtLine(0));
 
 			addQuestionWithValueAndAnswer("Question 02", "");
-			listFragment = getListFragment();
-			assertEquals(2, listFragment.getListView().getChildCount());
-			TextView secondCell = (TextView) listFragment.getListView().getChildAt(1);
-			assertEquals("Question 02", secondCell.getText());
+			listScreen = QuestionListScreen.screenForAcceptanceTests((QuestionListActivity) solo.getCurrentActivity(), solo);
+			assertEquals(2, listScreen.getListSize());
+			assertEquals("Question 02", listScreen.getTextAtLine(1));
+
 
 			solo.clickOnText("Question 02");
 			QuestionEditActivity editActivity = (QuestionEditActivity) solo.getCurrentActivity();
@@ -68,10 +67,9 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 			editScreen.fillQuestionAndAnswer("Question 03", editScreen.getAnswerText());
 			editScreen.selectSaveMenuItem();
 
-			listFragment = getListFragment();
-			assertEquals(2, listFragment.getListView().getChildCount());
-			secondCell = (TextView) listFragment.getListView().getChildAt(1);
-			assertEquals("Question 03", secondCell.getText());
+			listScreen = QuestionListScreen.screenForAcceptanceTests((QuestionListActivity) solo.getCurrentActivity(), solo);
+			assertEquals(2, listScreen.getListSize());
+			assertEquals("Question 03", listScreen.getTextAtLine(1));
 
 			solo.goBack();
 			mainActivity = (MainActivity) solo.getCurrentActivity();
@@ -92,14 +90,14 @@ public class QuestionLifecycleTest extends ActivityInstrumentationTestCase2<Main
 
 			solo.clickOnMenuItem("Manage");
 			removeQuestion("Question 01");
-			listFragment = getListFragment();
-			assertEquals(1, listFragment.getListView().getChildCount());
-			firstCell = (TextView) listFragment.getListView().getChildAt(0);
-			assertEquals("Question 03", firstCell.getText());
+			listScreen = QuestionListScreen.screenForAcceptanceTests((QuestionListActivity) solo.getCurrentActivity(), solo);
+			assertEquals(1, listScreen.getListSize());
+			assertEquals("Question 03", listScreen.getTextAtLine(0));
+
 
 			removeQuestion("Question 03");
-			listFragment = getListFragment();
-			assertEquals(0, listFragment.getListView().getChildCount());
+			listScreen = QuestionListScreen.screenForAcceptanceTests((QuestionListActivity) solo.getCurrentActivity(), solo);
+			assertTrue(listScreen.isEmpty());
 
 			solo.goBack();
 			mainActivity = (MainActivity) solo.getCurrentActivity();

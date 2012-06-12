@@ -35,6 +35,10 @@ public class BaseScreen<A extends FragmentActivity, F extends Fragment> {
 		automator.selectMenuItem(itemId);
 	}
 
+	public void clickOnView(int viewId) {
+		automator.clickOnView(viewId);
+	}
+
 	protected String getTextFromEditText(int editTextId) {
 		EditText editText = (EditText) activity.findViewById(editTextId);
 		return editText.getText().toString();

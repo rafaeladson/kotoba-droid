@@ -8,5 +8,9 @@ public interface ScreenAutomator {
 
 	public void clickOnButton(int buttonId);
 
+	public void clickOnView(int viewId);
+
 	void selectRemoveMenuItem(int removeMenuItemId, int alertOkButtonId);
+
+
 }
