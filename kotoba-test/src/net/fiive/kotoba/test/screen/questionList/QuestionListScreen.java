@@ -1,50 +1,45 @@
 package net.fiive.kotoba.test.screen.questionList;
 
+import android.app.Instrumentation;
 import android.os.Build;
 import com.google.common.base.Preconditions;
 import com.jayway.android.robotium.solo.Solo;
-import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListFragment;
 import net.fiive.kotoba.test.screen.base.BaseListScreen;
-import net.fiive.kotoba.test.screen.base.ListScreenAutomator;
-import net.fiive.kotoba.test.screen.base.SoloListScreenAutomator;
-import net.fiive.kotoba.test.screen.base.UnitTestListScreenAutomator;
+import net.fiive.kotoba.test.screen.base.ListScreenMechanize;
+import net.fiive.kotoba.test.screen.base.SoloListScreenMechanize;
+import net.fiive.kotoba.test.screen.base.UnitTestListScreenMechanize;
 
 public class QuestionListScreen extends BaseListScreen<QuestionListActivity, QuestionListFragment> {
 
 	private TestIds testIds;
 
 	public static QuestionListScreen screenForUnitTests(QuestionListActivity activity) {
-		QuestionListFragment fragment = (QuestionListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.question_list_fragment);
-		ListScreenAutomator automator = new UnitTestListScreenAutomator<QuestionListActivity, QuestionListFragment>(activity, fragment);
+		ListScreenMechanize automator = new UnitTestListScreenMechanize<QuestionListActivity, QuestionListFragment>(activity);
 		TestIds testIds = new UnitTestIds();
-		return new QuestionListScreen(activity, fragment, automator, testIds);
+		return new QuestionListScreen(activity, automator, testIds);
 
 	}
 
-	public static QuestionListScreen screenForAcceptanceTests(QuestionListActivity activity, Solo solo) {
-		QuestionListFragment fragment = (QuestionListFragment) activity.getSupportFragmentManager().findFragmentById(R.id.question_list_fragment);
-		ListScreenAutomator automator = new SoloListScreenAutomator<QuestionListActivity>(activity, solo);
+	public static QuestionListScreen screenForAcceptanceTests(Instrumentation instrumentation, Solo solo) {
+		QuestionListActivity activity = (QuestionListActivity) solo.getCurrentActivity();
+		ListScreenMechanize automator = new SoloListScreenMechanize<QuestionListActivity>(instrumentation, solo);
 		TestIds testIds = new SoloTestIds();
-		return new QuestionListScreen(activity, fragment, automator, testIds);
+		return new QuestionListScreen(activity, automator, testIds);
 	}
 
-	private QuestionListScreen(QuestionListActivity activity, QuestionListFragment fragment, ListScreenAutomator automator, TestIds testIds) {
-		super(activity, fragment, automator);
+	private QuestionListScreen(QuestionListActivity activity, ListScreenMechanize mechanize, TestIds testIds) {
+		super(activity, mechanize);
 		this.testIds = testIds;
 	}
 
-	public <T> void clickOnQuestion(T itemId) {
-		this.clickOnListItem(itemId);
-	}
-
 	public void selectNewQuestionMenu() {
-		this.selectMenuItem(testIds.getNewQuestionMenuId());
+		getMechanize().selectMenuItem(testIds.getNewQuestionMenuId());
 	}
 
 	public void selectInfoMenu() {
-		this.selectMenuItem(testIds.getInfoMenuId());
+		getMechanize().selectMenuItem(testIds.getInfoMenuId());
 	}
 
 	public void clickOnAddNewQuestion() {

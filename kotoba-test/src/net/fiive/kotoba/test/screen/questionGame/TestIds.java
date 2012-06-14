@@ -1,15 +1,20 @@
 package net.fiive.kotoba.test.screen.questionGame;
 
+import android.util.Pair;
 import net.fiive.kotoba.R;
 
-interface TestIds {
+abstract class TestIds {
 
-	public int getNextQuestionButtonId();
+	public Pair<Integer, Integer> getManageQuestionsMenuId() {
+		return Pair.create(R.id.manage_questions_menu, R.string.manage_questions);
+	}
 
-	public int getShowAnswerButtonId();
+	public abstract int getNextQuestionButtonId();
+
+	public abstract int getShowAnswerButtonId();
 
 
-	public static class UnitTestIds implements TestIds {
+	public static class UnitTestIds extends TestIds {
 
 		@Override
 		public int getNextQuestionButtonId() {
@@ -20,9 +25,11 @@ interface TestIds {
 		public int getShowAnswerButtonId() {
 			return R.id.showAnswerButton;
 		}
+
+
 	}
 
-	public static class SoloTestIds implements TestIds {
+	public static class SoloTestIds extends TestIds {
 
 		@Override
 		public int getNextQuestionButtonId() {

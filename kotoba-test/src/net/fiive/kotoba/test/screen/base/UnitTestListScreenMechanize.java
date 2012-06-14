@@ -1,14 +1,14 @@
 package net.fiive.kotoba.test.screen.base;
 
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
 import com.google.common.base.Preconditions;
+import net.fiive.kotoba.activities.base.BaseActivity;
 
-public class UnitTestListScreenAutomator<A extends FragmentActivity, F extends ListFragment> extends UnitTestScreenAutomator<A, F>
-	implements ListScreenAutomator {
+public class UnitTestListScreenMechanize<A extends BaseActivity, F extends ListFragment> extends UnitTestScreenMechanize<A, F>
+	implements ListScreenMechanize {
 
-	public UnitTestListScreenAutomator(A activity, F fragment) {
-		super(activity, fragment);
+	public UnitTestListScreenMechanize(A activity) {
+		super(activity);
 	}
 
 

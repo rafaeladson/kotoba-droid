@@ -3,13 +3,13 @@ package net.fiive.kotoba.activities.questionEdit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
+import net.fiive.kotoba.activities.base.BaseActivity;
 
 
-public class QuestionEditActivity extends FragmentActivity {
+public class QuestionEditActivity extends BaseActivity {
 	public static final String EDIT_QUESTION_ACTION = "net.fiive.kotoba.EDIT_QUESTION";
 	public static final String ADD_QUESTION_ACTION = "net.fiive.kotoba.ADD_QUESTION";
 
@@ -30,5 +30,11 @@ public class QuestionEditActivity extends FragmentActivity {
 				return super.onOptionsItemSelected(item);
 		}
 
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public QuestionEditFragment getFragment() {
+		return (QuestionEditFragment) getSupportFragmentManager().findFragmentById(R.id.question_edit_fragment);
 	}
 }

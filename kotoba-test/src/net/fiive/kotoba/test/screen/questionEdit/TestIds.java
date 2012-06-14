@@ -1,28 +1,34 @@
 package net.fiive.kotoba.test.screen.questionEdit;
 
+import android.util.Pair;
 import net.fiive.kotoba.R;
 
-interface TestIds {
+abstract class TestIds {
 
-	int getSaveMenuItemId();
+	Pair<Integer, Integer> getSaveMenuItemId() {
+		return Pair.create(R.id.save_question_menu, R.string.save);
+	}
 
-	int getCancelButtonId();
+	Pair<Integer, Integer> getCancelMenuItemId() {
+		return Pair.create(R.id.cancel_edit_question_menu, R.string.cancel);
+	}
 
-	int getCancelMenuItemId();
+	Pair<Integer, Integer> getRemoveMenuItemId() {
+		return Pair.create(R.id.remove_question_menu, R.string.remove);
 
-	int getAlertOkButtonId();
+	}
 
-	int getRemoveMenuItemId();
+	Pair<Integer, Integer> getSaveAndNewButtonId() {
+		return Pair.create(R.id.question_save_and_new_menu, R.string.save_and_new);
 
-	int getSaveAndNewButtonId();
+	}
 
-	public static class UnitTestIds implements TestIds {
+	abstract int getCancelButtonId();
 
-		@Override
-		public int getSaveMenuItemId() {
-			return R.id.save_question_menu;
-		}
+	abstract int getAlertOkButtonId();
 
+
+	public static class UnitTestIds extends TestIds {
 
 		@Override
 		public int getCancelButtonId() {
@@ -30,60 +36,26 @@ interface TestIds {
 		}
 
 		@Override
-		public int getCancelMenuItemId() {
-			return R.id.cancel_edit_question_menu;
-		}
-
-		@Override
-		public int getRemoveMenuItemId() {
-			return R.id.remove_question_menu;
-		}
-
-		@Override
 		public int getAlertOkButtonId() {
 			return R.string.ok;
 		}
 
-		@Override
-		public int getSaveAndNewButtonId() {
-			return R.id.question_save_and_new_menu;
-		}
-
-
 	}
 
-	public static class SoloTestIds implements TestIds {
+	public static class SoloTestIds extends TestIds {
 
-
-		@Override
-		public int getSaveMenuItemId() {
-			return R.string.save;
-		}
 
 		@Override
 		public int getCancelButtonId() {
 			return R.string.cancel;
 		}
 
-		@Override
-		public int getCancelMenuItemId() {
-			return R.string.cancel;
-		}
 
 		@Override
 		public int getAlertOkButtonId() {
 			return R.string.ok;
 		}
 
-		@Override
-		public int getRemoveMenuItemId() {
-			return R.string.remove;
-		}
-
-		@Override
-		public int getSaveAndNewButtonId() {
-			return R.string.save_and_new;
-		}
 	}
 
 }

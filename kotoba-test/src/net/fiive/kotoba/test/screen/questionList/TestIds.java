@@ -1,27 +1,22 @@
 package net.fiive.kotoba.test.screen.questionList;
 
+import android.util.Pair;
 import net.fiive.kotoba.R;
 
-interface TestIds {
+abstract class TestIds {
 
-	public int getNewQuestionMenuId();
+	public Pair<Integer, Integer> getNewQuestionMenuId() {
+		return Pair.create(R.id.add_question_menu, R.string.add);
+	}
 
-	public int getInfoMenuId();
+	public Pair<Integer, Integer> getInfoMenuId() {
+		return Pair.create(R.id.info_menu, R.string.info);
+	}
 
-	public int getAddNewQuestionItemId();
+	public abstract int getAddNewQuestionItemId();
 }
 
-class UnitTestIds implements TestIds {
-
-	@Override
-	public int getNewQuestionMenuId() {
-		return R.id.add_question_menu;
-	}
-
-	@Override
-	public int getInfoMenuId() {
-		return R.id.info_menu;
-	}
+class UnitTestIds extends TestIds {
 
 	@Override
 	public int getAddNewQuestionItemId() {
@@ -29,17 +24,7 @@ class UnitTestIds implements TestIds {
 	}
 }
 
-class SoloTestIds implements TestIds {
-
-	@Override
-	public int getNewQuestionMenuId() {
-		return R.string.add;
-	}
-
-	@Override
-	public int getInfoMenuId() {
-		return R.string.info;
-	}
+class SoloTestIds extends TestIds {
 
 	@Override
 	public int getAddNewQuestionItemId() {

@@ -3,7 +3,6 @@ package net.fiive.kotoba.test.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.test.ActivityUnitTestCase;
-import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.data.dao.DataService;
@@ -108,7 +107,7 @@ public class QuestionGameBeginsWithZeroQuestionsTest extends
 	}
 
 	public void testShouldDispatchIntentToListWhenIClickOnMenu() throws Exception {
-		screen.selectMenuItem(R.id.manage_questions_menu);
+		screen.selectManageQuestionsMenu();
 		Intent manageQuestionsIntent = getStartedActivityIntent();
 		assertEquals(QuestionListActivity.MANAGE_QUESTIONS_ACTION, manageQuestionsIntent.getAction());
 	}

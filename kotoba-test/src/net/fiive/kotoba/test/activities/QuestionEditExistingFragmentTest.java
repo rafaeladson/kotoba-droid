@@ -57,7 +57,7 @@ public class QuestionEditExistingFragmentTest extends ActivityUnitTestCase<Quest
 
 	public void testUpdateQuestionByMenu() {
 		screen.fillQuestionAndAnswer("menu", "");
-		screen.selectMenuItem(R.id.save_question_menu);
+		screen.selectSaveMenuItem();
 
 
 		Question questionFromDatabase = dataService.findQuestionById(currentQuestionId);

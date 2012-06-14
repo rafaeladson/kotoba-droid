@@ -2,13 +2,14 @@ package net.fiive.kotoba.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import net.fiive.kotoba.R;
+import net.fiive.kotoba.activities.base.BaseActivity;
+import net.fiive.kotoba.activities.game.QuestionGameFragment;
 import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
 
 	/**
@@ -43,5 +44,12 @@ public class MainActivity extends FragmentActivity {
 	private void manageQuestions() {
 		Intent manageQuestionsIntent = new Intent(QuestionListActivity.MANAGE_QUESTIONS_ACTION);
 		startActivity(manageQuestionsIntent);
+	}
+
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public QuestionGameFragment getFragment() {
+		return (QuestionGameFragment) getSupportFragmentManager().findFragmentById(R.id.questionGameFragment);
 	}
 }

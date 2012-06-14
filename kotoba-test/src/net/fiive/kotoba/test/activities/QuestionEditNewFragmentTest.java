@@ -14,7 +14,6 @@ import net.fiive.kotoba.test.screen.questionEdit.QuestionEditScreen;
 
 public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEditActivity> {
 
-	private QuestionEditActivity activity;
 	private DataService dataService;
 
 	private QuestionEditScreen screen;
@@ -28,7 +27,7 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 	protected void setUp() throws Exception {
 		super.setUp();
 		this.startActivity(new Intent(QuestionEditActivity.ADD_QUESTION_ACTION, Uri.parse("kotoba://kotoba.fiive.net/question/new")), null, null);
-		activity = getActivity();
+		QuestionEditActivity activity = getActivity();
 		new DatabaseCleaner().cleanDatabase(getInstrumentation().getTargetContext());
 		dataService = new DataService(getInstrumentation().getTargetContext());
 
@@ -39,7 +38,7 @@ public class QuestionEditNewFragmentTest extends ActivityUnitTestCase<QuestionEd
 
 	public void testShouldGoToHomeWhenUserClicksHomeButton() {
 		if (Build.VERSION.SDK_INT >= 11) {
-			screen.selectMenuItem(android.R.id.home);
+			screen.selectHomeMenuItem();
 			Intent goToHomeIntent = getStartedActivityIntent();
 			assertEquals(".activities.MainActivity", goToHomeIntent.getComponent().getShortClassName());
 		}

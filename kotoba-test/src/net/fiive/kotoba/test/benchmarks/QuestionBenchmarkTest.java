@@ -4,10 +4,7 @@ import android.os.Build;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import com.jayway.android.robotium.solo.Solo;
-import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
-import net.fiive.kotoba.activities.questionEdit.QuestionEditActivity;
-import net.fiive.kotoba.activities.questionList.QuestionListActivity;
 import net.fiive.kotoba.data.dao.DataService;
 import net.fiive.kotoba.domain.Question;
 import net.fiive.kotoba.test.data.dao.DatabaseCleaner;
@@ -42,8 +39,8 @@ public class QuestionBenchmarkTest extends ActivityInstrumentationTestCase2<Main
 
 	public void testBenchmarkQuestionGame() {
 		if (Build.VERSION.SDK_INT < 11) {
-			QuestionGameScreen gameScreen = QuestionGameScreen.screenForAcceptanceTest((MainActivity) solo.getCurrentActivity(), solo);
-			gameScreen.selectMenuItem(R.string.manage_questions);
+			QuestionGameScreen gameScreen = QuestionGameScreen.screenForAcceptanceTest(getInstrumentation(), solo);
+			gameScreen.selectManageQuestionsMenu();
 			for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
 				addRandomQuestionOnDb();
 			}
@@ -57,7 +54,7 @@ public class QuestionBenchmarkTest extends ActivityInstrumentationTestCase2<Main
 
 			timeBefore = System.currentTimeMillis();
 			solo.goBack();
-			gameScreen = QuestionGameScreen.screenForAcceptanceTest((MainActivity) solo.getCurrentActivity(), solo);
+			gameScreen = QuestionGameScreen.screenForAcceptanceTest(getInstrumentation(), solo);
 			gameScreen.clickOnNextQuestionButton();
 			timeAfter = System.currentTimeMillis();
 			long timeReloadingQuestions = (timeAfter - timeBefore) / 1000;
@@ -76,9 +73,9 @@ public class QuestionBenchmarkTest extends ActivityInstrumentationTestCase2<Main
 	}
 
 	private void addRandomQuestionBySolo() {
-		QuestionListScreen listScreen = QuestionListScreen.screenForAcceptanceTests((QuestionListActivity) solo.getCurrentActivity(), solo);
+		QuestionListScreen listScreen = QuestionListScreen.screenForAcceptanceTests(getInstrumentation(), solo);
 		listScreen.selectNewQuestionMenu();
-		QuestionEditScreen editScreen = QuestionEditScreen.screenForAcceptanceTests((QuestionEditActivity) solo.getCurrentActivity(), solo);
+		QuestionEditScreen editScreen = QuestionEditScreen.screenForAcceptanceTests(getInstrumentation(), solo);
 		editScreen.fillQuestionAndAnswer(RandomUtils.getRandomQuestionValue(), RandomUtils.getRandomQuestionValue());
 		editScreen.selectSaveMenuItem();
 	}

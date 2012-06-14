@@ -1,15 +1,15 @@
 package net.fiive.kotoba.test.screen.base;
 
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.TextView;
 import com.google.common.base.Preconditions;
+import net.fiive.kotoba.activities.base.BaseActivity;
 
-public class BaseListScreen<A extends FragmentActivity, F extends ListFragment> extends BaseScreen<A, F> {
+public class BaseListScreen<A extends BaseActivity, F extends ListFragment> extends BaseScreen<A, F> {
 
-	public BaseListScreen(A activity, F fragment, ListScreenAutomator automator) {
-		super(activity, fragment, automator);
+	public BaseListScreen(A activity, ListScreenMechanize automator) {
+		super(activity, automator);
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class BaseListScreen<A extends FragmentActivity, F extends ListFragment> 
 		return textView.getText().toString();
 	}
 
-	private ListScreenAutomator getListScreenAutomator() {
-		return (ListScreenAutomator) getAutomator();
+	private ListScreenMechanize getListScreenAutomator() {
+		return (ListScreenMechanize) getMechanize();
 	}
 }

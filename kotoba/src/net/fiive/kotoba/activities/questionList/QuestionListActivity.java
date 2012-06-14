@@ -2,16 +2,15 @@ package net.fiive.kotoba.activities.questionList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
+import net.fiive.kotoba.activities.base.BaseActivity;
 import net.fiive.kotoba.activities.info.InfoActivity;
 
 
-public class QuestionListActivity extends FragmentActivity {
+public class QuestionListActivity extends BaseActivity {
 
 	public static final String MANAGE_QUESTIONS_ACTION = "net.fiive.kotoba.MANAGE_QUESTIONS";
 
@@ -32,7 +31,7 @@ public class QuestionListActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.add_question_menu:
-				getListFragment().addNewQuestion();
+				getFragment().addNewQuestion();
 				return true;
 			case android.R.id.home:
 				Intent intent = new Intent(this, MainActivity.class);
@@ -52,10 +51,9 @@ public class QuestionListActivity extends FragmentActivity {
 		startActivity(infoIntent);
 	}
 
-	private QuestionListFragment getListFragment() {
-		FragmentManager fragmentManager = this.getSupportFragmentManager();
-		return (QuestionListFragment) fragmentManager.findFragmentById(R.id.question_list_fragment);
+	@Override
+	@SuppressWarnings("unchecked")
+	public QuestionListFragment getFragment() {
+		return (QuestionListFragment) getSupportFragmentManager().findFragmentById(R.id.question_list_fragment);
 	}
-
-
 }

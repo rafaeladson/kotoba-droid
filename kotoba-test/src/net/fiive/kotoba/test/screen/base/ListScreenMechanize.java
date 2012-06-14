@@ -1,6 +1,6 @@
 package net.fiive.kotoba.test.screen.base;
 
-public interface ListScreenAutomator extends ScreenAutomator {
+public interface ListScreenMechanize extends ScreenMechanize {
 
 	/**
 	 * @param lineIdentifier the identifier for the line to click.

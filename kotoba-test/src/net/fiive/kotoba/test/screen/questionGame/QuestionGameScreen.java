@@ -1,8 +1,6 @@
 package net.fiive.kotoba.test.screen.questionGame;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import android.app.Instrumentation;
 import android.widget.TextView;
 import com.jayway.android.robotium.solo.Solo;
 import net.fiive.kotoba.R;
@@ -10,6 +8,9 @@ import net.fiive.kotoba.activities.MainActivity;
 import net.fiive.kotoba.activities.game.QuestionGameFragment;
 import net.fiive.kotoba.domain.Question;
 import net.fiive.kotoba.test.screen.base.BaseScreen;
+import net.fiive.kotoba.test.screen.base.ScreenMechanize;
+import net.fiive.kotoba.test.screen.base.SoloScreenMechanize;
+import net.fiive.kotoba.test.screen.base.UnitTestScreenMechanize;
 
 public class QuestionGameScreen extends BaseScreen<MainActivity, QuestionGameFragment> {
 
@@ -19,29 +20,32 @@ public class QuestionGameScreen extends BaseScreen<MainActivity, QuestionGameFra
 
 
 	public static QuestionGameScreen screenForUnitTest(MainActivity activity) {
-		QuestionGameFragment fragment = getFragmentFromActivity(activity);
-		return new QuestionGameScreen(activity, fragment, new QuestionGameScreenUnitTestScreenAutomator(activity, fragment), new TestIds.UnitTestIds());
+		return new QuestionGameScreen(activity, new UnitTestScreenMechanize<MainActivity, QuestionGameFragment>(activity), new TestIds.UnitTestIds());
 	}
 
-	public static QuestionGameScreen screenForAcceptanceTest(MainActivity activity, Solo solo) {
-		QuestionGameFragment fragment = getFragmentFromActivity(activity);
-		return new QuestionGameScreen(activity, fragment, new QuestionGameScreenSoloScreenAutomator(activity, solo), new TestIds.SoloTestIds());
+	public static QuestionGameScreen screenForAcceptanceTest(Instrumentation instrumentation, Solo solo) {
+		MainActivity activity = (MainActivity) solo.getCurrentActivity();
+		return new QuestionGameScreen(activity, new SoloScreenMechanize<MainActivity>(instrumentation, solo), new TestIds.SoloTestIds());
 	}
 
-	private QuestionGameScreen(MainActivity activity, QuestionGameFragment fragment, QuestionGameScreenAutomator automator, TestIds testIds) {
-		super(activity, fragment, automator);
+	private QuestionGameScreen(MainActivity activity, ScreenMechanize mechanize, TestIds testIds) {
+		super(activity, mechanize);
 		this.activity = activity;
 		this.testIds = testIds;
 
 	}
 
 	public void clickOnNextQuestionButton() {
-		getAutomator().clickOnButton(testIds.getNextQuestionButtonId());
+		getMechanize().clickOnButton(testIds.getNextQuestionButtonId());
 	}
 
 	public void clickOnShowAnswerButton() {
-		getAutomator().clickOnButton(testIds.getShowAnswerButtonId());
+		getMechanize().clickOnButton(testIds.getShowAnswerButtonId());
 		sleep(DEFAULT_WAIT_TIME);
+	}
+
+	public void selectManageQuestionsMenu() {
+		getMechanize().selectMenuItem(testIds.getManageQuestionsMenuId());
 	}
 
 	public String getValueText() {
@@ -59,7 +63,7 @@ public class QuestionGameScreen extends BaseScreen<MainActivity, QuestionGameFra
 	}
 
 	public void clickOnAnswerView() {
-		((QuestionGameScreenAutomator) getAutomator()).clickOnAnswerView();
+		getMechanize().clickOnView(R.id.answer_frame_layout);
 
 	}
 
@@ -80,10 +84,5 @@ public class QuestionGameScreen extends BaseScreen<MainActivity, QuestionGameFra
 		return activity.getResources().getText(R.string.how_do_i_use_kotoba_answer).equals(getAnswerText());
 	}
 
-	@SuppressWarnings("unchecked")
-	private static <F extends Fragment, A extends FragmentActivity> F getFragmentFromActivity(A activity) {
-		FragmentManager fragmentManager = activity.getSupportFragmentManager();
-		return (F) fragmentManager.findFragmentById(R.id.questionGameFragment);
-	}
 
 }
