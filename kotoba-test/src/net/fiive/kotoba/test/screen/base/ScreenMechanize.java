@@ -29,9 +29,9 @@ public interface ScreenMechanize {
 	public void clickOnButton(int buttonId);
 
 	/**
-	 * Click on a ordinary view. It's expected that this view has a clickListener associated with it.
+	 * Click on a ordinary testlib. It's expected that this testlib has a clickListener associated with it.
 	 *
-	 * @param viewId The identifier used to localize the view. It should be an element of the R.id resources.
+	 * @param viewId The identifier used to localize the testlib. It should be an element of the R.id resources.
 	 */
 	public void clickOnView(int viewId);
 

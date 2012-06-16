@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import net.fiive.intern.android.activity.BaseActivity;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
-import net.fiive.kotoba.activities.base.BaseActivity;
 import net.fiive.kotoba.activities.info.InfoActivity;
 
 

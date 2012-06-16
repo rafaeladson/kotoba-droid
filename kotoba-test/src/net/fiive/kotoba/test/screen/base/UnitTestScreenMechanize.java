@@ -6,10 +6,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import net.fiive.intern.android.activity.BaseActivity;
 import net.fiive.intern.android.view.alerts.AlertHelper;
-import net.fiive.kotoba.activities.base.BaseActivity;
-import net.fiive.kotoba.test.activities.stub.AlertHelperMock;
-import net.fiive.kotoba.test.activities.stub.MenuItemStub;
+import net.fiive.kotoba.test.screen.base.stub.AlertHelperMock;
+import net.fiive.kotoba.test.screen.base.stub.MenuItemStub;
 
 import java.lang.reflect.Method;
 

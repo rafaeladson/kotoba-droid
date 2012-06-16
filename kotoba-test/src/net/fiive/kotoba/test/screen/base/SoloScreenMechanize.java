@@ -6,19 +6,20 @@ import android.os.Build;
 import android.util.Pair;
 import android.widget.EditText;
 import com.jayway.android.robotium.solo.Solo;
-import net.fiive.kotoba.activities.base.BaseActivity;
+import net.fiive.intern.android.activity.BaseActivity;
 
 public class SoloScreenMechanize<T extends BaseActivity> implements ScreenMechanize {
 
 	static final int DEFAULT_SLEEP_TIME = 500;
-	private BaseActivity activity;
+	private T activity;
 	private Instrumentation instrumentation;
 
 	private Solo solo;
 
+	@SuppressWarnings("unchecked")
 	public SoloScreenMechanize(Instrumentation instrumentation, Solo solo) {
 		this.instrumentation = instrumentation;
-		this.activity = (BaseActivity) solo.getCurrentActivity();
+		this.activity = (T) solo.getCurrentActivity();
 		this.solo = solo;
 	}
 

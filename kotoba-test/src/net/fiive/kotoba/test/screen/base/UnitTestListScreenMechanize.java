@@ -2,7 +2,7 @@ package net.fiive.kotoba.test.screen.base;
 
 import android.support.v4.app.ListFragment;
 import com.google.common.base.Preconditions;
-import net.fiive.kotoba.activities.base.BaseActivity;
+import net.fiive.intern.android.activity.BaseActivity;
 
 public class UnitTestListScreenMechanize<A extends BaseActivity, F extends ListFragment> extends UnitTestScreenMechanize<A, F>
 	implements ListScreenMechanize {

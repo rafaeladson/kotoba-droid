@@ -3,7 +3,7 @@ package net.fiive.kotoba.test.screen.base;
 import android.app.Instrumentation;
 import com.google.common.base.Preconditions;
 import com.jayway.android.robotium.solo.Solo;
-import net.fiive.kotoba.activities.base.BaseActivity;
+import net.fiive.intern.android.activity.BaseActivity;
 
 public class SoloListScreenMechanize<A extends BaseActivity> extends SoloScreenMechanize<A> implements ListScreenMechanize {
 

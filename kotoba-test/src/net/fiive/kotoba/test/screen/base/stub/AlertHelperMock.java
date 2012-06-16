@@ -1,4 +1,4 @@
-package net.fiive.kotoba.test.activities.stub;
+package net.fiive.kotoba.test.screen.base.stub;
 
 import android.content.Context;
 import net.fiive.intern.android.view.alerts.AlertHelper;

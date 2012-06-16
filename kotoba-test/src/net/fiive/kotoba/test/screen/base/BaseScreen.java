@@ -8,14 +8,14 @@ import android.util.Pair;
 import android.widget.EditText;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-import net.fiive.kotoba.activities.base.BaseActivity;
+import net.fiive.intern.android.activity.BaseActivity;
 
 /**
  * A screen is an object used mainly to automate tests. Each screen has two functions:
  * <ol>
- * <li>It should know how to get information about the view that the screen represents. For example, if the view has an EditText, the screen should have a method
+ * <li>It should know how to get information about the testlib that the screen represents. For example, if the testlib has an EditText, the screen should have a method
  * that can get the EditText contents. This makes the tests more maintainable because they don't have to know internals of the activity to test stuff.</li>
- * <li>It should know how to do things with the view, but it should not do it directly, and instead it should delegate the work to one of the mechanizes.
+ * <li>It should know how to do things with the testlib, but it should not do it directly, and instead it should delegate the work to one of the mechanizes.
  * So if a test wants to click on a button, the screen will have a method called, for example, clickOnThisButton(), but its job will be only to delegate
  * the call to the appropriate method of the mechanize.
  * The mechanizes do exist because there are two different ways to do an action (one for unit testing and one for acceptance tests). The screen is generic,

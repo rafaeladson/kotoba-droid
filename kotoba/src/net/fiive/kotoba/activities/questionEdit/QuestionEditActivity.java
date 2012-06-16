@@ -4,9 +4,9 @@ package net.fiive.kotoba.activities.questionEdit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import net.fiive.intern.android.activity.BaseActivity;
 import net.fiive.kotoba.R;
 import net.fiive.kotoba.activities.MainActivity;
-import net.fiive.kotoba.activities.base.BaseActivity;
 
 
 public class QuestionEditActivity extends BaseActivity {

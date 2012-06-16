@@ -1,4 +1,4 @@
-package net.fiive.kotoba.test.activities.stub;
+package net.fiive.kotoba.test.screen.base.stub;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
