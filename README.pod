@@ -1,0 +1,9 @@
+=pod
+
+=head1 Kotoba android application!
+
+Still not ready to put here in github, so pardon for the dummy README, but it's here.
+I hope I'll be able to put more effort in make this a little more usable in the future 
+(like telling you how to setup your environment).
+
+=cut
